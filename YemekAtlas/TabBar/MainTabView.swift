@@ -12,7 +12,7 @@ struct MainTabView: View {
         
         var body: some View {
             TabView(selection: $selectedTab) {
-                HomeView()
+                HomeView(recipe: Recipe.init(name: "Spagetti", ingredients: [" spaghetti, karabiber, ketçap, mayonez, salçasosu"], calories: 250, allergens: ["karabiber"], instructions: "talimat kısmı", imageURL: "https://pixabay.com/photos/pasta-italian-cuisine-dish-3547078/"))
                     .tabItem {
                         Image(systemName: "house")
                     }

@@ -14,4 +14,6 @@ struct Recipe:Codable{
     let allergens: [String]
     let instructions: String
     let imageURL: String
+    
+    
 }
