@@ -112,7 +112,7 @@ struct SearchView: View {
                             ForEach(healthTips, id: \.self) { tip in
                                 HStack(alignment: .top, spacing: 8) {
                                     Image(systemName: "heart.fill")
-                                        .foregroundColor(.green)
+                                        .foregroundColor(.pink)
                                     Text(tip)
                                         .font(.body)
                                         .foregroundColor(.secondary)

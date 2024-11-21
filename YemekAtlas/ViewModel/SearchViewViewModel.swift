@@ -14,22 +14,23 @@ import SwiftUI
     
 class SearchViewViewModel: ObservableObject{
 
-        @Published var searchText = ""
-        @Published var recipe: Recipe?
-        @Published var isLoading = false
-        @Published var errorMessage: String?
-        private let generativeModel: GenerativeModel
+    @Published var searchText = ""
+    @Published var recipe: Recipe?
+    @Published var isLoading = false
+    @Published var errorMessage: String?
 
-        init() {
-            let apiKey = APIKey.default
-            print(apiKey)
-            generativeModel = GenerativeModel(name: "gemini-1.5-flash", apiKey: APIKey.default)
-
-
-                }
-            
+ 
         
+        
+        
+        private let generativeModel: GenerativeModel
+        
+        init() {
+            generativeModel = GenerativeModel(name: "gemini-1.5-flash", apiKey: APIKey.default)
+            
 
+        }
+        
         @MainActor
         func fetchRecipe() async {
             guard !searchText.isEmpty else { return }
@@ -38,21 +39,28 @@ class SearchViewViewModel: ObservableObject{
             errorMessage = nil
             recipe = nil
             
-            let prompt = """
-                '\(searchText)' tarifi için detaylı bilgi ver:
-                İsim:
-                Malzemeler:
-                Kalori:
-                Alerjenler:
-                Yapılış:
-                """
-            
-            let promt2 = "Write a story about a magic backpack."
-            
             do {
-                let response = try await generativeModel.generateContent(promt2)
+                let prompt = """
+                '\(searchText)' tarifi için aşağıdaki formatı koruyarak bilgi ver ve en sonunda bir image url ver:
+                
+                İsim: [Tarif adı]
+                
+                Malzemeler:
+                - [Her malzeme ve miktarı ayrı satırda]
+                
+                Kalori: kcal
+                
+                Alerjenler:
+                (Sadece varsa yazılacak, yoksa "Bulunmuyor" yazılacak)
+                
+                Yapılış:
+                [Adım adım talimatlar]
+                
+                ImageURL: [Yemek görseli için bir URL]
+                """
+                
+                let response = try await generativeModel.generateContent(prompt)
                 if let text = response.text {
-                    print(text)
                     recipe = parseRecipeText(text)
                 }
             } catch {
@@ -61,44 +69,63 @@ class SearchViewViewModel: ObservableObject{
             
             isLoading = false
         }
-
+    
+   
+        
         private func parseRecipeText(_ text: String) -> Recipe {
-            let lines = text.components(separatedBy: .newlines)
-            var currentSection = ""
             var name = ""
             var ingredients: [String] = []
             var calories = 0
             var allergens: [String] = []
             var instructions = ""
+            var imageURL = "https:en.wikipedia.org/wiki/Adana_kebab%C4%B1#/media/File:Adana_kebab.jpg "
+            var currentSection = ""
+            
+            let lines = text.components(separatedBy: .newlines)
             
             for line in lines {
                 let trimmedLine = line.trimmingCharacters(in: .whitespaces)
                 
-                if trimmedLine.hasPrefix("İsim:") {
-                    name = trimmedLine.replacingOccurrences(of: "İsim:", with: "").trimmingCharacters(in: .whitespaces)
-                }
-                else if trimmedLine == "Malzemeler:" {
+                switch trimmedLine {
+                case let str where str.hasPrefix("İsim:"):
+                    name = str.replacingOccurrences(of: "İsim:", with: "").trim()
+                    
+                case "Malzemeler:":
                     currentSection = "malzemeler"
-                }
-                else if trimmedLine == "Alerjenler:" {
+                    
+                case "Alerjenler:":
                     currentSection = "alerjenler"
-                }
-                else if trimmedLine.hasPrefix("Kalori:") {
-                    let caloryString = trimmedLine.replacingOccurrences(of: "Kalori:", with: "")
-                        .replacingOccurrences(of: "kcal", with: "")
-                        .trimmingCharacters(in: .whitespaces)
-                    calories = Int(caloryString) ?? 0
-                }
-                else if trimmedLine.hasPrefix("Yapılış:") {
-                    instructions = trimmedLine.replacingOccurrences(of: "Yapılış:", with: "").trimmingCharacters(in: .whitespaces)
-                }
-                else if trimmedLine.hasPrefix("-") {
-                    let item = trimmedLine.replacingOccurrences(of: "- ", with: "")
+                    
+                    case let str where str.lowercased().contains("kalori"):
+                                let numberPattern = "\\d+"
+                                if let match = str.range(of: numberPattern, options: .regularExpression) {
+                                    let numberStr = String(str[match])
+                                    calories = Int(numberStr) ?? 350 // Eğer parse edilemezse makul bir default değer
+                                } else {
+                                    // Kalori değeri bulunamazsa yaklaşık bir değer ata
+                                    calories = 350
+                                }
+                    
+                case let str where str.hasPrefix("Yapılış:"):
+                    currentSection = "yapilis"
+                    instructions = str.replacingOccurrences(of: "Yapılış:", with: "").trim()
+                    
+                case let str where str.hasPrefix("ImageURL:"):
+                    imageURL = str.replacingOccurrences(of: "ImageURL:", with: "").trim()
+                    
+                case let str where str.hasPrefix("-"):
+                    let item = str.replacingOccurrences(of: "- ", with: "").trim()
                     if currentSection == "malzemeler" {
                         ingredients.append(item)
-                    } else if currentSection == "alerjenler" {
+                    } else if currentSection == "alerjenler" && item != "Bulunmuyor" {
                         allergens.append(item)
                     }
+                    
+                case let str where currentSection == "yapilis" && !str.isEmpty:
+                    instructions += "\n" + str.trim()
+                    
+                default:
+                    break
                 }
             }
             
@@ -106,10 +133,16 @@ class SearchViewViewModel: ObservableObject{
                 name: name.isEmpty ? searchText : name,
                 ingredients: ingredients,
                 calories: calories,
-                allergens: allergens,
-                instructions: instructions,
-                imageURL: "https://example.com/food.jpg"
+                allergens: allergens.isEmpty ? ["Alerjen bulunmuyor"] : allergens,
+                instructions: instructions.trim(),
+                imageURL: imageURL
             )
+        }
+    }
+
+    private extension String {
+        func trim() -> String {
+            self.trimmingCharacters(in: .whitespaces)
         }
     }
 

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     let recipe: Recipe
+    @State private var isFavorite = false
+
 
     var body: some View {
         ScrollView {
@@ -30,10 +32,10 @@ struct HomeView: View {
                     }
                     .cornerRadius(20)
                     .shadow(radius: 10)
-
                     
-                    LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .clear]),
-                                   startPoint: .bottom, endPoint: .top)
+                    HStack{
+                        LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .clear]),
+                                       startPoint: .bottom, endPoint: .top)
                         .cornerRadius(20)
                         .frame(height: 80)
                         .overlay(
@@ -45,6 +47,18 @@ struct HomeView: View {
                                 .padding(.bottom, 10),
                             alignment: .bottomLeading
                         )
+                        
+                        
+                        Button(action: {
+                            isFavorite.toggle()
+                        }) {
+                            Image(systemName: isFavorite ? "heart.fill" : "heart")
+                                .font(.title)
+                                .foregroundColor(isFavorite ? .pink : .white)
+                                .padding()
+                                .shadow(radius: 5)
+                        }
+                    }
                 }
                 .padding(.horizontal)
 
@@ -52,14 +66,14 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     
                     HStack(spacing: 16) {
-                        InfoBadge(title: "Calories", value: "\(recipe.calories)")
+                        InfoBadge(title: "Kalori", value: "\(recipe.calories)")
                         if !recipe.allergens.isEmpty {
-                            InfoBadge(title: "Allergens", value: recipe.allergens.joined(separator: ", "), isWarning: true)
+                            InfoBadge(title: "Alerjenler", value: recipe.allergens.joined(separator: ", "), isWarning: true)
                         }
                     }
 
                     
-                    SectionHeader(title: "Ingredients")
+                    SectionHeader(title: "Malzemeler")
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(recipe.ingredients, id: \.self) { ingredient in
                             HStack {
@@ -73,7 +87,7 @@ struct HomeView: View {
                     }
 
                     
-                    SectionHeader(title: "Instructions")
+                    SectionHeader(title: "Yapılış")
                     Text(recipe.instructions)
                         .font(.body)
                         .foregroundColor(.secondary)
