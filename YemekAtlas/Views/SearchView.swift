@@ -15,21 +15,27 @@ struct SearchView: View {
         
         NavigationStack {
                     VStack {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Yemek Atlas")
-                                .font(.largeTitle)
-                                .bold()
-                                .foregroundColor(.pink)
+                        VStack(spacing: 16) {
                             
-                            Text("Anne tarifi kadar güzel sonuçlar burada.")
-                                .font(.title2)
-                                .foregroundColor(.secondary)
+                            Text("Yemek Atlas")
+                                .font(.system(size: 34, weight: .bold, design: .rounded))
+                                .foregroundColor(.pink)
+                                .multilineTextAlignment(.center)
+
+                            
+                            Text("Anne tarifleri kadar lezzetli sonuçlar sizi bekliyor.Hadi hemen deneyin.")
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
+                                .foregroundColor(.gray)
                                 .multilineTextAlignment(.leading)
+                                .lineSpacing(4)
                         }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.horizontal, 16) 
+
                         .padding()
                         
                         HStack {
-                            TextField("Ne yemek istersin", text: $viewModel.searchText)
+                            TextField("Bugün ne yemek istersin", text: $viewModel.searchText)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 16)
                                 .background(Color.gray.opacity(0.1))
@@ -86,7 +92,7 @@ struct SearchView: View {
                         }
                         
                         if let recipe = viewModel.recipe {
-                            NavigationLink(destination: HomeView(recipe: recipe)) {
+                            NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
                                 VStack(alignment: .leading, spacing: 8) {
                                     Text(recipe.name)
                                         .font(.headline)

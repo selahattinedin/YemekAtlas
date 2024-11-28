@@ -57,6 +57,8 @@ class SearchViewViewModel: ObservableObject{
                 [Adım adım talimatlar]
                 
                 ImageURL: [Yemek görseli için bir URL]
+                
+                bu adımlarda 3 tarif istiyorum
                 """
                 
                 let response = try await generativeModel.generateContent(prompt)

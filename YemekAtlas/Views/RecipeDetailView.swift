@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct RecipeDetailView: View {
     let recipe: Recipe
     @State private var isFavorite = false
 
@@ -151,5 +151,5 @@ struct SectionHeader: View {
 
 
 #Preview {
-    HomeView(recipe: Recipe.init(name: "spagetti", ingredients: [" spaghetti, karabiber, ketçap, mayonez, salçasosu"], calories: 250, allergens: ["karabiber"], instructions: "", imageURL: "https://pixabay.com/photos/pasta-italian-cuisine-dish-3547078/"))
+    RecipeDetailView(recipe: Recipe.init(name: "spagetti", ingredients: [" spaghetti, karabiber, ketçap, mayonez, salçasosu"], calories: 250, allergens: ["karabiber"], instructions: "", imageURL: "https://pixabay.com/photos/pasta-italian-cuisine-dish-3547078/"))
 }

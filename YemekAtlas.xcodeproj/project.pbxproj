@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		30271B652CEB492900FA43D5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B642CEB492900FA43D5 /* MainTabView.swift */; };
-		30271B672CEB4B2300FA43D5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B662CEB4B2300FA43D5 /* HomeView.swift */; };
+		30271B672CEB4B2300FA43D5 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */; };
 		30271B692CEB4B4A00FA43D5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B682CEB4B4A00FA43D5 /* ProfileView.swift */; };
-		30271B6B2CEB59F700FA43D5 /* HomeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6A2CEB59F700FA43D5 /* HomeViewViewModel.swift */; };
+		30271B6B2CEB59F700FA43D5 /* RecipeDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6A2CEB59F700FA43D5 /* RecipeDetailViewViewModel.swift */; };
 		30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */; };
 		30271B6F2CEB5A2700FA43D5 /* ProfileViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */; };
 		30271B712CEB5D6000FA43D5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B702CEB5D6000FA43D5 /* Recipe.swift */; };
@@ -62,9 +62,9 @@
 
 /* Begin PBXFileReference section */
 		30271B642CEB492900FA43D5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
-		30271B662CEB4B2300FA43D5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		30271B682CEB4B4A00FA43D5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		30271B6A2CEB59F700FA43D5 /* HomeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewViewModel.swift; sourceTree = "<group>"; };
+		30271B6A2CEB59F700FA43D5 /* RecipeDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewViewModel.swift; sourceTree = "<group>"; };
 		30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewViewModel.swift; sourceTree = "<group>"; };
 		30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewModel.swift; sourceTree = "<group>"; };
 		30271B702CEB5D6000FA43D5 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 				30BDD5652CC5135B006F8EFA /* HeaderView.swift */,
 				30BDD5672CC52606006F8EFA /* AgreementView.swift */,
 				30D234822CD1031600CFBA7F /* SearchView.swift */,
-				30271B662CEB4B2300FA43D5 /* HomeView.swift */,
+				30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */,
 				30271B682CEB4B4A00FA43D5 /* ProfileView.swift */,
 			);
 			path = Views;
@@ -207,7 +207,7 @@
 				30BDD56A2CC709F8006F8EFA /* LoginViewViewModel.swift */,
 				30BDD56C2CC70A0C006F8EFA /* RegisterViewViewModel.swift */,
 				30D234802CD0FEF900CFBA7F /* MainViewViewModel.swift */,
-				30271B6A2CEB59F700FA43D5 /* HomeViewViewModel.swift */,
+				30271B6A2CEB59F700FA43D5 /* RecipeDetailViewViewModel.swift */,
 				30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */,
 				30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */,
 			);
@@ -330,7 +330,7 @@
 				30BDD5642CC45A63006F8EFA /* LoginView.swift in Sources */,
 				30D234812CD0FEF900CFBA7F /* MainViewViewModel.swift in Sources */,
 				30271B6F2CEB5A2700FA43D5 /* ProfileViewViewModel.swift in Sources */,
-				30271B672CEB4B2300FA43D5 /* HomeView.swift in Sources */,
+				30271B672CEB4B2300FA43D5 /* RecipeDetailView.swift in Sources */,
 				30BDD5662CC5135B006F8EFA /* HeaderView.swift in Sources */,
 				306391962CEDC8310096F047 /* APIKey.swift in Sources */,
 				306391982CEE16170096F047 /* RecipeService.swift in Sources */,
@@ -341,7 +341,7 @@
 				30271B692CEB4B4A00FA43D5 /* ProfileView.swift in Sources */,
 				30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */,
 				30D234832CD1031600CFBA7F /* SearchView.swift in Sources */,
-				30271B6B2CEB59F700FA43D5 /* HomeViewViewModel.swift in Sources */,
+				30271B6B2CEB59F700FA43D5 /* RecipeDetailViewViewModel.swift in Sources */,
 				30BDD55E2CC3F04E006F8EFA /* FirstView.swift in Sources */,
 				30D2347D2CD0F5A800CFBA7F /* User.swift in Sources */,
 				30271B652CEB492900FA43D5 /* MainTabView.swift in Sources */,

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @State var selectedTab: TabSelection = .home
+    @State var selectedTab: TabSelection = .search
         
         var body: some View {
             TabView(selection: $selectedTab) {
-                HomeView(recipe: Recipe.init(name: "Spagetti", ingredients: [" spaghetti, karabiber, ketçap, mayonez, salçasosu"], calories: 250, allergens: ["karabiber"], instructions: "talimat kısmı", imageURL: "https://pixabay.com/photos/pasta-italian-cuisine-dish-3547078/"))
+                RecipeDetailView(recipe: Recipe.init(name: "Spagetti", ingredients: [" spaghetti, karabiber, ketçap, mayonez, salçasosu"], calories: 250, allergens: ["karabiber"], instructions: "talimat kısmı", imageURL: "https://pixabay.com/photos/pasta-italian-cuisine-dish-3547078/"))
                     .tabItem {
                         Image(systemName: "house")
                     }
