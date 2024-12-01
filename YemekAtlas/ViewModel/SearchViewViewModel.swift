@@ -9,9 +9,6 @@ import Foundation
 import GoogleGenerativeAI
 import SwiftUI
 
-
-
-    
 class SearchViewViewModel: ObservableObject{
 
     @Published var searchText = ""
@@ -19,10 +16,6 @@ class SearchViewViewModel: ObservableObject{
     @Published var isLoading = false
     @Published var errorMessage: String?
 
- 
-        
-        
-        
         private let generativeModel: GenerativeModel
         
         init() {

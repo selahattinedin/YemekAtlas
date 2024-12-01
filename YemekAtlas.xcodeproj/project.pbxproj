@@ -14,6 +14,9 @@
 		30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */; };
 		30271B6F2CEB5A2700FA43D5 /* ProfileViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */; };
 		30271B712CEB5D6000FA43D5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B702CEB5D6000FA43D5 /* Recipe.swift */; };
+		3051DDEA2CFCF6CB00ED2B63 /* HealthTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051DDE92CFCF6CB00ED2B63 /* HealthTipsView.swift */; };
+		3051DDEC2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051DDEB2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift */; };
+		3051DDEE2CFCF8CF00ED2B63 /* HealthTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */; };
 		306391942CEDC7A50096F047 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 306391932CEDC7A50096F047 /* GenerativeAI-Info.plist */; };
 		306391962CEDC8310096F047 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306391952CEDC8310096F047 /* APIKey.swift */; };
 		306391982CEE16170096F047 /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306391972CEE16170096F047 /* RecipeService.swift */; };
@@ -68,6 +71,9 @@
 		30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewViewModel.swift; sourceTree = "<group>"; };
 		30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewModel.swift; sourceTree = "<group>"; };
 		30271B702CEB5D6000FA43D5 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		3051DDE92CFCF6CB00ED2B63 /* HealthTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTipsView.swift; sourceTree = "<group>"; };
+		3051DDEB2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTipsViewViewModel.swift; sourceTree = "<group>"; };
+		3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTip.swift; sourceTree = "<group>"; };
 		306391932CEDC7A50096F047 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		306391952CEDC8310096F047 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		306391972CEE16170096F047 /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
@@ -186,6 +192,7 @@
 				30D234822CD1031600CFBA7F /* SearchView.swift */,
 				30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */,
 				30271B682CEB4B4A00FA43D5 /* ProfileView.swift */,
+				3051DDE92CFCF6CB00ED2B63 /* HealthTipsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,6 +217,7 @@
 				30271B6A2CEB59F700FA43D5 /* RecipeDetailViewViewModel.swift */,
 				30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */,
 				30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */,
+				3051DDEB2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -219,6 +227,7 @@
 			children = (
 				30D2347C2CD0F5A800CFBA7F /* User.swift */,
 				30271B702CEB5D6000FA43D5 /* Recipe.swift */,
+				3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -327,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30BDD5682CC52606006F8EFA /* AgreementView.swift in Sources */,
+				3051DDEA2CFCF6CB00ED2B63 /* HealthTipsView.swift in Sources */,
 				30BDD5642CC45A63006F8EFA /* LoginView.swift in Sources */,
 				30D234812CD0FEF900CFBA7F /* MainViewViewModel.swift in Sources */,
 				30271B6F2CEB5A2700FA43D5 /* ProfileViewViewModel.swift in Sources */,
@@ -338,9 +348,11 @@
 				30BDD56B2CC709F8006F8EFA /* LoginViewViewModel.swift in Sources */,
 				30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */,
 				30BDD5622CC42FBA006F8EFA /* RegisterView.swift in Sources */,
+				3051DDEC2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift in Sources */,
 				30271B692CEB4B4A00FA43D5 /* ProfileView.swift in Sources */,
 				30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */,
 				30D234832CD1031600CFBA7F /* SearchView.swift in Sources */,
+				3051DDEE2CFCF8CF00ED2B63 /* HealthTip.swift in Sources */,
 				30271B6B2CEB59F700FA43D5 /* RecipeDetailViewViewModel.swift in Sources */,
 				30BDD55E2CC3F04E006F8EFA /* FirstView.swift in Sources */,
 				30D2347D2CD0F5A800CFBA7F /* User.swift in Sources */,
