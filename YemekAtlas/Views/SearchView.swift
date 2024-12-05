@@ -176,7 +176,7 @@ struct SearchView: View {
                     
                     if !viewModel.isLoading && viewModel.recipe == nil {
                         
-                        HealthTipsView()
+                        DailyRecipeView()
                             .padding(.top, 30)
                     }
                     

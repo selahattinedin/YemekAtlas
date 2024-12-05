@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		301392332D01F0EF004CBF73 /* DailyRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301392322D01F0EF004CBF73 /* DailyRecipeView.swift */; };
+		301392352D01F108004CBF73 /* DailyRecipeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301392342D01F108004CBF73 /* DailyRecipeViewViewModel.swift */; };
 		30271B652CEB492900FA43D5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B642CEB492900FA43D5 /* MainTabView.swift */; };
 		30271B672CEB4B2300FA43D5 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */; };
 		30271B692CEB4B4A00FA43D5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B682CEB4B4A00FA43D5 /* ProfileView.swift */; };
@@ -64,6 +66,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		301392322D01F0EF004CBF73 /* DailyRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipeView.swift; sourceTree = "<group>"; };
+		301392342D01F108004CBF73 /* DailyRecipeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipeViewViewModel.swift; sourceTree = "<group>"; };
 		30271B642CEB492900FA43D5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		30271B682CEB4B4A00FA43D5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 				30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */,
 				30271B682CEB4B4A00FA43D5 /* ProfileView.swift */,
 				3051DDE92CFCF6CB00ED2B63 /* HealthTipsView.swift */,
+				301392322D01F0EF004CBF73 /* DailyRecipeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 				30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */,
 				30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */,
 				3051DDEB2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift */,
+				301392342D01F108004CBF73 /* DailyRecipeViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -343,6 +349,7 @@
 				30271B672CEB4B2300FA43D5 /* RecipeDetailView.swift in Sources */,
 				30BDD5662CC5135B006F8EFA /* HeaderView.swift in Sources */,
 				306391962CEDC8310096F047 /* APIKey.swift in Sources */,
+				301392332D01F0EF004CBF73 /* DailyRecipeView.swift in Sources */,
 				306391982CEE16170096F047 /* RecipeService.swift in Sources */,
 				30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */,
 				30BDD56B2CC709F8006F8EFA /* LoginViewViewModel.swift in Sources */,
@@ -359,6 +366,7 @@
 				30271B652CEB492900FA43D5 /* MainTabView.swift in Sources */,
 				30D2347F2CD0FC3B00CFBA7F /* Extensions.swift in Sources */,
 				30BDD56D2CC70A0C006F8EFA /* RegisterViewViewModel.swift in Sources */,
+				301392352D01F108004CBF73 /* DailyRecipeViewViewModel.swift in Sources */,
 				30271B712CEB5D6000FA43D5 /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

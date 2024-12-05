@@ -68,12 +68,12 @@ class HealthTipsViewModel: ObservableObject {
             } else if trimmedLine.hasPrefix("- Icon:") {
                 currentTip.icon = trimmedLine.replacingOccurrences(of: "- Icon:", with: "").trimmingCharacters(in: .whitespaces)
                 
-                // Tüm bilgiler toplandıysa tip'i ekle
+               
                 if !currentTip.text.isEmpty {
                     tips.append(HealthTip(tip: currentTip.text,
                                         category: currentTip.category,
                                         icon: currentTip.icon))
-                    currentTip = ("", "", "heart.fill") // Reset for next tip
+                    currentTip = ("", "", "heart.fill") 
                 }
             }
         }

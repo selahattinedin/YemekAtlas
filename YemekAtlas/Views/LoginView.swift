@@ -13,7 +13,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                // Background gradient
+                
                 LinearGradient(
                     gradient: Gradient(colors: [Color.white, Color.pink.opacity(0.1)]),
                     startPoint: .top,
@@ -22,7 +22,7 @@ struct LoginView: View {
                 
                 ScrollView {
                     VStack(spacing: 25) {
-                        // Header Section with Logo
+                        
                         VStack(spacing: 12) {
                             Image("logo")
                                 .resizable()
@@ -46,7 +46,7 @@ struct LoginView: View {
                         }
                         .padding(.top, 40)
                         
-                        // Error Message
+                        
                         if !viewModel.errorMessage.isEmpty {
                             Text(viewModel.errorMessage)
                                 .foregroundStyle(.red)
@@ -56,9 +56,9 @@ struct LoginView: View {
                                 .transition(.opacity)
                         }
                         
-                        // Login Form
+                       
                         VStack(spacing: 20) {
-                            // Email Field
+                            
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     Image(systemName: "envelope.fill")
@@ -78,7 +78,7 @@ struct LoginView: View {
                                 )
                             }
                             
-                            // Password Field
+                           
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     Image(systemName: "lock.fill")
@@ -109,7 +109,7 @@ struct LoginView: View {
                         }
                         .padding(.horizontal, 25)
                         
-                        // Forgot Password
+                        
                         NavigationLink(destination: RegisterView()) {
                             Text("Şifremi Unuttum")
                                 .foregroundColor(.gray)
@@ -118,7 +118,7 @@ struct LoginView: View {
                         }
                         .padding(.top, 5)
                         
-                        // Login Button
+                        
                         Button(action: {
                             withAnimation {
                                 viewModel.login()
@@ -144,7 +144,7 @@ struct LoginView: View {
                         
                         Spacer(minLength: 30)
                         
-                        // Sign Up Link
+                       
                         HStack(spacing: 5) {
                             Text("Hesabınız yok mu?")
                                 .foregroundColor(.gray)

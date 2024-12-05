@@ -34,24 +34,23 @@ class SearchViewViewModel: ObservableObject{
             
             do {
                 let prompt = """
-                '\(searchText)' tarifi için aşağıdaki formatı koruyarak bilgi ver ve en sonunda bir image url ver:
-                
+                '\(searchText)' tarifi için sadece tek bir tarif olacak şekilde aşağıdaki formatta bilgi ver:
+
                 İsim: [Tarif adı]
-                
-                Malzemeler:
-                - [Her malzeme ve miktarı ayrı satırda]
-                
-                Kalori: kcal
-                
+
+                Malzemeler: 
+                (Tek tarif için malzemeleri listele ve başına - koy)
+                - [Malzeme ve miktarı]
+
+                Kalori: [Sadece sayı] kcal
+
                 Alerjenler:
-                (Sadece varsa yazılacak, yoksa "Bulunmuyor" yazılacak)
-                
+                [Varsa listele, yoksa "Bulunmuyor" yaz]
+
                 Yapılış:
-                [Adım adım talimatlar]
-                
-                ImageURL: [Yemek görseli için bir URL]
-                
-                bu adımlarda 3 tarif istiyorum
+                [Detaylı tarif]
+
+                ImageURL: [Yemek görseli için URL]
                 """
                 
                 let response = try await generativeModel.generateContent(prompt)
@@ -95,9 +94,8 @@ class SearchViewViewModel: ObservableObject{
                                 let numberPattern = "\\d+"
                                 if let match = str.range(of: numberPattern, options: .regularExpression) {
                                     let numberStr = String(str[match])
-                                    calories = Int(numberStr) ?? 350 // Eğer parse edilemezse makul bir default değer
+                                    calories = Int(numberStr) ?? 350 
                                 } else {
-                                    // Kalori değeri bulunamazsa yaklaşık bir değer ata
                                     calories = 350
                                 }
                     
