@@ -22,24 +22,9 @@ class DailyRecipeViewViewModel: ObservableObject {
         isLoading = true
         dailyRecipe = nil
         
-        let randomFoods = [
-            "Karnıyarık",
-            "İmam Bayıldı",
-            "Mantı",
-            "Mercimek Çorbası",
-            "Kuru Fasulye",
-            "İskender",
-            "Köfte",
-            "Patlıcan Musakka",
-            "Sarma",
-            "Menemen"
-        ]
-        
-        let randomFood = randomFoods.randomElement() ?? "Mantı"
-        
         do {
             let prompt = """
-            '\(randomFood)' tarifi için aşağıdaki formatta bilgi ver:
+            Türk mutfağından günün yemeği için bir öneri ver ve aşağıdaki formatta bilgi ver:
             
             İsim: [Tarif adı]
             

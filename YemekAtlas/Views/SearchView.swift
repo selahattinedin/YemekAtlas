@@ -181,6 +181,12 @@ struct SearchView: View {
                     }
                     
                     Spacer()
+                    
+                    if !viewModel.isLoading && viewModel.recipe == nil {
+                        
+                        HealthTipsView()
+                            .padding(.top, 10)
+                    }
                 }
             }
         }

@@ -19,18 +19,6 @@ struct DailyRecipeView: View {
                     .foregroundColor(.pink)
                 
                 Spacer()
-                
-                Button(action: {
-                    Task {
-                        await viewModel.fetchDailyRecipe()
-                    }
-                }) {
-                    Image(systemName: "arrow.clockwise.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(.pink)
-                        .rotationEffect(.degrees(viewModel.isLoading ? 360 : 0))
-                        .animation(viewModel.isLoading ? .linear(duration: 1).repeatForever(autoreverses: false) : .default, value: viewModel.isLoading)
-                }
             }
             .padding(.horizontal)
             
@@ -71,7 +59,9 @@ struct DailyRecipeView: View {
         }
         .onAppear {
             Task {
-                await viewModel.fetchDailyRecipe()
+                if viewModel.dailyRecipe == nil {
+                    await viewModel.fetchDailyRecipe()
+                }
             }
         }
     }
