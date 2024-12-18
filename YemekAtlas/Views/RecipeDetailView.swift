@@ -8,148 +8,188 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
-    let recipe: Recipe
-    @State private var isFavorite = false
-
-
+    @State private var selectedTab = "Malzemeler" // Default tab selection
+    @State private var isLiked = false // Like button state
+    
+    let recipe: Recipe // Recipe model
+    
+    let tabs = ["Malzemeler", "Yapılış", "Ek Bilgiler"] // Tab titles
+    
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                
-                ZStack(alignment: .bottomLeading) {
-                    AsyncImage(url: URL(string: recipe.imageURL)) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 300)
-                            .clipped()
-                    } placeholder: {
-                        ZStack {
-                            Color.gray.opacity(0.3)
-                                .frame(height: 300)
-                            ProgressView()
-                        }
-                    }
-                    .cornerRadius(20)
-                    .shadow(radius: 10)
-                    
-                    HStack{
-                        LinearGradient(gradient: Gradient(colors: [.black.opacity(0.8), .clear]),
-                                       startPoint: .bottom, endPoint: .top)
-                        .cornerRadius(20)
-                        .frame(height: 80)
-                        .overlay(
-                            Text(recipe.name)
-                                .font(.title)
-                                .bold()
-                                .foregroundColor(.white)
-                                .padding(.horizontal)
-                                .padding(.bottom, 10),
-                            alignment: .bottomLeading
+        VStack {
+            // MARK: - Top Image with Buttons
+            ZStack(alignment: .topTrailing) {
+                // Background Image with Rounded Corners at Bottom
+                Image("yemek") // Replace with your image asset name
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 405, height: 350)
+                    .mask(
+                        RoundedRectangle(cornerRadius: 45, style: .continuous)
+                    )
+                    .overlay(
+                        LinearGradient(
+                            gradient: Gradient(colors: [.black.opacity(0.5), .clear]),
+                            startPoint: .bottom,
+                            endPoint: .top
                         )
-                        
-                        
-                        Button(action: {
-                            isFavorite.toggle()
-                        }) {
-                            Image(systemName: isFavorite ? "heart.fill" : "heart")
-                                .font(.title)
-                                .foregroundColor(isFavorite ? .pink : .white)
-                                .padding()
-                                .shadow(radius: 5)
-                        }
+                        .clipShape(
+                            RoundedRectangle(cornerRadius: 45, style: .continuous)
+                        )
+                    )
+                    .padding(.bottom, 8)
+                
+                // Like Button (Moved to Right Side, Centered Vertically)
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        isLiked.toggle()
+                    }) {
+                        Image(systemName: isLiked ? "heart.fill" : "heart")
+                            .foregroundColor(isLiked ? .red : .white)
+                            .font(.title2)
+                            .padding(8)
+                            .background(Color.black.opacity(0.4))
+                            .clipShape(Circle())
+                    }
+                    .padding(.trailing)
+                    .offset(y: -24) // Align to center relative to the dish
+                }
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 6) {
+                    // Dish Title
+                    Text(recipe.name)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                    
+                    HStack(spacing: 4) {
+                        Text("Recipe")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                            .font(.caption)
+                        Text("4.5")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Spacer()
                     }
                 }
-                .padding(.horizontal)
-
+                .padding()
+                .background(Color.white.opacity(0.8))
+                .cornerRadius(20)
+                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4) // Shadow effect
                 
-                VStack(alignment: .leading, spacing: 16) {
-                    
-                    HStack(spacing: 16) {
-                        InfoBadge(title: "Kalori", value: "\(recipe.calories)")
-                        if !recipe.allergens.isEmpty {
-                            InfoBadge(title: "Alerjenler", value: recipe.allergens.joined(separator: ", "), isWarning: true)
-                        }
-                    }
-
-                    
-                    SectionHeader(title: "Malzemeler")
-                    VStack(alignment: .leading, spacing: 8) {
+            }
+            .padding(.horizontal) // Padding around the card
+            .padding(.bottom, 8) // Bottom padding
+            
+            // MARK: - Segmented Picker with Pink Highlight
+            Picker(selection: $selectedTab, label: Text("Tabs")) {
+                ForEach(tabs, id: \.self) { tab in
+                    Text(tab)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .tint(.pink) // Sets the tint color of the picker
+            .padding(.horizontal)
+            
+            // MARK: - Content Area
+            ScrollView {
+                VStack(alignment: .leading, spacing: 8) {
+                    if selectedTab == "Malzemeler" {
                         ForEach(recipe.ingredients, id: \.self) { ingredient in
-                            HStack {
-                                Circle()
-                                    .fill(Color.green)
-                                    .frame(width: 8, height: 8)
-                                Text(ingredient)
-                                    .font(.body)
+                            Text("\u{2022} \(ingredient)")
+                        }
+                    } else if selectedTab == "Yapılış" {
+                        Text(recipe.instructions)
+                    } else if selectedTab == "Ek Bilgiler" {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Alerjenler:")
+                                .font(.headline)
+                                .foregroundColor(.pink)
+                            
+                            if recipe.allergens.isEmpty {
+                                Text("Bulunmuyor")
+                                    .foregroundColor(.gray)
+                            } else {
+                                ForEach(recipe.allergens, id: \.self) { allergen in
+                                    Text("• \(allergen)")
+                                }
                             }
                         }
                     }
-
-                    
-                    SectionHeader(title: "Yapılış")
-                    Text(recipe.instructions)
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                        .lineSpacing(5)
                 }
+                .font(.body)
                 .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white)
-                        .shadow(radius: 10)
-                )
-                .padding(.horizontal)
             }
-            .background(
-                LinearGradient(gradient: Gradient(colors: [.white, .blue.opacity(0.1)]),
-                               startPoint: .top, endPoint: .bottom)
-                    .ignoresSafeArea()
-            )
+            .frame(maxHeight: .infinity)
+            
+            // MARK: - Bottom Info & Add Button
+            HStack {
+                VStack(alignment: .leading) {
+                    // Total Time and Serving in Turkish and aligned with symbols
+                    HStack {
+                        Image(systemName: "clock.fill")
+                            .foregroundColor(.pink)
+                        Text("Toplam Süre: 30 Dakika")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                    }
+                    
+                    HStack {
+                        Image(systemName: "person.3.fill")
+                            .foregroundColor(.pink)
+                        Text("Porsiyon: 2 Kişilik")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                    }
+                }
+                
+                Spacer()
+                
+                Button(action: {}) {
+                    Image(systemName: "plus")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.pink)
+                        .clipShape(Circle())
+                }
+            }
+            .padding()
         }
+        .edgesIgnoringSafeArea(.top)
     }
 }
 
-
-struct InfoBadge: View {
-    let title: String
-    let value: String
-    var isWarning: Bool = false
-
-    var body: some View {
-        VStack {
-            Text(title)
-                .font(.caption)
-                .foregroundColor(.secondary)
-            Text(value)
-                .font(.headline)
-                .foregroundColor(isWarning ? .red : .primary)
-        }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(isWarning ? Color.red.opacity(0.1) : Color.blue.opacity(0.1))
+struct RecipeDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let sampleRecipe = Recipe(
+            name: "Adana Kebabı",
+            ingredients: [
+                "500g kıyma",
+                "1 tatlı kaşığı tuz",
+                "1 çay kaşığı karabiber",
+                "1 tatlı kaşığı pul biber",
+                "1 baş sarımsak, ezilmiş"
+            ],
+            calories: 350,
+            allergens: ["Gluten", "Süt ürünleri"],
+            instructions: """
+            1. Kıymayı geniş bir kaba alın.
+            2. Tuz, karabiber, pul biber ve ezilmiş sarımsağı ekleyin.
+            3. Karışımı iyice yoğurun ve şişlere geçirin.
+            4. Kömür ateşinde veya ızgarada pişirin.
+            5. Sıcak servis edin.
+            """, imageURL: ""
         )
+        
+        return RecipeDetailView(recipe: sampleRecipe)
     }
 }
 
 
-struct SectionHeader: View {
-    let title: String
-
-    var body: some View {
-        Text(title)
-            .font(.headline)
-            .foregroundColor(.primary)
-            .padding(.bottom, 4)
-    }
-}
-
-
-
-
-
-#Preview {
-    RecipeDetailView(recipe: Recipe.init(name: "spagetti", ingredients: [" spaghetti, karabiber, ketçap, mayonez, salçasosu"], calories: 250, allergens: ["karabiber"], instructions: "", imageURL: "https://pixabay.com/photos/pasta-italian-cuisine-dish-3547078/"))
-}

@@ -9,6 +9,7 @@ import Foundation
 import GoogleGenerativeAI
 
 class DailyRecipeViewViewModel: ObservableObject {
+    
     @Published var dailyRecipe: Recipe?
     @Published var isLoading = false
     private let generativeModel: GenerativeModel
@@ -31,10 +32,22 @@ class DailyRecipeViewViewModel: ObservableObject {
             Malzemeler:
             (Malzemeleri listele ve başına - koy)
             
-            Kalori: [Sadece sayı] kcal
+            Kalori:  Tarif Adına en uygun Kalori [Sadece sayı] kcal
             
             Alerjenler:
-            [Varsa listele, yoksa "Bulunmuyor" yaz]
+            
+            [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
+                - Eğer malzemelerde gluten, kabuklu deniz ürünleri, yumurta, süt ürünleri, balık, hardal, yer fıstığı,karabiber veya soya varsa "Alerjen:" başlığı altında yaz.
+                - Sadece alerjen madde olanları Alerjen başlığı altında belirt listede hiçbiri yoksa o zaman "Bulunmuyor" yaz.
+                - Gluten içeren tahıllar ve bunların ürünleri
+                - Kabuklular (Crustacea) ve bunların ürünleri
+                - Yumurta ve yumurta ürünleri
+                - Süt ve süt ürünleri
+                - Balık ve balık ürünleri
+                - Hardal ve hardal ürünleri
+                - Yer fıstığı ve yer fıstığı ürünleri
+                - Soya fasulyesi ve soya fasulyesi ürünleri
+                -Karabiber
             
             Yapılış:
             [Detaylı tarif]
@@ -61,6 +74,7 @@ class DailyRecipeViewViewModel: ObservableObject {
         var instructions = ""
         var imageURL = ""
         var currentSection = ""
+       
         
         let lines = text.components(separatedBy: .newlines)
         
@@ -81,8 +95,9 @@ class DailyRecipeViewViewModel: ObservableObject {
                 let numberPattern = "\\d+"
                 if let match = str.range(of: numberPattern, options: .regularExpression) {
                     let numberStr = String(str[match])
-                    calories = Int(numberStr) ?? 350
+                    calories = Int(numberStr) ?? 520
                 }
+                    
                 
             case let str where str.hasPrefix("Yapılış:"):
                 currentSection = "yapilis"

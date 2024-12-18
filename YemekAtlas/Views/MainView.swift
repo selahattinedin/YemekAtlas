@@ -19,7 +19,6 @@ struct MainView: View {
         }
     }
 }
-//naber
 
 #Preview {
     MainView()

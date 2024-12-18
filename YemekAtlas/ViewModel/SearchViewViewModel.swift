@@ -34,7 +34,7 @@ class SearchViewViewModel: ObservableObject{
             
             do {
                 let prompt = """
-                '\(searchText)' tarifi için sadece tek bir tarif olacak şekilde aşağıdaki formatta bilgi ver:
+                '\(searchText)' tarifi için sadece tek bir tarif olacak şekilde aşağıdaki formatta bilgi ver. Önemli alerjenleri özellikle kontrol et ve belirt:
 
                 İsim: [Tarif adı]
 
@@ -42,16 +42,28 @@ class SearchViewViewModel: ObservableObject{
                 (Tek tarif için malzemeleri listele ve başına - koy)
                 - [Malzeme ve miktarı]
 
-                Kalori: [Sadece sayı] kcal
+                Kalori:Tarif adına uygun bir kalori ver. [Sadece sayı] kcal
 
                 Alerjenler:
-                [Varsa listele, yoksa "Bulunmuyor" yaz]
+                [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
+                - Eğer malzemelerde gluten, kabuklu deniz ürünleri, yumurta, süt ürünleri, balık, hardal, yer fıstığı,karabiber veya soya varsa "Alerjen:" başlığı altında yaz.
+                - Sadece alerjen madde olanları Alerjen başlığı altında belirt listede hiçbiri yoksa o zaman "Bulunmuyor" yaz.
+                - Gluten içeren tahıllar ve bunların ürünleri
+                - Kabuklular (Crustacea) ve bunların ürünleri
+                - Yumurta ve yumurta ürünleri
+                - Süt ve süt ürünleri
+                - Balık ve balık ürünleri
+                - Hardal ve hardal ürünleri
+                - Yer fıstığı ve yer fıstığı ürünleri
+                - Soya fasulyesi ve soya fasulyesi ürünleri
+                -Karabiber
 
                 Yapılış:
                 [Detaylı tarif]
 
                 ImageURL: [Yemek görseli için URL]
                 """
+
                 
                 let response = try await generativeModel.generateContent(prompt)
                 if let text = response.text {
@@ -94,9 +106,9 @@ class SearchViewViewModel: ObservableObject{
                                 let numberPattern = "\\d+"
                                 if let match = str.range(of: numberPattern, options: .regularExpression) {
                                     let numberStr = String(str[match])
-                                    calories = Int(numberStr) ?? 350 
+                                    calories = Int(numberStr) ?? 388
                                 } else {
-                                    calories = 350
+                                    calories = 488
                                 }
                     
                 case let str where str.hasPrefix("Yapılış:"):
