@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
-    @State private var selectedTab = "Malzemeler" // Default tab selection
-    @State private var isLiked = false // Like button state
+    @State private var selectedTab = "Malzemeler"
+    @State private var isLiked = false
     
-    let recipe: Recipe // Recipe model
+    let recipe: Recipe
     
-    let tabs = ["Malzemeler", "Yapılış", "Ek Bilgiler"] // Tab titles
+    let tabs = ["Malzemeler", "Yapılış", "Alerjenler"]
     
     var body: some View {
         VStack {
-            // MARK: - Top Image with Buttons
+            
             ZStack(alignment: .topTrailing) {
-                // Background Image with Rounded Corners at Bottom
-                Image("yemek") // Replace with your image asset name
+               
+                Image("steak")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 405, height: 350)
+                    .frame(width: UIScreen.main.bounds.width, height: 350)
                     .mask(
                         RoundedRectangle(cornerRadius: 45, style: .continuous)
                     )
@@ -39,7 +39,7 @@ struct RecipeDetailView: View {
                     )
                     .padding(.bottom, 8)
                 
-                // Like Button (Moved to Right Side, Centered Vertically)
+          
                 VStack {
                     Spacer()
                     Button(action: {
@@ -49,152 +49,115 @@ struct RecipeDetailView: View {
                             .foregroundColor(isLiked ? .red : .white)
                             .font(.title2)
                             .padding(8)
-                            .background(Color.black.opacity(0.4))
+                            .background(Color.black.opacity(0.3))
                             .clipShape(Circle())
+                            .shadow(color: Color.red.opacity(5.9), radius: 1, x: 0, y: 0)
+                            .colorMultiply(.pink)
+                    
                     }
                     .padding(.trailing)
                     .offset(y: -24)
                 }
             }
             
-            VStack(alignment: .leading, spacing: 4) {
-                VStack(alignment: .leading, spacing: 6) {
-                    // Dish Title and Total Time
-                    HStack {
-                        Text(recipe.name)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                        Spacer()
-                        VStack(alignment: .leading, spacing: 4) {
-                            HStack {
-                                Image(systemName: "clock.fill")
-                                    .foregroundColor(.pink)
-                                Text("30 Dakika")
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                            }
-                            .padding()
-                            .background(Color.white.opacity(0.8))
-                            .cornerRadius(10)
-                            .shadow(color: Color.black.opacity(0.3), radius: 6, x: 0, y: 3)
-
-                            HStack {
-                                Image(systemName: "flame.fill")
-                                    .foregroundColor(.orange)
-                                Text("\(recipe.calories) Kalori")            .font(.subheadline)
-                                    .fontWeight(.semibold)
-                            }
-                            .padding()
-                            .background(Color.white.opacity(0.8))
-                            .cornerRadius(10)
-                            .shadow(color: Color.black.opacity(0.3), radius: 6, x: 0, y: 3)
-                        }
-                    }
+           
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    Text(recipe.name)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
                     
-                    HStack(spacing: 4) {
-                        Text("Recipe")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.yellow)
-                            .font(.caption)
-                        Text("4.5")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                    }
+                    Spacer()
                 }
-                .padding()
-                .background(Color.white.opacity(0.8))
-                .cornerRadius(20)
-                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
                 
+                HStack(spacing: 20) {
+                    NutritionInfo(icon: "flame.fill", color: .orange, label: "\(recipe.calories) Kcal")
+                    NutritionInfo(icon: "drop.fill", color: .yellow, label: "4g Yağ")
+                    NutritionInfo(icon: "carrot.fill", color: .orange, label: "15g Protein")
+                    NutritionInfo(icon: "leaf.fill", color: .pink, label: "20g Karb.")
+                }
             }
+            .padding()
+            .background(Color.white.opacity(0.8))
+            .cornerRadius(20)
+            .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
             .padding(.horizontal)
-            .padding(.bottom, 8)
             
            
             Picker(selection: $selectedTab, label: Text("Tabs")) {
-                ForEach(tabs, id: \ .self) { tab in
-                    Text(tab)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .colorMultiply(.pink)
-            .padding(.horizontal)
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .fill(Color.white.opacity(0.9))
-                    .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-            )
+                            ForEach(tabs, id: \.self) { tab in
+                                Text(tab)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding(.horizontal)
+                        .background(
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.white.opacity(0.9))
+                                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
+                                .colorMultiply(.pink)
+                        )
             .padding()
             
-            
+         
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     if selectedTab == "Malzemeler" {
-                        VStack(alignment: .leading, spacing: 16) {
-                            ForEach(recipe.ingredients, id: \ .self) { ingredient in
-                                Text("\u{2022} \(ingredient)")
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
-                                    .padding(.leading, 8)
-                                    .lineSpacing(8)
-                            }
-                        }
-                        .padding()
-                        .background(Color.white.opacity(0.9))
-                        .cornerRadius(20)
-                        .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-                    } else if selectedTab == "Yapılış" {
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text(recipe.instructions)
+                        ForEach(recipe.ingredients, id: \.self) { ingredient in
+                            Text("\u{2022} \(ingredient)")
                                 .font(.headline)
                                 .foregroundColor(.primary)
-                                .padding(.leading, 8)
-                                .lineSpacing(8)
+                                .lineSpacing(10)
+                                
                         }
-                        .padding()
-                        .background(Color.white.opacity(0.9))
-                        .cornerRadius(20)
-                        .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-                    } else if selectedTab == "Ek Bilgiler" {
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("Alerjenler:")
+                    } else if selectedTab == "Yapılış" {
+                        Text(recipe.instructions)
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                            .lineSpacing(8)
+                    } else if selectedTab == "Alerjenler" {
+                        if recipe.allergens.isEmpty {
+                            Text("Alerjen bulunmuyor.")
                                 .font(.headline)
-                                .foregroundColor(.pink)
-                                .padding(.leading, 8)
-                                .lineSpacing(8)
-                            
-                            if recipe.allergens.isEmpty {
-                                Text("Bulunmuyor")
+                                .foregroundColor(.gray)
+                        } else {
+                            ForEach(recipe.allergens, id: \.self) { allergen in
+                                Text("\u{2022} \(allergen)")
                                     .font(.headline)
-                                    .foregroundColor(.gray)
-                                    .padding(.leading, 8)
+                                    .foregroundColor(.primary)
                                     .lineSpacing(8)
-                            } else {
-                                ForEach(recipe.allergens, id: \ .self) { allergen in
-                                    Text("• \(allergen)")
-                                        .font(.headline)
-                                        .foregroundColor(.primary)
-                                        .padding(.leading, 8)
-                                        .lineSpacing(8)
-                                }
                             }
                         }
-                        .padding()
-                        .background(Color.white.opacity(0.9))
-                        .cornerRadius(20)
-                        .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
                     }
                 }
-                .font(.body)
                 .padding()
+                .background(Color.white.opacity(0.9))
+                .cornerRadius(20)
+                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
+                .padding(.horizontal)
             }
-            .frame(maxHeight: .infinity)
         }
         .edgesIgnoringSafeArea(.top)
+    }
+}
+
+
+struct NutritionInfo: View {
+    let icon: String
+    let color: Color
+    let label: String
+    
+    var body: some View {
+        VStack {
+            Image(systemName: icon)
+                .foregroundColor(color)
+                .font(.title2)
+            Text(label)
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundColor(.primary)
+        }
     }
 }
 
@@ -223,6 +186,11 @@ struct RecipeDetailView_Previews: PreviewProvider {
         return RecipeDetailView(recipe: sampleRecipe)
     }
 }
+
+
+
+
+
 
 
 
