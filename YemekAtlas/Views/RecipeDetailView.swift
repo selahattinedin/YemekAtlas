@@ -11,6 +11,8 @@ struct RecipeDetailView: View {
     @State private var selectedTab = "Malzemeler"
     @State private var isLiked = false
     
+    @State private var selectedIngredients: [String: Bool] = [:]
+    
     let recipe: Recipe
     
     let tabs = ["Malzemeler", "Yapılış", "Alerjenler"]
@@ -51,7 +53,7 @@ struct RecipeDetailView: View {
                             .padding(8)
                             .background(Color.black.opacity(0.3))
                             .clipShape(Circle())
-                            .shadow(color: Color.red.opacity(5.9), radius: 1, x: 0, y: 0)
+                            .shadow(color: Color.red.opacity(0.5), radius: 1, x: 0, y: 0)
                             .colorMultiply(.pink)
                     
                     }
@@ -61,17 +63,15 @@ struct RecipeDetailView: View {
             }
             
            
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .center, spacing: 16) {
                 HStack {
                     Text(recipe.name)
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
-                    
-                    Spacer()
                 }
                 
-                HStack(spacing: 20) {
+                HStack(alignment: .center, spacing: 20) {
                     NutritionInfo(icon: "flame.fill", color: .orange, label: "\(recipe.calories) Kcal")
                     NutritionInfo(icon: "drop.fill", color: .yellow, label: "4g Yağ")
                     NutritionInfo(icon: "carrot.fill", color: .orange, label: "15g Protein")
@@ -86,30 +86,37 @@ struct RecipeDetailView: View {
             
            
             Picker(selection: $selectedTab, label: Text("Tabs")) {
-                            ForEach(tabs, id: \.self) { tab in
-                                Text(tab)
-                            }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding(.horizontal)
-                        .background(
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(Color.white.opacity(0.9))
-                                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-                                .colorMultiply(.pink)
-                        )
+                ForEach(tabs, id: \.self) { tab in
+                    Text(tab)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal)
+            .background(
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(Color.white.opacity(0.0))
+                    .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
+            )
             .padding()
-            
+            .colorMultiply(.pink)
          
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 20) {
                     if selectedTab == "Malzemeler" {
                         ForEach(recipe.ingredients, id: \.self) { ingredient in
-                            Text("\u{2022} \(ingredient)")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                                .lineSpacing(10)
-                                
+                            HStack {
+                                Text("\u{2022} \(ingredient)")
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                                    .lineSpacing(10)
+                                Spacer()
+                                Button(action: {
+                                    selectedIngredients[ingredient] = !(selectedIngredients[ingredient] ?? false)
+                                }) {
+                                    Image(systemName: selectedIngredients[ingredient] ?? false ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(.pink)
+                                }
+                            }
                         }
                     } else if selectedTab == "Yapılış" {
                         Text(recipe.instructions)
@@ -123,10 +130,15 @@ struct RecipeDetailView: View {
                                 .foregroundColor(.gray)
                         } else {
                             ForEach(recipe.allergens, id: \.self) { allergen in
-                                Text("\u{2022} \(allergen)")
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
-                                    .lineSpacing(8)
+                                HStack {
+                                    Text("\u{2022} \(allergen)")
+                                        .font(.headline)
+                                        .foregroundColor(.primary)
+                                        .lineSpacing(8)
+                                    Spacer()
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                        .foregroundColor(.yellow)
+                                }
                             }
                         }
                     }
@@ -141,7 +153,6 @@ struct RecipeDetailView: View {
         .edgesIgnoringSafeArea(.top)
     }
 }
-
 
 struct NutritionInfo: View {
     let icon: String
@@ -161,33 +172,30 @@ struct NutritionInfo: View {
     }
 }
 
+
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let sampleRecipe = Recipe(
-            name: "Adana Kebabı",
-            ingredients: [
-                "500g kıyma",
-                "1 tatlı kaşığı tuz",
-                "1 çay kaşığı karabiber",
-                "1 tatlı kaşığı pul biber",
-                "1 baş sarımsak, ezilmiş"
-            ],
-            calories: 350,
-            allergens: ["Gluten", "Süt ürünleri"],
+            name: "Et Sote",
+            ingredients: ["Spagetti", "Karabiber", "Ketçap", "Mayonez", "Salça sosu"],
+            calories: 250,
+            protein: 8,
+            carbohydrates: 45,
+            fat: 3,
+            allergens: ["Karabiber"],
             instructions: """
             1. Kıymayı geniş bir kaba alın.
             2. Tuz, karabiber, pul biber ve ezilmiş sarımsağı ekleyin.
             3. Karışımı iyice yoğurun ve şişlere geçirin.
             4. Kömür ateşinde veya ızgarada pişirin.
             5. Sıcak servis edin.
-            """, imageURL: ""
+            """,
+            imageURL: "https://pixabay.com/photos/pasta-italian-cuisine-dish-3547078/"
         )
         
         return RecipeDetailView(recipe: sampleRecipe)
     }
 }
-
-
 
 
 
