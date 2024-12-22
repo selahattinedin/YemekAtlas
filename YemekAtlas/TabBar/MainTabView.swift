@@ -18,15 +18,16 @@ struct MainTabView: View {
                         name: "Spagetti",
                         ingredients: ["Spagetti", "Karabiber", "Ketçap", "Mayonez", "Salça sosu"],
                         calories: 250,
-                        protein: 8,
-                        carbohydrates: 45,
-                        fat: 3,
+                        protein: 0,
+                        carbohydrates: 0,
+                        fat: 0,
                         allergens: ["Karabiber"],
                         instructions: "Makarnayı haşlayın. Sosları ekleyin ve karıştırın.",
                         imageURL: "https://pixabay.com/photos/pasta-italian-cuisine-dish-3547078/"
                     )
                 )
                 
+
             .tabItem {
                 Image(systemName: "house")
                 Text("Home")

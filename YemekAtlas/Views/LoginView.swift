@@ -24,7 +24,7 @@ struct LoginView: View {
                     VStack(spacing: 25) {
                         
                         VStack(spacing: 12) {
-                            Image("logo")
+                            Image("YemekAtlasIcon")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 120, height: 120)

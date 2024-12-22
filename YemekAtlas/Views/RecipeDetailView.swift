@@ -72,10 +72,10 @@ struct RecipeDetailView: View {
                 }
                 
                 HStack(alignment: .center, spacing: 20) {
-                    NutritionInfo(icon: "flame.fill", color: .orange, label: "\(recipe.calories) Kcal")
-                    NutritionInfo(icon: "drop.fill", color: .yellow, label: "4g Yağ")
-                    NutritionInfo(icon: "carrot.fill", color: .orange, label: "15g Protein")
-                    NutritionInfo(icon: "leaf.fill", color: .pink, label: "20g Karb.")
+                    NutritionInfoView(icon: "flame.fill", color: .orange, label: "\(recipe.calories) Kcal")
+                    NutritionInfoView(icon: "drop.fill", color: .yellow, label: "4g Yağ")
+                    NutritionInfoView(icon: "carrot.fill", color: .orange, label: "15g Protein")
+                    NutritionInfoView(icon: "leaf.fill", color: .pink, label: "20g Karb.")
                 }
             }
             .padding()
@@ -105,10 +105,13 @@ struct RecipeDetailView: View {
                     if selectedTab == "Malzemeler" {
                         ForEach(recipe.ingredients, id: \.self) { ingredient in
                             HStack {
-                                Text("\u{2022} \(ingredient)")
+                                Image(systemName: "fork.knife.circle")
+                                    .foregroundColor(.primary)
+                                Text("\(ingredient)")
                                     .font(.headline)
                                     .foregroundColor(.primary)
                                     .lineSpacing(10)
+                            
                                 Spacer()
                                 Button(action: {
                                     selectedIngredients[ingredient] = !(selectedIngredients[ingredient] ?? false)
@@ -154,30 +157,14 @@ struct RecipeDetailView: View {
     }
 }
 
-struct NutritionInfo: View {
-    let icon: String
-    let color: Color
-    let label: String
-    
-    var body: some View {
-        VStack {
-            Image(systemName: icon)
-                .foregroundColor(color)
-                .font(.title2)
-            Text(label)
-                .font(.caption)
-                .fontWeight(.semibold)
-                .foregroundColor(.primary)
-        }
-    }
-}
+
 
 
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let sampleRecipe = Recipe(
-            name: "Et Sote",
-            ingredients: ["Spagetti", "Karabiber", "Ketçap", "Mayonez", "Salça sosu"],
+            name: "Biftek",
+            ingredients: ["Biftek", "Karabiber", "Ketçap", "Mayonez", "Salça sosu"],
             calories: 250,
             protein: 8,
             carbohydrates: 45,

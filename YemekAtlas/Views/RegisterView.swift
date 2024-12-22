@@ -13,7 +13,7 @@ struct RegisterView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                // Background gradient
+              
                 LinearGradient(
                     gradient: Gradient(colors: [Color.white, Color.pink.opacity(0.1)]),
                     startPoint: .top,
@@ -22,7 +22,7 @@ struct RegisterView: View {
                 
                 ScrollView {
                     VStack(spacing: 25) {
-                        // Header Section with Logo
+                       
                         VStack(spacing: 12) {
                             Image("logo")
                                 .resizable()
@@ -46,7 +46,7 @@ struct RegisterView: View {
                         }
                         .padding(.top, 40)
                         
-                        // Error Message
+                       
                         if !viewModel.errorMessage.isEmpty {
                             Text(viewModel.errorMessage)
                                 .foregroundStyle(.red)

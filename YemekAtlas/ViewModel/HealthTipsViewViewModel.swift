@@ -27,16 +27,16 @@ class HealthTipsViewModel: ObservableObject {
         
         do {
             let prompt = """
-            Bana 5 adet sağlıklı beslenme ve yaşam tarzı ipucu ver. Aşağıdaki formatta ver:
+            Bana 3 adet sağlıklı beslenme ve yaşam tarzı ipucu ver. Aşağıdaki formatta ver:
 
             İpucu 1:
             - Tip: [İpucu metni]
-            - Kategori: [Beslenme/Egzersiz/Uyku/Su Tüketimi/Genel Sağlık]
-            - Icon: [heart.fill/leaf.fill/bed.double.fill/drop.fill/star.fill]
+            - Kategori: [Beslenme/Egzersiz/Uyku]
+            - Icon: [heart.fill/leaf.fill/bed.double.fill]
 
             İpucu 2:
             ...
-            (5 ipucu için aynı format)
+            (3 ipucu için aynı format)
 
             Lütfen ipuçları kısa, öz ve Türkçe olsun.
             """
