@@ -64,9 +64,10 @@ struct LoginView: View {
                                     Image(systemName: "envelope.fill")
                                         .foregroundColor(.pink)
                                     TextField("E-posta", text: $viewModel.email)
-                                        .textInputAutocapitalization(.none)
                                         .autocorrectionDisabled()
                                         .keyboardType(.emailAddress)
+                                        .autocapitalization(.none)
+
                                 }
                                 .padding()
                                 .background(Color.white)

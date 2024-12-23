@@ -17,7 +17,7 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Arka Plan
+               
                 LinearGradient(
                     gradient: Gradient(colors: [.white, .blue.opacity(0.1)]),
                     startPoint: .top,
@@ -25,9 +25,9 @@ struct SearchView: View {
                 )
                 .ignoresSafeArea()
 
-                ScrollView { // Performansı artırmak için ScrollView
+                ScrollView {
                     VStack(spacing: 20) {
-                        // Başlık ve Alt Başlık
+                        
                         VStack(spacing: 8) {
                             Text("Yemek Atlas")
                                 .font(.system(size: 40, weight: .bold, design: .rounded))
@@ -40,7 +40,7 @@ struct SearchView: View {
                         }
                         .padding(.top, 40)
 
-                        // Arama Çubuğu ve Buton
+                        
                         VStack(spacing: 20) {
                             HStack(spacing: 15) {
                                 Image(systemName: "magnifyingglass")
@@ -107,7 +107,7 @@ struct SearchView: View {
                             .disabled(viewModel.searchText.isEmpty)
                         }
 
-                        // Yüklenme Durumu
+                        
                         if viewModel.isLoading {
                             VStack(spacing: 15) {
                                 ProgressView()
@@ -127,7 +127,7 @@ struct SearchView: View {
                             .padding()
                         }
 
-                        // Tarif Sonucu
+                        
                         if let recipe = viewModel.recipe {
                             NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
                                 VStack(alignment: .leading, spacing: 12) {
@@ -157,7 +157,7 @@ struct SearchView: View {
                             }
                         }
 
-                        // Günlük Tarif ve Sağlıklı İpuçları
+                       
                         if !viewModel.isLoading && viewModel.recipe == nil {
                             DailyRecipeView()
                                 .padding(.top, 30)

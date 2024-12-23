@@ -23,10 +23,7 @@ struct FirstView: View {
                 .foregroundStyle(.white)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            LinearGradient(gradient: Gradient(colors: [Color(red: 0.1, green: 0.1, blue: 0.1), Color(red: 0.2, green: 0.2, blue: 0.2)]), 
-                           startPoint: .top, endPoint: .bottom)
-        )
+        .background(.pink)
         .ignoresSafeArea()
     }
 }

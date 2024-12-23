@@ -71,12 +71,14 @@ struct RecipeDetailView: View {
                         .foregroundColor(.primary)
                 }
                 
-                HStack(alignment: .center, spacing: 20) {
-                    NutritionInfoView(icon: "flame.fill", color: .orange, label: "\(recipe.calories) Kcal")
-                    NutritionInfoView(icon: "drop.fill", color: .yellow, label: "4g Yağ")
-                    NutritionInfoView(icon: "carrot.fill", color: .orange, label: "15g Protein")
-                    NutritionInfoView(icon: "leaf.fill", color: .pink, label: "20g Karb.")
-                }
+                HStack(spacing: 12) {
+                                    InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Cal")
+                                    InfoPill(icon: "carrot.fill", text: "\(recipe.protein)", subtext: "Protein")
+                                    InfoPill(icon: "drop.fill", text: "\(recipe.fat)", subtext: "Fat")
+                                    InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates)", subtext: "Carb")
+                                }
+
+                
             }
             .padding()
             .background(Color.white.opacity(0.8))
@@ -156,6 +158,24 @@ struct RecipeDetailView: View {
         .edgesIgnoringSafeArea(.top)
     }
 }
+struct IngredientRow: View {
+    let amount: String
+    let item: String
+
+    var body: some View {
+        HStack {
+            Circle()
+                .fill(Color.pink)
+                .frame(width: 8, height: 8)
+            Text(amount)
+                .fontWeight(.medium)
+            Text(item)
+                .foregroundColor(.black)
+            Spacer()
+        }
+    }
+}
+
 
 
 

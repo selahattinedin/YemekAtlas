@@ -24,7 +24,7 @@ struct RegisterView: View {
                     VStack(spacing: 25) {
                        
                         VStack(spacing: 12) {
-                            Image("logo")
+                            Image("YemekAtlasIcon")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 120, height: 120)
@@ -81,9 +81,10 @@ struct RegisterView: View {
                                     Image(systemName: "envelope.fill")
                                         .foregroundColor(.pink)
                                     TextField("E-posta", text: $viewModel.email)
-                                        .textInputAutocapitalization(.none)
                                         .autocorrectionDisabled()
                                         .keyboardType(.emailAddress)
+                                        .autocapitalization(.none)
+
                                 }
                                 .padding()
                                 .background(Color.white)
@@ -95,7 +96,7 @@ struct RegisterView: View {
                                 )
                             }
                             
-                            // Password Field
+                           
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     Image(systemName: "lock.fill")
