@@ -8,174 +8,194 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var selectedTab = "Malzemeler"
     @State private var isLiked = false
-    
     @State private var selectedIngredients: [String: Bool] = [:]
     
     let recipe: Recipe
-    
     let tabs = ["Malzemeler", "Yapılış", "Alerjenler"]
     
     var body: some View {
-        VStack {
-            
-            ZStack(alignment: .topTrailing) {
-               
-                Image("steak")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width, height: 350)
-                    .mask(
-                        RoundedRectangle(cornerRadius: 45, style: .continuous)
-                    )
-                    .overlay(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.black.opacity(0.5), .clear]),
-                            startPoint: .bottom,
-                            endPoint: .top
-                        )
-                        .clipShape(
+        NavigationView {
+            VStack {
+                ZStack(alignment: .top) {
+                    Image("steak")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: UIScreen.main.bounds.width, height: 350)
+                        .mask(
                             RoundedRectangle(cornerRadius: 45, style: .continuous)
                         )
-                    )
-                    .padding(.bottom, 8)
-                
-          
-                VStack {
-                    Spacer()
-                    Button(action: {
-                        isLiked.toggle()
-                    }) {
-                        Image(systemName: isLiked ? "heart.fill" : "heart")
-                            .foregroundColor(isLiked ? .red : .white)
-                            .font(.title2)
-                            .padding(8)
-                            .background(Color.black.opacity(0.3))
-                            .clipShape(Circle())
-                            .shadow(color: Color.red.opacity(0.5), radius: 1, x: 0, y: 0)
-                            .colorMultiply(.pink)
+                        .overlay(
+                            LinearGradient(
+                                gradient: Gradient(colors: [.black.opacity(0.5), .clear]),
+                                startPoint: .bottom,
+                                endPoint: .top
+                            )
+                            .clipShape(
+                                RoundedRectangle(cornerRadius: 45, style: .continuous)
+                            )
+                        )
+                        .padding(.bottom, 8)
                     
+                    HStack {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.black)
+                                .padding(12)
+                                .background(Color.yellow)
+                                .clipShape(Circle())
+                        }
+                        .padding(.leading)
+                        Spacer()
+                        
+                        Button(action: {
+                            isLiked.toggle()
+                        }) {
+                            Image(systemName: isLiked ? "heart.fill" : "heart")
+                                .foregroundColor(isLiked ? .red : .white)
+                                .font(.title2)
+                                .padding(12)
+                                .background(Color.black.opacity(0.3))
+                                .clipShape(Circle())
+                                .shadow(color: Color.red.opacity(0.5), radius: 1, x: 0, y: 0)
+                                .colorMultiply(.pink)
+                        }
+                        .padding(.trailing)
                     }
-                    .padding(.trailing)
-                    .offset(y: -24)
+                    .padding(.top, 60)
                 }
-            }
-            
-           
-            VStack(alignment: .center, spacing: 16) {
-                HStack {
+                
+                VStack(alignment: .leading, spacing: 16) {
                     Text(recipe.name)
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
+                        .padding(.horizontal)
+                    
+                    Text("Western")
+                        .foregroundColor(.gray)
+                        .font(.subheadline)
+                        .padding(.horizontal)
+                        .padding(.top, -9)
+                    
+                    HStack(spacing: 12) {
+                        InfoPill(icon: "clock", text: "45", subtext: "Dak")
+                        InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Cal")
+                        InfoPill(icon: "carrot.fill" , text: "\(recipe.protein) gr", subtext: "Protein")
+                        InfoPill(icon: "drop.fill", text: "\(recipe.fat) gr", subtext: "Fat")
+                        InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates) gr", subtext: "Carb")
+                    }
+                    .padding(.top, -5)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack(spacing: 12) {
-                                    InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Cal")
-                                    InfoPill(icon: "carrot.fill", text: "\(recipe.protein)", subtext: "Protein")
-                                    InfoPill(icon: "drop.fill", text: "\(recipe.fat)", subtext: "Fat")
-                                    InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates)", subtext: "Carb")
-                                }
-
-                
-            }
-            .padding()
-            .background(Color.white.opacity(0.8))
-            .cornerRadius(20)
-            .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-            .padding(.horizontal)
-            
-           
-            Picker(selection: $selectedTab, label: Text("Tabs")) {
-                ForEach(tabs, id: \.self) { tab in
-                    Text(tab)
+                    Spacer()
+                    ForEach(tabs, id: \.self) { tab in
+                        Button(action: { selectedTab = tab }) {
+                            Text(tab)
+                                .fontWeight(selectedTab == tab ? .bold : .regular)
+                                .foregroundColor(selectedTab == tab ? .black : .gray)
+                                .frame(width: 100, height: 40)
+                                .background(
+                                    selectedTab == tab ? Color.orange.opacity(0.5) : Color.clear
+                                )
+                                .cornerRadius(8)
+                                .animation(.easeInOut(duration: 0.3), value: selectedTab)
+                        }
+                    }
+                    Spacer()
                 }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding(.horizontal)
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .fill(Color.white.opacity(0.0))
-                    .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-            )
-            .padding()
-            .colorMultiply(.pink)
-         
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    if selectedTab == "Malzemeler" {
-                        ForEach(recipe.ingredients, id: \.self) { ingredient in
-                            HStack {
-                                Image(systemName: "fork.knife.circle")
-                                    .foregroundColor(.primary)
-                                Text("\(ingredient)")
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
-                                    .lineSpacing(10)
+                .padding(.vertical, 16)
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        if selectedTab == "Malzemeler" {
+                            Text("Tarif Malzemeleri")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .padding(.horizontal)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             
-                                Spacer()
-                                Button(action: {
-                                    selectedIngredients[ingredient] = !(selectedIngredients[ingredient] ?? false)
-                                }) {
-                                    Image(systemName: selectedIngredients[ingredient] ?? false ? "checkmark.circle.fill" : "circle")
-                                        .foregroundColor(.pink)
+                            ForEach(recipe.ingredients, id: \.self) { ingredient in
+                                HStack {
+                                    Image(systemName: "fork.knife.circle")
+                                        .foregroundColor(.primary)
+                                    Text(ingredient)
+                                        .font(.headline)
+                                    Spacer()
+                                    Button(action: {
+                                        selectedIngredients[ingredient] = !(selectedIngredients[ingredient] ?? false)
+                                    }) {
+                                        Image(systemName: selectedIngredients[ingredient] ?? false ? "checkmark.circle.fill" : "circle")
+                                            .foregroundColor(.orange)
+                                    }
+                                }
+                                .padding()
+                                .background(Color.orange.opacity(0.3))
+                                .cornerRadius(12)
+                                .padding(.horizontal)
+                            }
+                        } else if selectedTab == "Yapılış" {
+                            Text("Hazırlanış Adımları")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .padding(.horizontal)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                            ForEach(Array(recipe.instructions.components(separatedBy: "\n").enumerated()), id: \.element) { index, step in
+                                if !step.isEmpty {
+                                    VStack(alignment: .leading) {
+                                        Text("Adım \(index + 1)")
+                                            .font(.headline)
+                                            .foregroundColor(.orange)
+                                        Text(step.replacingOccurrences(of: "\\d+\\. ", with: "", options: .regularExpression))
+                                            .font(.body)
+                                    }
+                                    .padding()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(Color.orange.opacity(0.3))
+                                    .cornerRadius(12)
+                                    .padding(.horizontal)
                                 }
                             }
-                        }
-                    } else if selectedTab == "Yapılış" {
-                        Text(recipe.instructions)
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                            .lineSpacing(8)
-                    } else if selectedTab == "Alerjenler" {
-                        if recipe.allergens.isEmpty {
-                            Text("Alerjen bulunmuyor.")
-                                .font(.headline)
-                                .foregroundColor(.gray)
-                        } else {
-                            ForEach(recipe.allergens, id: \.self) { allergen in
+                        } else if selectedTab == "Alerjenler" {
+                            Text("Alerjen Bilgileri")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .padding(.horizontal)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                            ForEach(recipe.allergens.isEmpty ? ["Alerjen bulunmuyor."] : recipe.allergens, id: \.self) { allergen in
                                 HStack {
-                                    Text("\u{2022} \(allergen)")
+                                    Text(allergen)
                                         .font(.headline)
-                                        .foregroundColor(.primary)
-                                        .lineSpacing(8)
-                                    Spacer()
-                                    Image(systemName: "exclamationmark.triangle.fill")
-                                        .foregroundColor(.yellow)
+                                    if !recipe.allergens.isEmpty {
+                                        Spacer()
+                                        Image(systemName: "exclamationmark.triangle.fill")
+                                            .foregroundColor(.red)
+                                    }
                                 }
+                                .padding()
+                                .background(Color.orange.opacity(0.3))
+                                .cornerRadius(12)
+                                .padding(.horizontal)
                             }
                         }
                     }
+                    .padding(.vertical)
+                    .padding(.top, -20)
                 }
-                .padding()
-                .background(Color.white.opacity(0.9))
-                .cornerRadius(20)
-                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-                .padding(.horizontal)
             }
-        }
-        .edgesIgnoringSafeArea(.top)
-    }
-}
-struct IngredientRow: View {
-    let amount: String
-    let item: String
-
-    var body: some View {
-        HStack {
-            Circle()
-                .fill(Color.pink)
-                .frame(width: 8, height: 8)
-            Text(amount)
-                .fontWeight(.medium)
-            Text(item)
-                .foregroundColor(.black)
-            Spacer()
+            .navigationBarHidden(true)
+            .edgesIgnoringSafeArea(.top)
         }
     }
 }
-
 
 
 
@@ -183,10 +203,10 @@ struct IngredientRow: View {
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let sampleRecipe = Recipe(
-            name: "Biftek",
+            name: "Sarımsak yağı soslu biftek",
             ingredients: ["Biftek", "Karabiber", "Ketçap", "Mayonez", "Salça sosu"],
             calories: 250,
-            protein: 8,
+            protein: 8 ,
             carbohydrates: 45,
             fat: 3,
             allergens: ["Karabiber"],

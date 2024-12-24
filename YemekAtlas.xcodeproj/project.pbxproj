@@ -23,7 +23,6 @@
 		306391962CEDC8310096F047 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306391952CEDC8310096F047 /* APIKey.swift */; };
 		306391982CEE16170096F047 /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306391972CEE16170096F047 /* RecipeService.swift */; };
 		306AA50E2D19F6DB0071C740 /* InfoPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA50D2D19F6DB0071C740 /* InfoPill.swift */; };
-		30AEE34B2D176959001FEA3F /* NutritionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AEE34A2D176959001FEA3F /* NutritionInfoView.swift */; };
 		30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BDD5162CC3D6EA006F8EFA /* YemekAtlasApp.swift */; };
 		30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BDD5182CC3D6EA006F8EFA /* MainView.swift */; };
 		30BDD51B2CC3D6EB006F8EFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30BDD51A2CC3D6EB006F8EFA /* Assets.xcassets */; };
@@ -84,7 +83,6 @@
 		306391952CEDC8310096F047 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		306391972CEE16170096F047 /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
 		306AA50D2D19F6DB0071C740 /* InfoPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPill.swift; sourceTree = "<group>"; };
-		30AEE34A2D176959001FEA3F /* NutritionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionInfoView.swift; sourceTree = "<group>"; };
 		30BDD5132CC3D6EA006F8EFA /* YemekAtlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YemekAtlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BDD5162CC3D6EA006F8EFA /* YemekAtlasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YemekAtlasApp.swift; sourceTree = "<group>"; };
 		30BDD5182CC3D6EA006F8EFA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -202,7 +200,6 @@
 				30271B682CEB4B4A00FA43D5 /* ProfileView.swift */,
 				3051DDE92CFCF6CB00ED2B63 /* HealthTipsView.swift */,
 				301392322D01F0EF004CBF73 /* DailyRecipeView.swift */,
-				30AEE34A2D176959001FEA3F /* NutritionInfoView.swift */,
 				306AA50D2D19F6DB0071C740 /* InfoPill.swift */,
 			);
 			path = Views;
@@ -373,7 +370,6 @@
 				30D2347F2CD0FC3B00CFBA7F /* Extensions.swift in Sources */,
 				306AA50E2D19F6DB0071C740 /* InfoPill.swift in Sources */,
 				30BDD56D2CC70A0C006F8EFA /* RegisterViewViewModel.swift in Sources */,
-				30AEE34B2D176959001FEA3F /* NutritionInfoView.swift in Sources */,
 				301392352D01F108004CBF73 /* DailyRecipeViewViewModel.swift in Sources */,
 				30271B712CEB5D6000FA43D5 /* Recipe.swift in Sources */,
 			);
