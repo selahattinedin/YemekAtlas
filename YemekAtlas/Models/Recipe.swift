@@ -5,7 +5,10 @@
 //  Created by Selahattin EDİN on 18.11.2024.
 //
 
-struct Recipe: Codable {
+import Foundation
+
+struct Recipe: Codable, Identifiable {
+    let id = UUID() // Benzersiz bir kimlik oluşturuyoruz
     let name: String
     let ingredients: [String]
     let calories: Int
@@ -16,4 +19,3 @@ struct Recipe: Codable {
     let instructions: String
     let imageURL: String
 }
-

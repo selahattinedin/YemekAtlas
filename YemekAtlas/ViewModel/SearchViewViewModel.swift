@@ -14,6 +14,8 @@ class SearchViewViewModel: ObservableObject {
     @Published var recipe: Recipe?
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var popularRecipes: [Recipe] = [] // Popüler tarifle
+
 
     private let generativeModel: GenerativeModel
 

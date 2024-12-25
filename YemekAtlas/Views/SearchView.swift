@@ -17,7 +17,6 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-               
                 LinearGradient(
                     gradient: Gradient(colors: [.white, .blue.opacity(0.1)]),
                     startPoint: .top,
@@ -27,7 +26,6 @@ struct SearchView: View {
 
                 ScrollView {
                     VStack(spacing: 20) {
-                        
                         VStack(spacing: 8) {
                             Text("Yemek Atlas")
                                 .font(.system(size: 40, weight: .bold, design: .rounded))
@@ -39,7 +37,6 @@ struct SearchView: View {
                                 .foregroundColor(.gray)
                         }
                         .padding(.top, 40)
-
                         
                         VStack(spacing: 20) {
                             HStack(spacing: 15) {
@@ -106,7 +103,6 @@ struct SearchView: View {
                             .opacity(viewModel.searchText.isEmpty ? 0.6 : 1)
                             .disabled(viewModel.searchText.isEmpty)
                         }
-
                         
                         if viewModel.isLoading {
                             VStack(spacing: 15) {
@@ -126,7 +122,6 @@ struct SearchView: View {
                             )
                             .padding()
                         }
-
                         
                         if let recipe = viewModel.recipe {
                             NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
@@ -157,13 +152,9 @@ struct SearchView: View {
                             }
                         }
 
-                       
                         if !viewModel.isLoading && viewModel.recipe == nil {
-                            DailyRecipeView()
+                            PopularRecipesView()
                                 .padding(.top, 30)
-
-                            HealthTipsView()
-                                .padding(.top, 10)
                         }
                     }
                     .padding(.horizontal)
@@ -178,9 +169,8 @@ struct SearchView: View {
 }
 
 
-
-
     
+
 
 
 

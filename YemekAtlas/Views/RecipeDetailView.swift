@@ -4,7 +4,6 @@
 //
 //  Created by Selahattin EDİN on 18.11.2024.
 //
-
 import SwiftUI
 
 struct RecipeDetailView: View {
@@ -17,7 +16,7 @@ struct RecipeDetailView: View {
     let tabs = ["Malzemeler", "Yapılış", "Alerjenler"]
     
     var body: some View {
-        NavigationView {
+        
             VStack {
                 ZStack(alignment: .top) {
                     Image("steak")
@@ -56,13 +55,11 @@ struct RecipeDetailView: View {
                             isLiked.toggle()
                         }) {
                             Image(systemName: isLiked ? "heart.fill" : "heart")
-                                .foregroundColor(isLiked ? .red : .white)
                                 .font(.title2)
+                                .foregroundColor(isLiked ? .red : .white)
                                 .padding(12)
                                 .background(Color.black.opacity(0.3))
                                 .clipShape(Circle())
-                                .shadow(color: Color.red.opacity(0.5), radius: 1, x: 0, y: 0)
-                                .colorMultiply(.pink)
                         }
                         .padding(.trailing)
                     }
@@ -84,9 +81,9 @@ struct RecipeDetailView: View {
                     
                     HStack(spacing: 12) {
                         InfoPill(icon: "clock", text: "45", subtext: "Dak")
-                        InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Cal")
+                        InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Kal")
                         InfoPill(icon: "carrot.fill" , text: "\(recipe.protein) gr", subtext: "Protein")
-                        InfoPill(icon: "drop.fill", text: "\(recipe.fat) gr", subtext: "Fat")
+                        InfoPill(icon: "drop.fill", text: "\(recipe.fat) gr", subtext: "Yağ")
                         InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates) gr", subtext: "Carb")
                     }
                     .padding(.top, -5)
@@ -102,7 +99,7 @@ struct RecipeDetailView: View {
                                 .foregroundColor(selectedTab == tab ? .black : .gray)
                                 .frame(width: 100, height: 40)
                                 .background(
-                                    selectedTab == tab ? Color.orange.opacity(0.5) : Color.clear
+                                    selectedTab == tab ? Color.yellow.opacity(0.8) : Color.clear
                                 )
                                 .cornerRadius(8)
                                 .animation(.easeInOut(duration: 0.3), value: selectedTab)
@@ -132,11 +129,11 @@ struct RecipeDetailView: View {
                                         selectedIngredients[ingredient] = !(selectedIngredients[ingredient] ?? false)
                                     }) {
                                         Image(systemName: selectedIngredients[ingredient] ?? false ? "checkmark.circle.fill" : "circle")
-                                            .foregroundColor(.orange)
+                                            .foregroundColor(.red)
                                     }
                                 }
                                 .padding()
-                                .background(Color.orange.opacity(0.3))
+                                .background(Color.yellow.opacity(0.3))
                                 .cornerRadius(12)
                                 .padding(.horizontal)
                             }
@@ -146,7 +143,7 @@ struct RecipeDetailView: View {
                                 .fontWeight(.bold)
                                 .padding(.horizontal)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                
+                            
                             ForEach(Array(recipe.instructions.components(separatedBy: "\n").enumerated()), id: \.element) { index, step in
                                 if !step.isEmpty {
                                     VStack(alignment: .leading) {
@@ -158,7 +155,7 @@ struct RecipeDetailView: View {
                                     }
                                     .padding()
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(Color.orange.opacity(0.3))
+                                    .background(Color.yellow.opacity(0.3))
                                     .cornerRadius(12)
                                     .padding(.horizontal)
                                 }
@@ -169,7 +166,7 @@ struct RecipeDetailView: View {
                                 .fontWeight(.bold)
                                 .padding(.horizontal)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                
+                            
                             ForEach(recipe.allergens.isEmpty ? ["Alerjen bulunmuyor."] : recipe.allergens, id: \.self) { allergen in
                                 HStack {
                                     Text(allergen)
@@ -181,7 +178,7 @@ struct RecipeDetailView: View {
                                     }
                                 }
                                 .padding()
-                                .background(Color.orange.opacity(0.3))
+                                .background(Color.yellow.opacity(0.3))
                                 .cornerRadius(12)
                                 .padding(.horizontal)
                             }
@@ -191,13 +188,11 @@ struct RecipeDetailView: View {
                     .padding(.top, -20)
                 }
             }
+            .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
             .edgesIgnoringSafeArea(.top)
         }
     }
-}
-
-
 
 
 struct RecipeDetailView_Previews: PreviewProvider {
@@ -206,7 +201,7 @@ struct RecipeDetailView_Previews: PreviewProvider {
             name: "Sarımsak yağı soslu biftek",
             ingredients: ["Biftek", "Karabiber", "Ketçap", "Mayonez", "Salça sosu"],
             calories: 250,
-            protein: 8 ,
+            protein: 8,
             carbohydrates: 45,
             fat: 3,
             allergens: ["Karabiber"],
@@ -223,14 +218,6 @@ struct RecipeDetailView_Previews: PreviewProvider {
         return RecipeDetailView(recipe: sampleRecipe)
     }
 }
-
-
-
-
-
-
-
-
 
 
 

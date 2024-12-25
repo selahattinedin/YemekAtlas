@@ -48,7 +48,7 @@ struct MainTabView: View {
                 }
                 .tag(TabSelection.profile)
         }
-        .accentColor(.pink)
+        .accentColor(.orange)
     }
 }
 

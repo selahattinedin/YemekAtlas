@@ -19,7 +19,7 @@ struct InfoPill: View {
             
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(Color.white)
-                .frame(width: 60, height: 75)
+                .frame(width: 50, height: 75)
             
             VStack(spacing: 4) {
                 Image(systemName: icon)
