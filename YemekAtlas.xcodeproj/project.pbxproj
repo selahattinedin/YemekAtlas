@@ -7,23 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		301392332D01F0EF004CBF73 /* DailyRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301392322D01F0EF004CBF73 /* DailyRecipeView.swift */; };
-		301392352D01F108004CBF73 /* DailyRecipeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301392342D01F108004CBF73 /* DailyRecipeViewViewModel.swift */; };
 		30271B652CEB492900FA43D5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B642CEB492900FA43D5 /* MainTabView.swift */; };
 		30271B672CEB4B2300FA43D5 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */; };
 		30271B692CEB4B4A00FA43D5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B682CEB4B4A00FA43D5 /* ProfileView.swift */; };
 		30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */; };
 		30271B6F2CEB5A2700FA43D5 /* ProfileViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */; };
 		30271B712CEB5D6000FA43D5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B702CEB5D6000FA43D5 /* Recipe.swift */; };
-		3051DDEA2CFCF6CB00ED2B63 /* HealthTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051DDE92CFCF6CB00ED2B63 /* HealthTipsView.swift */; };
-		3051DDEC2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051DDEB2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift */; };
 		3051DDEE2CFCF8CF00ED2B63 /* HealthTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */; };
 		306391942CEDC7A50096F047 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 306391932CEDC7A50096F047 /* GenerativeAI-Info.plist */; };
 		306391962CEDC8310096F047 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306391952CEDC8310096F047 /* APIKey.swift */; };
 		306391982CEE16170096F047 /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306391972CEE16170096F047 /* RecipeService.swift */; };
 		306AA50E2D19F6DB0071C740 /* InfoPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA50D2D19F6DB0071C740 /* InfoPill.swift */; };
-		306AA58D2D1C4BC70071C740 /* PopularRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA58C2D1C4BC70071C740 /* PopularRecipesView.swift */; };
-		306AA58F2D1C68B40071C740 /* PopularRecipesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA58E2D1C68B40071C740 /* PopularRecipesViewViewModel.swift */; };
+		306AA5912D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */; };
+		306AA5932D1CA2F10071C740 /* DailyRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */; };
 		30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BDD5162CC3D6EA006F8EFA /* YemekAtlasApp.swift */; };
 		30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BDD5182CC3D6EA006F8EFA /* MainView.swift */; };
 		30BDD51B2CC3D6EB006F8EFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30BDD51A2CC3D6EB006F8EFA /* Assets.xcassets */; };
@@ -68,23 +64,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		301392322D01F0EF004CBF73 /* DailyRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipeView.swift; sourceTree = "<group>"; };
-		301392342D01F108004CBF73 /* DailyRecipeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipeViewViewModel.swift; sourceTree = "<group>"; };
 		30271B642CEB492900FA43D5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		30271B682CEB4B4A00FA43D5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewViewModel.swift; sourceTree = "<group>"; };
 		30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewModel.swift; sourceTree = "<group>"; };
 		30271B702CEB5D6000FA43D5 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
-		3051DDE92CFCF6CB00ED2B63 /* HealthTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTipsView.swift; sourceTree = "<group>"; };
-		3051DDEB2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTipsViewViewModel.swift; sourceTree = "<group>"; };
 		3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTip.swift; sourceTree = "<group>"; };
 		306391932CEDC7A50096F047 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		306391952CEDC8310096F047 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		306391972CEE16170096F047 /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
 		306AA50D2D19F6DB0071C740 /* InfoPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPill.swift; sourceTree = "<group>"; };
-		306AA58C2D1C4BC70071C740 /* PopularRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRecipesView.swift; sourceTree = "<group>"; };
-		306AA58E2D1C68B40071C740 /* PopularRecipesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRecipesViewViewModel.swift; sourceTree = "<group>"; };
+		306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipesViewViewModel.swift; sourceTree = "<group>"; };
+		306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipesView.swift; sourceTree = "<group>"; };
 		30BDD5132CC3D6EA006F8EFA /* YemekAtlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YemekAtlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BDD5162CC3D6EA006F8EFA /* YemekAtlasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YemekAtlasApp.swift; sourceTree = "<group>"; };
 		30BDD5182CC3D6EA006F8EFA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -200,10 +192,8 @@
 				30D234822CD1031600CFBA7F /* SearchView.swift */,
 				30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */,
 				30271B682CEB4B4A00FA43D5 /* ProfileView.swift */,
-				3051DDE92CFCF6CB00ED2B63 /* HealthTipsView.swift */,
-				301392322D01F0EF004CBF73 /* DailyRecipeView.swift */,
 				306AA50D2D19F6DB0071C740 /* InfoPill.swift */,
-				306AA58C2D1C4BC70071C740 /* PopularRecipesView.swift */,
+				306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -227,9 +217,7 @@
 				30D234802CD0FEF900CFBA7F /* MainViewViewModel.swift */,
 				30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */,
 				30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */,
-				3051DDEB2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift */,
-				301392342D01F108004CBF73 /* DailyRecipeViewViewModel.swift */,
-				306AA58E2D1C68B40071C740 /* PopularRecipesViewViewModel.swift */,
+				306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -348,21 +336,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				30BDD5682CC52606006F8EFA /* AgreementView.swift in Sources */,
-				3051DDEA2CFCF6CB00ED2B63 /* HealthTipsView.swift in Sources */,
+				306AA5932D1CA2F10071C740 /* DailyRecipesView.swift in Sources */,
 				30BDD5642CC45A63006F8EFA /* LoginView.swift in Sources */,
 				30D234812CD0FEF900CFBA7F /* MainViewViewModel.swift in Sources */,
 				30271B6F2CEB5A2700FA43D5 /* ProfileViewViewModel.swift in Sources */,
 				30271B672CEB4B2300FA43D5 /* RecipeDetailView.swift in Sources */,
 				30BDD5662CC5135B006F8EFA /* HeaderView.swift in Sources */,
 				306391962CEDC8310096F047 /* APIKey.swift in Sources */,
-				301392332D01F0EF004CBF73 /* DailyRecipeView.swift in Sources */,
 				306391982CEE16170096F047 /* RecipeService.swift in Sources */,
 				30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */,
 				30BDD56B2CC709F8006F8EFA /* LoginViewViewModel.swift in Sources */,
 				30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */,
-				306AA58D2D1C4BC70071C740 /* PopularRecipesView.swift in Sources */,
 				30BDD5622CC42FBA006F8EFA /* RegisterView.swift in Sources */,
-				3051DDEC2CFCF87D00ED2B63 /* HealthTipsViewViewModel.swift in Sources */,
 				30271B692CEB4B4A00FA43D5 /* ProfileView.swift in Sources */,
 				30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */,
 				30D234832CD1031600CFBA7F /* SearchView.swift in Sources */,
@@ -373,8 +358,7 @@
 				30D2347F2CD0FC3B00CFBA7F /* Extensions.swift in Sources */,
 				306AA50E2D19F6DB0071C740 /* InfoPill.swift in Sources */,
 				30BDD56D2CC70A0C006F8EFA /* RegisterViewViewModel.swift in Sources */,
-				301392352D01F108004CBF73 /* DailyRecipeViewViewModel.swift in Sources */,
-				306AA58F2D1C68B40071C740 /* PopularRecipesViewViewModel.swift in Sources */,
+				306AA5912D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift in Sources */,
 				30271B712CEB5D6000FA43D5 /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
