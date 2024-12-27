@@ -5,19 +5,20 @@
 //  Created by Selahattin EDİN on 25.12.2024.
 //
 import SwiftUI
+import Lottie
 
 struct DailyRecipesView: View {
     @StateObject private var viewModel = DailyRecipesViewViewModel()
     
     var body: some View {
         NavigationView {
-            ScrollView { // Ekranın taşmasını önlemek için ScrollView kullanıldı
+            ScrollView {
                 ZStack {
                     Color(.systemBackground)
                         .ignoresSafeArea()
                     
                     VStack(spacing: 16) {
-                        // Başlık ve Yenile Butonu
+                        
                         HStack {
                             Text("Günlük Tarifler")
                                 .font(.system(size: 24, weight: .bold))
@@ -45,8 +46,8 @@ struct DailyRecipesView: View {
                                 .padding(.vertical, 8)
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.pink)
-                                        .shadow(color: .pink.opacity(0.9), radius: 8, y: 4)
+                                        .fill(Color.yellow)
+                                        .shadow(color: .yellow.opacity(0.6), radius: 8, y: 4)
                                 )
                             }
                             .disabled(viewModel.isLoading)
@@ -56,12 +57,15 @@ struct DailyRecipesView: View {
                         
                         // Yemek Kartları
                         if viewModel.isLoading {
-                            VStack(spacing: 12) {
-                                ProgressView()
-                                    .scaleEffect(1.5)
-                                Text("Tarifler yükleniyor...")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
+                        VStack{
+                            Spacer()
+                            LottieView(animationName: "Food")
+                            .frame(width: 100, height: 100)
+                            .scaleEffect(0.6)
+                            .padding(.top, 200)
+                           
+
+                            
                             }
                             .frame(maxWidth: .infinity)
                         } else if let errorMessage = viewModel.errorMessage {

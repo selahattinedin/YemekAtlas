@@ -34,10 +34,11 @@ class DailyRecipesViewViewModel: ObservableObject {
 
         İsim: [Tarif adı]
 
-        Malzemeler:
+        Malzemeler: 
+        (Tarif için malzemeleri listele ve başına - koy)
         - [Malzeme ve miktarı]
 
-        Kalori: [Sadece sayı] kcal
+        Kalori: Tarif adına uygun bir kalori ver. [Sadece sayı] kcal
 
         Besin Değerleri:
         Protein: [Sadece sayı] g
@@ -45,14 +46,14 @@ class DailyRecipesViewViewModel: ObservableObject {
         Yağ: [Sadece sayı] g
 
         Alerjenler:
-        - Eğer tarifte gluten, kabuklu deniz ürünleri, süt ürünleri, yumurta, balık, hardal, yer fıstığı,karabiber, soya varsa listele. Yoksa "Bulunmuyor" yaz.
+        [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
+        - Eğer malzemelerde gluten, kabuklu deniz ürünleri, yumurta, süt ürünleri, balık, hardal, yer fıstığı, karabiber veya soya varsa "Alerjen:" başlığı altında yaz.
+        - Sadece alerjen madde olanları Alerjen başlığı altında belirt listede hiçbiri yoksa o zaman "Bulunmuyor" yaz.]
 
         Yapılış:
-        [Adım adım tarif detayları]
+        [Detaylı tarif]
 
-        ImageURL: [Yemeğin görseline uygun bir URL]
-
-        Tarifleri ayırırken aralarına iki boş satır koy.
+        ImageURL: [Yemek görseli için URL]
         """
         
         do {

@@ -65,7 +65,7 @@ struct ProfileView: View {
             .padding(.horizontal)
 
             Button {
-                // Profil düzenleme işlevi
+                
             } label: {
                 Text("Profili Düzenle")
                     .font(.subheadline)
@@ -79,7 +79,7 @@ struct ProfileView: View {
             }
             .padding(.bottom)
 
-            // Logout Butonu
+            
             Button {
                 viewModel.logout { success in
                     if success {

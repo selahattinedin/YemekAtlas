@@ -21,8 +21,8 @@ struct SearchView: View {
                     VStack(spacing: 8) {
                         Text("Yemek Atlas")
                             .font(.system(size: 40, weight: .bold, design: .rounded))
-                            .foregroundColor(.pink)
-                            .shadow(color: .pink.opacity(0.3), radius: 2, x: 0, y: 2)
+                            .foregroundColor(.yellow)
+                            .shadow(color: .yellow.opacity(0.3), radius: 2, x: 0, y: 2)
                         
                         Text("Lezzet Yolculuğuna Hoş Geldiniz")
                             .font(.system(size: 18, weight: .medium, design: .rounded))
@@ -34,7 +34,7 @@ struct SearchView: View {
                         HStack(spacing: 15) {
                             Image(systemName: "magnifyingglass")
                                 .font(.system(size: 22, weight: .semibold))
-                                .foregroundColor(.pink)
+                                .foregroundColor(.yellow)
                             
                             TextField("Ne yemek yapmak istersin?", text: $viewModel.searchText)
                                 .font(.system(size: 17))
@@ -80,7 +80,7 @@ struct SearchView: View {
                             .padding(.vertical, 15)
                             .background(
                                 LinearGradient(
-                                    colors: [.pink, .pink.opacity(0.8)],
+                                    colors: [.yellow, .yellow.opacity(0.8)],
                                     startPoint: .leading,
                                     endPoint: .trailing
                                 )

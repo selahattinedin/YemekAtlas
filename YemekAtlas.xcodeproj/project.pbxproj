@@ -20,6 +20,10 @@
 		306AA50E2D19F6DB0071C740 /* InfoPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA50D2D19F6DB0071C740 /* InfoPill.swift */; };
 		306AA5912D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */; };
 		306AA5932D1CA2F10071C740 /* DailyRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */; };
+		30A4B1072D1F06E3009BF054 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 30A4B1062D1F06E3009BF054 /* Lottie */; };
+		30A4B1092D1F0741009BF054 /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4B1082D1F0741009BF054 /* Lottie.swift */; };
+		30A4B10B2D1F0976009BF054 /* Food.json in Resources */ = {isa = PBXBuildFile; fileRef = 30A4B10A2D1F0976009BF054 /* Food.json */; };
+		30A4B10D2D1F1C1A009BF054 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 30A4B10C2D1F1C1A009BF054 /* Loading.json */; };
 		30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BDD5162CC3D6EA006F8EFA /* YemekAtlasApp.swift */; };
 		30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BDD5182CC3D6EA006F8EFA /* MainView.swift */; };
 		30BDD51B2CC3D6EB006F8EFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30BDD51A2CC3D6EB006F8EFA /* Assets.xcassets */; };
@@ -77,6 +81,9 @@
 		306AA50D2D19F6DB0071C740 /* InfoPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPill.swift; sourceTree = "<group>"; };
 		306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipesViewViewModel.swift; sourceTree = "<group>"; };
 		306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipesView.swift; sourceTree = "<group>"; };
+		30A4B1082D1F0741009BF054 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
+		30A4B10A2D1F0976009BF054 /* Food.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Food.json; sourceTree = "<group>"; };
+		30A4B10C2D1F1C1A009BF054 /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		30BDD5132CC3D6EA006F8EFA /* YemekAtlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YemekAtlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BDD5162CC3D6EA006F8EFA /* YemekAtlasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YemekAtlasApp.swift; sourceTree = "<group>"; };
 		30BDD5182CC3D6EA006F8EFA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -114,6 +121,7 @@
 				30BDD5302CC3D778006F8EFA /* FirebaseAuth in Frameworks */,
 				30BDD5262CC3D778006F8EFA /* FirebaseAnalytics in Frameworks */,
 				30BDD53C2CC3D778006F8EFA /* FirebaseFirestore in Frameworks */,
+				30A4B1072D1F06E3009BF054 /* Lottie in Frameworks */,
 				30BDD54A2CC3D778006F8EFA /* FirebaseMessaging in Frameworks */,
 				30BDD5462CC3D778006F8EFA /* FirebaseInstallations in Frameworks */,
 				30BDD5422CC3D778006F8EFA /* FirebaseFunctionsCombine-Community in Frameworks */,
@@ -168,6 +176,9 @@
 				306391932CEDC7A50096F047 /* GenerativeAI-Info.plist */,
 				306391952CEDC8310096F047 /* APIKey.swift */,
 				306391972CEE16170096F047 /* RecipeService.swift */,
+				30A4B1082D1F0741009BF054 /* Lottie.swift */,
+				30A4B10A2D1F0976009BF054 /* Food.json */,
+				30A4B10C2D1F1C1A009BF054 /* Loading.json */,
 			);
 			path = YemekAtlas;
 			sourceTree = "<group>";
@@ -274,6 +285,7 @@
 				30BDD5512CC3D778006F8EFA /* FirebaseStorageCombine-Community */,
 				30BDD5532CC3D778006F8EFA /* FirebaseVertexAI-Preview */,
 				30D234852CEA6D3500CFBA7F /* GoogleGenerativeAI */,
+				30A4B1062D1F06E3009BF054 /* Lottie */,
 			);
 			productName = YemekAtlas;
 			productReference = 30BDD5132CC3D6EA006F8EFA /* YemekAtlas.app */;
@@ -306,6 +318,7 @@
 			packageReferences = (
 				30BDD5242CC3D778006F8EFA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				30D234842CEA6D3500CFBA7F /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+				30A4B1052D1F06E3009BF054 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = 30BDD5142CC3D6EA006F8EFA /* Products */;
 			projectDirPath = "";
@@ -321,9 +334,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30A4B10D2D1F1C1A009BF054 /* Loading.json in Resources */,
 				30BDD51E2CC3D6EB006F8EFA /* Preview Assets.xcassets in Resources */,
 				30BDD51B2CC3D6EB006F8EFA /* Assets.xcassets in Resources */,
 				306391942CEDC7A50096F047 /* GenerativeAI-Info.plist in Resources */,
+				30A4B10B2D1F0976009BF054 /* Food.json in Resources */,
 				30BDD5592CC3ED0A006F8EFA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +362,7 @@
 				30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */,
 				30BDD56B2CC709F8006F8EFA /* LoginViewViewModel.swift in Sources */,
 				30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */,
+				30A4B1092D1F0741009BF054 /* Lottie.swift in Sources */,
 				30BDD5622CC42FBA006F8EFA /* RegisterView.swift in Sources */,
 				30271B692CEB4B4A00FA43D5 /* ProfileView.swift in Sources */,
 				30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */,
@@ -567,6 +583,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		30A4B1052D1F06E3009BF054 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 		30BDD5242CC3D778006F8EFA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -586,6 +610,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		30A4B1062D1F06E3009BF054 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 30A4B1052D1F06E3009BF054 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
 		30BDD5252CC3D778006F8EFA /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 30BDD5242CC3D778006F8EFA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
