@@ -148,10 +148,10 @@ class DailyRecipesViewViewModel: ObservableObject {
             }
         }
         
-        // Validate required fields
+      
         guard !name.isEmpty else { return nil }
         
-        // If no allergens were found, add "Alerjen bulunmuyor"
+       
         if allergens.isEmpty {
             allergens = ["Alerjen bulunmuyor"]
         }

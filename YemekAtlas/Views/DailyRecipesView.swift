@@ -106,7 +106,8 @@ struct DailyRecipesView: View {
 
 struct RecipesCard: View {
     let recipe: Recipe
-    
+    @StateObject private var favoritesManager = FavoriteRecipesManager()
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Image("yemek")
@@ -115,6 +116,7 @@ struct RecipesCard: View {
                 .frame(width: 150, height: 100)
                 .clipped()
                 .cornerRadius(10)
+            
             
             Text(recipe.name)
                 .font(.headline)

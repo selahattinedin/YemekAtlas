@@ -24,6 +24,7 @@
 		30A4B1092D1F0741009BF054 /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4B1082D1F0741009BF054 /* Lottie.swift */; };
 		30A4B10B2D1F0976009BF054 /* Food.json in Resources */ = {isa = PBXBuildFile; fileRef = 30A4B10A2D1F0976009BF054 /* Food.json */; };
 		30A4B10D2D1F1C1A009BF054 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 30A4B10C2D1F1C1A009BF054 /* Loading.json */; };
+		30A4B10F2D1F3920009BF054 /* FavoriteRecipesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4B10E2D1F3920009BF054 /* FavoriteRecipesManager.swift */; };
 		30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BDD5162CC3D6EA006F8EFA /* YemekAtlasApp.swift */; };
 		30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BDD5182CC3D6EA006F8EFA /* MainView.swift */; };
 		30BDD51B2CC3D6EB006F8EFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30BDD51A2CC3D6EB006F8EFA /* Assets.xcassets */; };
@@ -84,6 +85,7 @@
 		30A4B1082D1F0741009BF054 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
 		30A4B10A2D1F0976009BF054 /* Food.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Food.json; sourceTree = "<group>"; };
 		30A4B10C2D1F1C1A009BF054 /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
+		30A4B10E2D1F3920009BF054 /* FavoriteRecipesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipesManager.swift; sourceTree = "<group>"; };
 		30BDD5132CC3D6EA006F8EFA /* YemekAtlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YemekAtlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BDD5162CC3D6EA006F8EFA /* YemekAtlasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YemekAtlasApp.swift; sourceTree = "<group>"; };
 		30BDD5182CC3D6EA006F8EFA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */,
 				30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */,
 				306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */,
+				30A4B10E2D1F3920009BF054 /* FavoriteRecipesManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				30D2347D2CD0F5A800CFBA7F /* User.swift in Sources */,
 				30271B652CEB492900FA43D5 /* MainTabView.swift in Sources */,
 				30D2347F2CD0FC3B00CFBA7F /* Extensions.swift in Sources */,
+				30A4B10F2D1F3920009BF054 /* FavoriteRecipesManager.swift in Sources */,
 				306AA50E2D19F6DB0071C740 /* InfoPill.swift in Sources */,
 				30BDD56D2CC70A0C006F8EFA /* RegisterViewViewModel.swift in Sources */,
 				306AA5912D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift in Sources */,

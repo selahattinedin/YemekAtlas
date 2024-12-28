@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Recipe: Codable, Identifiable {
-    let id = UUID() // Benzersiz bir kimlik oluşturuyoruz
+struct Recipe: Codable, Identifiable, Equatable {
+    let id = UUID()
     let name: String
     let ingredients: [String]
     let calories: Int
@@ -18,4 +18,8 @@ struct Recipe: Codable, Identifiable {
     let allergens: [String]
     let instructions: String
     let imageURL: String
+    
+    static func == (lhs: Recipe, rhs: Recipe) -> Bool {
+           lhs.id == rhs.id
+       }
 }

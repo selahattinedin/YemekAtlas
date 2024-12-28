@@ -11,6 +11,8 @@ struct RecipeDetailView: View {
     @State private var selectedTab = "Malzemeler"
     @State private var isLiked = false
     @State private var selectedIngredients: [String: Bool] = [:]
+    @StateObject private var favoritesManager = FavoriteRecipesManager()
+
     
     let recipe: Recipe
     let tabs = ["Malzemeler", "Yapılış", "Alerjenler"]
@@ -52,15 +54,15 @@ struct RecipeDetailView: View {
                         Spacer()
                         
                         Button(action: {
-                            isLiked.toggle()
-                        }) {
-                            Image(systemName: isLiked ? "heart.fill" : "heart")
-                                .font(.title2)
-                                .foregroundColor(isLiked ? .red : .white)
-                                .padding(12)
-                                .background(Color.black.opacity(0.3))
-                                .clipShape(Circle())
-                        }
+                                                favoritesManager.toggleFavorite(recipe: recipe)
+                                            }) {
+                                                Image(systemName: favoritesManager.isFavorite(recipe: recipe) ? "heart.fill" : "heart")
+                                                    .font(.title2)
+                                                    .foregroundColor(favoritesManager.isFavorite(recipe: recipe) ? .red : .white)
+                                                    .padding(12)
+                                                    .background(Color.black.opacity(0.3))
+                                                    .clipShape(Circle())
+                                            }
                         .padding(.trailing)
                     }
                     .padding(.top, 60)
@@ -191,6 +193,9 @@ struct RecipeDetailView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
             .edgesIgnoringSafeArea(.top)
+            .onAppear {
+            favoritesManager.loadFavoriteRecipes()
+            }
         }
     }
 
