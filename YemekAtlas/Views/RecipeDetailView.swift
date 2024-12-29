@@ -47,7 +47,7 @@ struct RecipeDetailView: View {
                             Image(systemName: "chevron.left")
                                 .foregroundColor(.black)
                                 .padding(12)
-                                .background(Color.yellow)
+                                .background(Color.orange)
                                 .clipShape(Circle())
                         }
                         .padding(.leading)
@@ -98,12 +98,12 @@ struct RecipeDetailView: View {
                         Button(action: { selectedTab = tab }) {
                             Text(tab)
                                 .fontWeight(selectedTab == tab ? .bold : .regular)
-                                .foregroundColor(selectedTab == tab ? .black : .gray)
+                                .foregroundColor(selectedTab == tab ? .white : .gray)
                                 .frame(width: 100, height: 40)
                                 .background(
-                                    selectedTab == tab ? Color.yellow.opacity(0.8) : Color.clear
+                                    selectedTab == tab ? Color.orange : Color.clear
                                 )
-                                .cornerRadius(8)
+                                .cornerRadius(20)
                                 .animation(.easeInOut(duration: 0.3), value: selectedTab)
                         }
                     }
@@ -135,8 +135,15 @@ struct RecipeDetailView: View {
                                     }
                                 }
                                 .padding()
-                                .background(Color.yellow.opacity(0.3))
-                                .cornerRadius(12)
+                                .background(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(Color.white)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 12)
+                                                        .stroke(Color(.orange), lineWidth: 1)
+                                                )
+                                        )
+                                                            
                                 .padding(.horizontal)
                             }
                         } else if selectedTab == "Yapılış" {
@@ -157,8 +164,15 @@ struct RecipeDetailView: View {
                                     }
                                     .padding()
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(Color.yellow.opacity(0.3))
-                                    .cornerRadius(12)
+                                    .background(
+                                                RoundedRectangle(cornerRadius: 12)
+                                                    .fill(Color.white)
+                                                    .overlay(
+                                                        RoundedRectangle(cornerRadius: 12)
+                                                            .stroke(Color(.orange), lineWidth: 1)
+                                                    )
+                                            )
+                                    
                                     .padding(.horizontal)
                                 }
                             }
@@ -180,8 +194,15 @@ struct RecipeDetailView: View {
                                     }
                                 }
                                 .padding()
-                                .background(Color.yellow.opacity(0.3))
-                                .cornerRadius(12)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.white)
+                                        .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color(.orange), lineWidth: 1)
+                                        )
+                                )
+                                                                
                                 .padding(.horizontal)
                             }
                         }

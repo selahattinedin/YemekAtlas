@@ -14,12 +14,12 @@ struct InfoPill: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .continuous)
-                .fill(Color.yellow)
+                .fill(Color.orange)
                 .frame(width: 70, height: 90)
             
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(Color.white)
-                .frame(width: 50, height: 75)
+                .frame(width: 60, height: 75)
             
             VStack(spacing: 4) {
                 Image(systemName: icon)
