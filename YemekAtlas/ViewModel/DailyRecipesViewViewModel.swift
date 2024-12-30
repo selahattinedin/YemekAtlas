@@ -35,7 +35,7 @@ class DailyRecipesViewViewModel: ObservableObject {
         İsim: [Tarif adı]
 
         Malzemeler: 
-        (Tarif için malzemeleri listele ve başına - koy)
+        (Tarif için malzemeleri listele ve başına - koy )
         - [Malzeme ve miktarı]
 
         Kalori: Tarif adına uygun bir kalori ver. [Sadece sayı] kcal
@@ -51,6 +51,7 @@ class DailyRecipesViewViewModel: ObservableObject {
         - Sadece alerjen madde olanları Alerjen başlığı altında belirt listede hiçbiri yoksa o zaman "Bulunmuyor" yaz.]
 
         Yapılış:
+        Cümle sonunda nokta varsa eğer alt satırda göster
         [Detaylı tarif]
 
         ImageURL: [Yemek görseli için URL]

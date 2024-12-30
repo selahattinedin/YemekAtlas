@@ -4,6 +4,12 @@
 //
 //  Created by Selahattin EDİN on 18.11.2024.
 //
+//
+//  HomeView.swift
+//  YemekAtlas
+//
+//  Created by Selahattin EDİN on 18.11.2024.
+//
 import SwiftUI
 
 struct RecipeDetailView: View {
@@ -54,15 +60,15 @@ struct RecipeDetailView: View {
                         Spacer()
                         
                         Button(action: {
-                                                favoritesManager.toggleFavorite(recipe: recipe)
-                                            }) {
-                                                Image(systemName: favoritesManager.isFavorite(recipe: recipe) ? "heart.fill" : "heart")
-                                                    .font(.title2)
-                                                    .foregroundColor(favoritesManager.isFavorite(recipe: recipe) ? .red : .white)
-                                                    .padding(12)
-                                                    .background(Color.black.opacity(0.3))
-                                                    .clipShape(Circle())
-                                            }
+                            favoritesManager.toggleFavorite(recipe: recipe)
+                        }) {
+                            Image(systemName: favoritesManager.isFavorite(recipe: recipe) ? "heart.fill" : "heart")
+                            .font(.title2)
+                            .foregroundColor(favoritesManager.isFavorite(recipe: recipe) ? .red : .white)
+                            .padding(12)
+                            .background(Color.black.opacity(0.3))
+                            .clipShape(Circle())
+                            }
                         .padding(.trailing)
                     }
                     .padding(.top, 60)
@@ -244,6 +250,11 @@ struct RecipeDetailView_Previews: PreviewProvider {
         return RecipeDetailView(recipe: sampleRecipe)
     }
 }
+
+
+
+
+
 
 
 

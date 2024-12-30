@@ -4,10 +4,9 @@
 //
 //  Created by Selahattin EDİN on 18.11.2024.
 //
-
 import Foundation
 
-struct Recipe: Codable, Identifiable, Equatable {
+struct Recipe: Codable, Identifiable, Equatable, Hashable {
     let id = UUID()
     let name: String
     let ingredients: [String]
@@ -19,7 +18,13 @@ struct Recipe: Codable, Identifiable, Equatable {
     let instructions: String
     let imageURL: String
     
+    // Equatable protokolü için
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
-           lhs.id == rhs.id
-       }
+        lhs.id == rhs.id
+    }
+    
+    // Hashable protokolü için
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
