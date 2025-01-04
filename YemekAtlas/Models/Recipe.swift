@@ -18,12 +18,12 @@ struct Recipe: Codable, Identifiable, Equatable, Hashable {
     let instructions: String
     let imageURL: String
     
-    // Equatable protokolü için
+    
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
         lhs.id == rhs.id
     }
     
-    // Hashable protokolü için
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

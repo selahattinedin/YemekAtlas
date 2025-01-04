@@ -11,8 +11,8 @@ struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewViewModel()
     @StateObject private var favoritesManager = FavoriteRecipesManager()
     @State private var isLoggedOut = false
-
-    @State private var showAlert = false  
+    @State private var showLogoutAlert = false
+    @State private var showAlert = false
     @State private var recipeToDelete: Recipe?
 
     var body: some View {
@@ -29,7 +29,7 @@ struct ProfileView: View {
                         Spacer()
                         HStack(spacing: 8) {
                             VStack {
-                                Text("10")
+                                Text("\(favoritesManager.favoriteRecipes.count)")
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
                                 Text("Posts")
@@ -64,12 +64,9 @@ struct ProfileView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
 
+                    // Çıkış Yap butonu
                     Button {
-                        viewModel.logout { success in
-                            if success {
-                                isLoggedOut = true
-                            }
-                        }
+                        showLogoutAlert = true
                     } label: {
                         Text("Çıkış Yap")
                             .font(.subheadline)
@@ -81,6 +78,7 @@ struct ProfileView: View {
                     }
                     .padding(.vertical)
 
+                    // Favori Tariflerim bölümü
                     HStack {
                         Text("Favori Tariflerim")
                             .font(.title2)
@@ -143,22 +141,43 @@ struct ProfileView: View {
         .navigationDestination(isPresented: $isLoggedOut) {
             LoginView()
         }
-        .alert("Tarifi Sil", isPresented: $showAlert) {
-            Button("Sil", role: .destructive) {
-                if let recipe = recipeToDelete,
-                   let index = favoritesManager.favoriteRecipes.firstIndex(where: { $0.id == recipe.id }) {
-                    favoritesManager.removeFavorite(at: IndexSet(integer: index))
-                }
-                recipeToDelete = nil
-            }
-            Button("İptal", role: .cancel) {
-                recipeToDelete = nil
-            }
-        } message: {
+        // Çıkış Yap Custom Alert
+        .overlay {
+            CustomAlertView(
+                title: "Çıkış Yap",
+                message: "Hesabınızdan çıkış yapmak istediğinize emin misiniz?",
+                confirmButtonTitle: "Çıkış Yap",
+                cancelButtonTitle: "İptal",
+                confirmAction: {
+                    viewModel.logout { success in
+                        if success {
+                            isLoggedOut = true
+                        }
+                    }
+                },
+                cancelAction: {},
+                isPresented: $showLogoutAlert
+            )
+        }
+        // Tarif Silme Custom Alert
+        .overlay {
             if let recipe = recipeToDelete {
-                Text("\(recipe.name) adlı tarifi silmek istiyor musunuz?")
-            } else {
-                Text("Bilinmeyen bir hata oluştu.")
+                CustomAlertView(
+                    title: "Tarifi Sil",
+                    message: "\(recipe.name) adlı tarifi silmek istiyor musunuz?",
+                    confirmButtonTitle: "Sil",
+                    cancelButtonTitle: "İptal",
+                    confirmAction: {
+                        if let index = favoritesManager.favoriteRecipes.firstIndex(where: { $0.id == recipe.id }) {
+                            favoritesManager.removeFavorite(at: IndexSet(integer: index))
+                        }
+                        recipeToDelete = nil
+                    },
+                    cancelAction: {
+                        recipeToDelete = nil
+                    },
+                    isPresented: $showAlert
+                )
             }
         }
         .onAppear {
@@ -170,3 +189,8 @@ struct ProfileView: View {
 #Preview {
     ProfileView()
 }
+
+
+
+
+
