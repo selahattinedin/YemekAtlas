@@ -5,6 +5,8 @@
 //  Created by Selahattin EDİN on 29.10.2024.
 //
 
+
+
 import SwiftUI
 import GoogleGenerativeAI
 
@@ -136,6 +138,11 @@ struct SearchView: View {
 #Preview {
     SearchView()
 }
+
+    
+
+
+
 
     
 

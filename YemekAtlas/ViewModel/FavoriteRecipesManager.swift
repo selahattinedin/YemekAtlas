@@ -28,11 +28,12 @@ class FavoriteRecipesManager: ObservableObject {
         }
     }
 
+    // Favori tarifi eklerken içerik kontrolü yapıyoruz.
     func toggleFavorite(recipe: Recipe) {
-        if let index = favoriteRecipes.firstIndex(where: { $0.id == recipe.id }) {
-            favoriteRecipes.remove(at: index)
-        } else {
-            favoriteRecipes.append(recipe)
+        // Aynı isim ve içeriklere sahip tarifin tekrar eklenmesini engelliyoruz.
+        if !favoriteRecipes.contains(where: { $0.name == recipe.name && $0.ingredients == recipe.ingredients }) {
+            // Tarif favorilerde yoksa, başa ekle
+            favoriteRecipes.insert(recipe, at: 0)
         }
         saveFavoriteRecipes()
     }
@@ -41,14 +42,12 @@ class FavoriteRecipesManager: ObservableObject {
         for index in offsets {
             if index < favoriteRecipes.count {
                 favoriteRecipes.remove(at: index)
-            } else {
-                print("Silme işlemi sırasında hata oluştu: Geçersiz indeks.")
             }
         }
         saveFavoriteRecipes()
     }
 
     func isFavorite(recipe: Recipe) -> Bool {
-        return favoriteRecipes.contains(where: { $0.id == recipe.id })
+        return favoriteRecipes.contains(where: { $0.name == recipe.name && $0.ingredients == recipe.ingredients })
     }
 }

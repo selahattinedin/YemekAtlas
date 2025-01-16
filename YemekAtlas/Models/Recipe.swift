@@ -27,4 +27,6 @@ struct Recipe: Codable, Identifiable, Equatable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
+    
 }

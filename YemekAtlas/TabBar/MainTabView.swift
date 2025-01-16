@@ -12,28 +12,7 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            
-            RecipeDetailView(
-                    recipe: Recipe(
-                        name: "Spagetti",
-                        ingredients: ["Spagetti", "Karabiber", "Ketçap", "Mayonez", "Salça sosu"],
-                        calories: 250,
-                        protein: 0,
-                        carbohydrates: 0,
-                        fat: 0,
-                        allergens: ["Karabiber"],
-                        instructions: "Makarnayı haşlayın. Sosları ekleyin ve karıştırın.",
-                        imageURL: "https://pixabay.com/photos/pasta-italian-cuisine-dish-3547078/"
-                    )
-                )
-                
-
-            .tabItem {
-                Image(systemName: "house")
-                Text("Home")
-            }
-            .tag(TabSelection.home)
-            
+    
             SearchView()
                 .tabItem {
                     Image(systemName: "magnifyingglass")
@@ -53,7 +32,7 @@ struct MainTabView: View {
 }
 
 enum TabSelection {
-    case home
+    
     case search
     case profile
 }

@@ -14,8 +14,7 @@ class SearchViewViewModel: ObservableObject {
     @Published var recipe: Recipe?
     @Published var isLoading = false
     @Published var errorMessage: String?
-    @Published var popularRecipes: [Recipe] = [] 
-
+    @Published var popularRecipes: [Recipe] = []
 
     private let generativeModel: GenerativeModel
 
@@ -79,7 +78,7 @@ class SearchViewViewModel: ObservableObject {
         var fat = 0
         var allergens: [String] = []
         var instructions = ""
-        var imageURL = "https:en.wikipedia.org/wiki/Adana_kebab%C4%B1#/media/File:Adana_kebab.jpg"
+        var imageURL = "https://en.wikipedia.org/wiki/Adana_kebab%C4%B1#/media/File:Adana_kebab.jpg"
         var currentSection = ""
 
         let lines = text.components(separatedBy: .newlines)
@@ -125,7 +124,7 @@ class SearchViewViewModel: ObservableObject {
                 }
 
             case let str where currentSection == "yapilis" && !str.isEmpty:
-                instructions += "\n" + str.trim()
+                instructions += (instructions.isEmpty ? "" : "\n") + str.trim()
 
             default:
                 break
@@ -159,9 +158,4 @@ private extension String {
         self.trimmingCharacters(in: .whitespaces)
     }
 }
-
-
-    
-    
-
 
