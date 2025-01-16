@@ -14,52 +14,64 @@ struct CustomAlertView: View {
     let cancelButtonTitle: String
     let confirmAction: () -> Void
     let cancelAction: () -> Void
-
+    
     @Binding var isPresented: Bool
-
+    
     var body: some View {
         if isPresented {
             ZStack {
-                Color.black.opacity(0.4) 
+                Color.black.opacity(0.4)
                     .ignoresSafeArea()
-
-                VStack(spacing: 16) {
-                    Text(title)
-                        .font(.headline)
-                        .fontWeight(.bold)
-
-                    Text(message)
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.secondary)
-
-                    HStack(spacing: 16) {
+                
+                VStack(spacing: 0) {
+                    // Title and Message
+                    VStack(spacing: 8) {
+                        Text(title)
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                        
+                        Text(message)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 20)
+                    .padding(.bottom, 16)
+                    
+                    Divider()
+                    
+                    // Buttons side by side
+                    HStack(spacing: 0) {
                         Button(cancelButtonTitle) {
                             cancelAction()
                             isPresented = false
                         }
-                        .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.gray.opacity(0.2))
-                        .foregroundColor(.black)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-
+                        .padding(.vertical, 12)
+                        .foregroundColor(.blue)
+                        .font(.system(size: 17, weight: .regular))
+                        
+                        Divider()
+                        
                         Button(confirmButtonTitle) {
                             confirmAction()
                             isPresented = false
                         }
-                        .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.red)
-                        .foregroundColor(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.vertical, 12)
+                        .foregroundColor(.red)
+                        .font(.system(size: 17, weight: .semibold))
                     }
+                    .frame(height: 44)
                 }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(16)
-                .shadow(radius: 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color(UIColor.systemBackground))
+                )
                 .padding(.horizontal, 40)
+                .frame(maxWidth: 270)
+                .fixedSize(horizontal: false, vertical: true) // Bu satır alert'in içeriğe göre boyutlanmasını sağlar
             }
         }
     }
