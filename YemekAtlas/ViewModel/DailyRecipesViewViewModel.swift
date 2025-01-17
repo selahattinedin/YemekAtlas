@@ -51,6 +51,7 @@ class DailyRecipesViewViewModel: ObservableObject {
         Protein: [Sadece sayı] g
         Karbonhidrat: [Sadece sayı] g
         Yağ: [Sadece sayı] g
+        Saat: [Sadece sayı] Dak
 
         Alerjenler:
         [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
@@ -94,6 +95,7 @@ class DailyRecipesViewViewModel: ObservableObject {
         var allergens: [String] = []
         var instructions = ""
         var imageURL = "https://via.placeholder.com/150"
+        var clock = 43
         var currentSection = ""
         
         let lines = text.components(separatedBy: .newlines)
@@ -116,7 +118,11 @@ class DailyRecipesViewViewModel: ObservableObject {
                 
             case "Yapılış:":
                 currentSection = "yapilis"
-                
+                    
+            
+            case let str where str.lowercased().contains("Saat:"):
+                clock = extractNumber(from: str)
+                    
             case let str where str.lowercased().contains("kalori:"):
                 calories = extractNumber(from: str)
                 
@@ -173,7 +179,9 @@ class DailyRecipesViewViewModel: ObservableObject {
             fat: fat,
             allergens: allergens,
             instructions: instructions.trim(),
-            imageURL: imageURL
+            imageURL: imageURL,
+            clock: clock
+            
         )
     }
     

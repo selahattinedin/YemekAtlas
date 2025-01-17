@@ -45,6 +45,7 @@ class SearchViewViewModel: ObservableObject {
         Protein: [Sadece sayı] g
         Karbonhidrat: [Sadece sayı] g
         Yağ: [Sadece sayı] g
+        Saat: [Sadece sayı] dak
 
         Alerjenler:
         [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
@@ -80,6 +81,7 @@ class SearchViewViewModel: ObservableObject {
         var instructions = ""
         var imageURL = "https://en.wikipedia.org/wiki/Adana_kebab%C4%B1#/media/File:Adana_kebab.jpg"
         var currentSection = ""
+        var clock = 43
 
         let lines = text.components(separatedBy: .newlines)
 
@@ -95,7 +97,10 @@ class SearchViewViewModel: ObservableObject {
 
             case "Alerjenler:":
                 currentSection = "alerjenler"
-
+                    
+            case let str where str.lowercased().contains("Saat"):
+                    clock = extractNumber(from: str)
+                    
             case let str where str.lowercased().contains("kalori"):
                 calories = extractNumber(from: str)
 
@@ -140,7 +145,8 @@ class SearchViewViewModel: ObservableObject {
             fat: fat,
             allergens: allergens.isEmpty ? ["Alerjen bulunmuyor"] : allergens,
             instructions: instructions.trim(),
-            imageURL: imageURL
+            imageURL: imageURL,
+            clock: clock
         )
     }
 

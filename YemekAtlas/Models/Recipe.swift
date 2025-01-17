@@ -17,6 +17,7 @@ struct Recipe: Codable, Identifiable, Equatable, Hashable {
     let allergens: [String]
     let instructions: String
     let imageURL: String
+    let clock: Int
     
     
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
