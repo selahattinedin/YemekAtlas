@@ -20,6 +20,9 @@
 		306AA50E2D19F6DB0071C740 /* InfoPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA50D2D19F6DB0071C740 /* InfoPill.swift */; };
 		306AA5912D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */; };
 		306AA5932D1CA2F10071C740 /* DailyRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */; };
+		306F8E5D2D3BAB7A00E308B1 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E5C2D3BAB7A00E308B1 /* WelcomeView.swift */; };
+		306F8E612D3C1FB200E308B1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */; };
+		306F8E632D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */; };
 		309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */; };
 		309F4E842D29D09C008A3936 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E832D29D09C008A3936 /* CustomAlertView.swift */; };
 		30A4B1072D1F06E3009BF054 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 30A4B1062D1F06E3009BF054 /* Lottie */; };
@@ -84,6 +87,9 @@
 		306AA50D2D19F6DB0071C740 /* InfoPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPill.swift; sourceTree = "<group>"; };
 		306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipesViewViewModel.swift; sourceTree = "<group>"; };
 		306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipesView.swift; sourceTree = "<group>"; };
+		306F8E5C2D3BAB7A00E308B1 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewViewModel.swift; sourceTree = "<group>"; };
 		309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButtonView.swift; sourceTree = "<group>"; };
 		309F4E832D29D09C008A3936 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		30A4B1082D1F0741009BF054 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
@@ -213,6 +219,8 @@
 				306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */,
 				309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */,
 				309F4E832D29D09C008A3936 /* CustomAlertView.swift */,
+				306F8E5C2D3BAB7A00E308B1 /* WelcomeView.swift */,
+				306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,6 +246,7 @@
 				30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */,
 				306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */,
 				30A4B10E2D1F3920009BF054 /* FavoriteRecipesManager.swift */,
+				306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -359,6 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				306F8E612D3C1FB200E308B1 /* ForgotPasswordView.swift in Sources */,
 				30BDD5682CC52606006F8EFA /* AgreementView.swift in Sources */,
 				306AA5932D1CA2F10071C740 /* DailyRecipesView.swift in Sources */,
 				30BDD5642CC45A63006F8EFA /* LoginView.swift in Sources */,
@@ -366,6 +376,7 @@
 				30271B6F2CEB5A2700FA43D5 /* ProfileViewViewModel.swift in Sources */,
 				30271B672CEB4B2300FA43D5 /* RecipeDetailView.swift in Sources */,
 				30BDD5662CC5135B006F8EFA /* HeaderView.swift in Sources */,
+				306F8E5D2D3BAB7A00E308B1 /* WelcomeView.swift in Sources */,
 				306391962CEDC8310096F047 /* APIKey.swift in Sources */,
 				306391982CEE16170096F047 /* RecipeService.swift in Sources */,
 				30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */,
@@ -378,6 +389,7 @@
 				309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */,
 				30D234832CD1031600CFBA7F /* SearchView.swift in Sources */,
 				3051DDEE2CFCF8CF00ED2B63 /* HealthTip.swift in Sources */,
+				306F8E632D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift in Sources */,
 				309F4E842D29D09C008A3936 /* CustomAlertView.swift in Sources */,
 				30BDD55E2CC3F04E006F8EFA /* FirstView.swift in Sources */,
 				30D2347D2CD0F5A800CFBA7F /* User.swift in Sources */,
@@ -521,7 +533,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YemekAtlas/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 75TSHHWFW3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -550,7 +562,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YemekAtlas/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 75TSHHWFW3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

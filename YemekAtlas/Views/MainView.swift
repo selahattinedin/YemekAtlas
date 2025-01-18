@@ -15,7 +15,7 @@ struct MainView: View {
         if viewModel.isSignIn, !viewModel.currentUserId.isEmpty{
             MainTabView(selectedTab: .search)
         } else{
-            LoginView()
+            WelcomeView()
         }
     }
 }

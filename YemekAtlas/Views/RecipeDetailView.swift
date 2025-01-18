@@ -21,7 +21,7 @@ struct RecipeDetailView: View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
                 
-                Image("steak")
+                Image("welcomeImage")
                     .resizable()
                     .scaledToFill()
                     .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
@@ -210,7 +210,7 @@ struct RecipeDetailView: View {
                         RoundedRectangle(cornerRadius: 30)
                             .fill(Color.white)
                     )
-                    .offset(y: -27)
+                    .offset(y: -20)
                 }
             }
             .navigationBarBackButtonHidden(true)

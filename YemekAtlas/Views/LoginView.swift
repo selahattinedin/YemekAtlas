@@ -1,172 +1,141 @@
-//
-//  Selahattin Edin
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 20.10.2024.
-//
 
 import SwiftUI
 
 struct LoginView: View {
     @StateObject var viewModel = LoginViewViewModel()
-    
-    var body: some View {
-        NavigationView {
-            ZStack {
-                
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.white, Color.pink.opacity(0.1)]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                ).edgesIgnoringSafeArea(.all)
-                
-                ScrollView {
-                    VStack(spacing: 25) {
-                        
-                        VStack(spacing: 12) {
-                            Image("YemekAtlasIcon")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 120, height: 120)
-                                .clipShape(Circle())
-                                .overlay(
-                                    Circle()
-                                        .stroke(Color.pink.opacity(0.2), lineWidth: 4)
-                                )
-                                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
-                                .padding(.bottom, 10)
-                            
-                            Text("Tekrar Hoşgeldiniz!")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            
-                            Text("Devam etmek için giriş yapın")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
-                        .padding(.top, 40)
-                        
-                        
-                        if !viewModel.errorMessage.isEmpty {
-                            Text(viewModel.errorMessage)
-                                .foregroundStyle(.red)
-                                .font(.system(size: 14))
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal)
-                                .transition(.opacity)
-                        }
-                        
-                       
-                        VStack(spacing: 20) {
-                            
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    Image(systemName: "envelope.fill")
-                                        .foregroundColor(.pink)
-                                    TextField("E-posta", text: $viewModel.email)
-                                        .autocorrectionDisabled()
-                                        .keyboardType(.emailAddress)
-                                        .autocapitalization(.none)
+    @State private var isPasswordVisible = false
+    @State private var showForgotPasswordModal = false // Modal'ı açmak için
 
-                                }
-                                .padding()
-                                .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: 2)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color.pink.opacity(0.3), lineWidth: 1)
-                                )
-                            }
-                            
-                           
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    Image(systemName: "lock.fill")
-                                        .foregroundColor(.pink)
-                                    if viewModel.isPasswordVisible {
-                                        TextField("Şifre", text: $viewModel.password)
-                                    } else {
-                                        SecureField("Şifre", text: $viewModel.password)
-                                    }
-                                    Button(action: {
-                                        withAnimation {
-                                            viewModel.isPasswordVisible.toggle()
-                                        }
-                                    }) {
-                                        Image(systemName: viewModel.isPasswordVisible ? "eye.slash.fill" : "eye.fill")
-                                            .foregroundColor(.pink)
-                                    }
-                                }
-                                .padding()
-                                .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: 2)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color.pink.opacity(0.3), lineWidth: 1)
-                                )
-                            }
-                        }
-                        .padding(.horizontal, 25)
+    var body: some View {
+        ZStack {
+            Image("welcomeImage2")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .overlay(Color.black.opacity(0.6))
+                .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 25) {
+                    Spacer()
+                        .frame(height: 60)
+                    
+                    // Header
+                    VStack(spacing: 12) {
+                        Text("Hoş Geldiniz!")
+                            .font(.custom("Avenir-Black", size: 32))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.white)
                         
-                        
-                        NavigationLink(destination: RegisterView()) {
-                            Text("Şifremi Unuttum")
-                                .foregroundColor(.gray)
-                                .font(.system(size: 16))
-                                .fontWeight(.medium)
-                        }
-                        .padding(.top, 5)
-                        
-                        
-                        Button(action: {
-                            withAnimation {
-                                viewModel.login()
-                            }
-                        }) {
-                            Text("Giriş Yap")
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 18)
-                                .background(
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [Color.pink, Color.pink.opacity(0.8)]),
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
-                                )
-                                .clipShape(RoundedRectangle(cornerRadius: 18))
-                                .shadow(color: Color.pink.opacity(0.3), radius: 8, x: 0, y: 4)
-                        }
-                        .padding(.horizontal, 25)
-                        .padding(.top, 10)
-                        
-                        Spacer(minLength: 30)
-                        
-                       
-                        HStack(spacing: 5) {
-                            Text("Hesabınız yok mu?")
-                                .foregroundColor(.gray)
-                                .font(.system(size: 16))
-                            NavigationLink(destination: RegisterView()) {
-                                Text("Kayıt Ol")
-                                    .font(.system(size: 16))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.pink)
-                            }
-                        }
-                        .padding(.bottom, 30)
+                        Text("Mutfak yolculuğunuza\ndevam edin!")
+                            .font(.custom("Avenir-Medium", size: 20))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.white.opacity(0.9))
                     }
+                    .padding(.bottom, 30)
+                    
+                    if !viewModel.errorMessage.isEmpty {
+                        Text(viewModel.errorMessage)
+                            .foregroundStyle(.red)
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
+                    
+                    // Form Fields
+                    VStack(spacing: 20) {
+                        // Email Field
+                        HStack(spacing: 15) {
+                            Image(systemName: "envelope.fill")
+                                .foregroundColor(.black)
+                            TextField("E-posta", text: $viewModel.email)
+                                .foregroundColor(.black)
+                                .autocapitalization(.none)
+                                .autocorrectionDisabled()
+                        }
+                        .padding()
+                        .background(Color.white.opacity(0.9))
+                        .cornerRadius(27.5)
+                        
+                        // Password Field with Toggle
+                        HStack(spacing: 15) {
+                            Image(systemName: "lock.fill")
+                                .foregroundColor(.black)
+                            if isPasswordVisible {
+                                TextField("Şifre", text: $viewModel.password)
+                                    .foregroundColor(.black)
+                            } else {
+                                SecureField("Şifre", text: $viewModel.password)
+                                    .foregroundColor(.black)
+                            }
+                            Button(action: {
+                                withAnimation {
+                                    isPasswordVisible.toggle()
+                                }
+                            }) {
+                                Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                                    .foregroundColor(.black)
+                                    .frame(width: 20, height: 20)
+                            }
+                        }
+                        .padding()
+                        .background(Color.white.opacity(0.9))
+                        .cornerRadius(27.5)
+                    }
+                    .padding(.horizontal, 45)
+                    
+                    // Forgot Password Button (opens modal)
+                    Button(action: {
+                        showForgotPasswordModal.toggle() // Modal'ı göster
+                    }) {
+                        Text("Şifremi Unuttum")
+                            .foregroundColor(.white.opacity(0.9))
+                            .font(.custom("Avenir-Medium", size: 20))
+                    }
+                    .padding(.top, 10)
+                    
+                    // Login Button
+                    Button(action: {
+                        viewModel.login()
+                    }) {
+                        HStack(spacing: 15) {
+                            Text("Giriş Yap")
+                                .font(.custom("Avenir-Heavy", size: 20))
+                            Image(systemName: "arrow.right")
+                                .font(.system(size: 20, weight: .medium))
+                        }
+                        .foregroundColor(.white)
+                        .frame(width: 280, height: 70)
+                        .background(Color(red: 255/255, green: 99/255, blue: 71/255))
+                        .cornerRadius(27.5)
+                        .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y: 5)
+                    }
+                    .padding(.top, 30)
+                    
+                    // Register Link
+                    HStack(spacing: 5) {
+                        Text("Hesabınız yok mu?")
+                            .foregroundColor(.white)
+                        NavigationLink(destination: RegisterView()) {
+                            Text("Kayıt Ol")
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(red: 255/255, green: 99/255, blue: 71/255))
+                        }
+                    }
+                    .padding(.top, 20)
+                    
+                    Spacer()
                 }
+                .padding(.horizontal)
             }
-            .navigationBarHidden(true)
+        }
+        .navigationBarHidden(true)
+        .sheet(isPresented: $showForgotPasswordModal) {
+            ForgotPasswordView() // Modal view
         }
     }
 }
-    #Preview {
+
+#Preview {
     LoginView()
 }
-                        
-                    

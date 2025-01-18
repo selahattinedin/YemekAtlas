@@ -1,186 +1,162 @@
-//
-//  RegisterView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 19.10.2024.
-//
 
 import SwiftUI
 
 struct RegisterView: View {
+    
     @StateObject var viewModel = RegisterViewViewModel()
+    @State private var isPasswordVisible = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-              
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.white, Color.pink.opacity(0.1)]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                ).edgesIgnoringSafeArea(.all)
-                
-                ScrollView {
-                    VStack(spacing: 25) {
-                       
-                        VStack(spacing: 12) {
-                            Image("YemekAtlasIcon")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 120, height: 120)
-                                .clipShape(Circle())
-                                .overlay(
-                                    Circle()
-                                        .stroke(Color.pink.opacity(0.2), lineWidth: 4)
-                                )
-                                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
-                                .padding(.bottom, 10)
-                            
-                            Text("Hoşgeldiniz")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            
-                            Text("Kayıt olmak için devam edin")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
-                        .padding(.top, 40)
+        ZStack {
+            Image("welcomeImage2")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .overlay(Color.black.opacity(0.6))
+                .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 25) {
+                    Spacer()
+                        .frame(height: 60)
+                    
+                    // Header
+                    VStack(spacing: 12) {
+                        Text("Mutfak Yolculuğuna\nHoş Geldiniz!")
+                            .font(.custom("Avenir-Black", size: 32))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.white)
                         
-                       
-                        if !viewModel.errorMessage.isEmpty {
-                            Text(viewModel.errorMessage)
-                                .foregroundStyle(.red)
-                                .font(.system(size: 14))
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal)
-                                .transition(.opacity)
+                        Text("Hesabınızı oluşturun ve\nmutfağı keşfedin!")
+                            .font(.custom("Avenir-Medium", size: 20))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                    .padding(.bottom, 30)
+                    
+                    // Error Message
+                    if !viewModel.errorMessage.isEmpty {
+                        Text(viewModel.errorMessage)
+                            .foregroundColor(.red)
+                            .font(.custom("Avenir-Medium", size: 14))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
+                    
+                    // Form Fields
+                    VStack(spacing: 20) {
+                        // Name Field
+                        HStack(spacing: 15) {
+                            Image(systemName: "person.fill")
+                                .foregroundColor(.black)
+                            TextField("Ad Soyad", text: $viewModel.name)
+                                .foregroundColor(.black)
+                                .autocapitalization(.words)
                         }
+                        .padding()
+                        .background(Color.white.opacity(0.9))
+                        .cornerRadius(27.5)
                         
-                        // Registration Form
-                        VStack(spacing: 20) {
-                            // Name Field
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    Image(systemName: "person.fill")
-                                        .foregroundColor(.pink)
-                                    TextField("Tam isminizi giriniz", text: $viewModel.name)
-                                }
-                                .padding()
-                                .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: 2)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color.pink.opacity(0.3), lineWidth: 1)
-                                )
+                        // Email Field
+                        HStack(spacing: 15) {
+                            Image(systemName: "envelope.fill")
+                                .foregroundColor(.black)
+                            TextField("E-posta", text: $viewModel.email)
+                                .foregroundColor(.black)
+                                .autocapitalization(.none)
+                                .autocorrectionDisabled()
+                                .keyboardType(.emailAddress)
+                        }
+                        .padding()
+                        .background(Color.white.opacity(0.9))
+                        .cornerRadius(27.5)
+                        
+                        // Password Field with Toggle
+                        HStack(spacing: 15) {
+                            Image(systemName: "lock.fill")
+                                .foregroundColor(.black)
+                            if isPasswordVisible {
+                                TextField("Şifre", text: $viewModel.password)
+                                    .foregroundColor(.black)
+                            } else {
+                                SecureField("Şifre", text: $viewModel.password)
+                                    .foregroundColor(.black)
                             }
-                            
-                            // Email Field
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    Image(systemName: "envelope.fill")
-                                        .foregroundColor(.pink)
-                                    TextField("E-posta", text: $viewModel.email)
-                                        .autocorrectionDisabled()
-                                        .keyboardType(.emailAddress)
-                                        .autocapitalization(.none)
-
+                            Button(action: {
+                                withAnimation {
+                                    isPasswordVisible.toggle()
                                 }
-                                .padding()
-                                .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: 2)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color.pink.opacity(0.3), lineWidth: 1)
-                                )
-                            }
-                            
-                           
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    Image(systemName: "lock.fill")
-                                        .foregroundColor(.pink)
-                                    SecureField("Şifre", text: $viewModel.password)
-                                }
-                                .padding()
-                                .background(Color.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 0, y: 2)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color.pink.opacity(0.3), lineWidth: 1)
-                                )
+                            }) {
+                                Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                                    .foregroundColor(.black)
+                                    .frame(width: 20, height: 20)
                             }
                         }
-                        .padding(.horizontal, 25)
+                        .padding()
+                        .background(Color.white.opacity(0.9))
+                        .cornerRadius(27.5)
                         
-                        // Terms Agreement
-                        HStack {
+                        // Terms and Conditions Checkbox
+                        HStack(spacing: 8) {
                             Button(action: {
                                 viewModel.agreeToTerms.toggle()
                             }) {
-                                Image(systemName: viewModel.agreeToTerms ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(viewModel.agreeToTerms ? .pink : .gray)
+                                Image(systemName: viewModel.agreeToTerms ? "checkmark.square.fill" : "square")
+                                    .foregroundColor(viewModel.agreeToTerms ? Color(red: 255/255, green: 99/255, blue: 71/255) : .white)
+                                    .font(.system(size: 20))
                             }
                             
-                            Text("Kabul ediyorum")
-                                .foregroundColor(.gray)
-                            
-                            NavigationLink(destination: AgreementView()) {
-                                Text("Kullanım Koşulları")
-                                    .foregroundColor(.pink)
-                            }
-                        }
-                        .padding(.top, 5)
-                        
-                        // Register Button
-                        Button(action: {
-                            withAnimation {
-                                viewModel.register()
-                            }
-                        }) {
-                            Text("Kayıt Ol")
-                                .fontWeight(.bold)
+                            Text("Kullanım koşullarını kabul ediyorum")
+                                .font(.custom("Avenir-Medium", size: 14))
                                 .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 18)
-                                .background(
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [Color.pink, Color.pink.opacity(0.8)]),
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
-                                )
-                                .clipShape(RoundedRectangle(cornerRadius: 18))
-                                .shadow(color: Color.pink.opacity(0.3), radius: 8, x: 0, y: 4)
+                            
+                            Spacer()
                         }
-                        .padding(.horizontal, 25)
                         .padding(.top, 10)
-                        
-                        Spacer(minLength: 30)
-                        
-                        // Login Link
-                        HStack(spacing: 5) {
-                            Text("Zaten bir hesabın var mı?")
-                                .foregroundColor(.gray)
-                                .font(.system(size: 16))
-                            NavigationLink(destination: LoginView()) {
-                                Text("Giriş Yap")
-                                    .font(.system(size: 16))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.pink)
-                            }
-                        }
-                        .padding(.bottom, 30)
                     }
+                    .padding(.horizontal, 50)
+                    
+                    // Register Button
+                    Button(action: {
+                        viewModel.register()
+                    }) {
+                        HStack(spacing: 15) {
+                            Text("Kayıt Ol")
+                                .font(.custom("Avenir-Heavy", size: 20))
+                            Image(systemName: "arrow.right")
+                                .font(.system(size: 20, weight: .medium))
+                        }
+                        .foregroundColor(.white)
+                        .frame(width: 280, height: 70)
+                        .background(Color(red: 255/255, green: 99/255, blue: 71/255))
+                        .cornerRadius(27.5)
+                        .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y: 5)
+                    }
+                    .padding(.top, 30)
+                    
+                   
+                 
+                    }
+                    
+                    // Login Link
+                    HStack(spacing: 5) {
+                        Text("Zaten bir hesabın var mı?")
+                            .foregroundColor(.white)
+                        NavigationLink(destination: LoginView()) {
+                            Text("Giriş Yap")
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(red: 255/255, green: 99/255, blue: 71/255))
+                        }
+                    }
+                    .padding(.top, 20)
+                    
+                    Spacer()
                 }
+                .padding(.horizontal)
             }
-            .navigationBarHidden(true)
         }
+       
     }
-}
-
-#Preview {
+#Preview{
     RegisterView()
 }
