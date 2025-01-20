@@ -1,11 +1,8 @@
-
 import SwiftUI
 
 struct RegisterView: View {
-    
     @StateObject var viewModel = RegisterViewViewModel()
-    @State private var isPasswordVisible = false
-    
+
     var body: some View {
         ZStack {
             Image("welcomeImage2")
@@ -34,7 +31,6 @@ struct RegisterView: View {
                     }
                     .padding(.bottom, 30)
                     
-                    // Error Message
                     if !viewModel.errorMessage.isEmpty {
                         Text(viewModel.errorMessage)
                             .foregroundColor(.red)
@@ -71,26 +67,12 @@ struct RegisterView: View {
                         .background(Color.white.opacity(0.9))
                         .cornerRadius(27.5)
                         
-                        // Password Field with Toggle
+                        // Password Field
                         HStack(spacing: 15) {
                             Image(systemName: "lock.fill")
                                 .foregroundColor(.black)
-                            if isPasswordVisible {
-                                TextField("Şifre", text: $viewModel.password)
-                                    .foregroundColor(.black)
-                            } else {
-                                SecureField("Şifre", text: $viewModel.password)
-                                    .foregroundColor(.black)
-                            }
-                            Button(action: {
-                                withAnimation {
-                                    isPasswordVisible.toggle()
-                                }
-                            }) {
-                                Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
-                                    .foregroundColor(.black)
-                                    .frame(width: 20, height: 20)
-                            }
+                            SecureField("Şifre", text: $viewModel.password)
+                                .foregroundColor(.black)
                         }
                         .padding()
                         .background(Color.white.opacity(0.9))
@@ -134,29 +116,12 @@ struct RegisterView: View {
                     }
                     .padding(.top, 30)
                     
-                   
-                 
+                    NavigationLink(destination: VerificationView(), isActive: $viewModel.showVerificationScreen) {
+                        EmptyView()
                     }
-                    
-                    // Login Link
-                    HStack(spacing: 5) {
-                        Text("Zaten bir hesabın var mı?")
-                            .foregroundColor(.white)
-                        NavigationLink(destination: LoginView()) {
-                            Text("Giriş Yap")
-                                .fontWeight(.bold)
-                                .foregroundColor(Color(red: 255/255, green: 99/255, blue: 71/255))
-                        }
-                    }
-                    .padding(.top, 20)
-                    
-                    Spacer()
+                    .isDetailLink(false)
                 }
-                .padding(.horizontal)
             }
         }
-       
     }
-#Preview{
-    RegisterView()
 }

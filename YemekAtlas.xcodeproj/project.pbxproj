@@ -13,6 +13,8 @@
 		30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */; };
 		30271B6F2CEB5A2700FA43D5 /* ProfileViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */; };
 		30271B712CEB5D6000FA43D5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B702CEB5D6000FA43D5 /* Recipe.swift */; };
+		3029B2C12D3E703500D310A7 /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029B2C02D3E703500D310A7 /* VerificationView.swift */; };
+		3029B2C32D3E73FA00D310A7 /* VerificationViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029B2C22D3E73FA00D310A7 /* VerificationViewViewModel.swift */; };
 		3051DDEE2CFCF8CF00ED2B63 /* HealthTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */; };
 		306391942CEDC7A50096F047 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 306391932CEDC7A50096F047 /* GenerativeAI-Info.plist */; };
 		306391962CEDC8310096F047 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306391952CEDC8310096F047 /* APIKey.swift */; };
@@ -23,6 +25,7 @@
 		306F8E5D2D3BAB7A00E308B1 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E5C2D3BAB7A00E308B1 /* WelcomeView.swift */; };
 		306F8E612D3C1FB200E308B1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */; };
 		306F8E632D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */; };
+		306F8E672D3CE93300E308B1 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E662D3CE93300E308B1 /* AlertView.swift */; };
 		309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */; };
 		309F4E842D29D09C008A3936 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E832D29D09C008A3936 /* CustomAlertView.swift */; };
 		30A4B1072D1F06E3009BF054 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 30A4B1062D1F06E3009BF054 /* Lottie */; };
@@ -80,6 +83,8 @@
 		30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewViewModel.swift; sourceTree = "<group>"; };
 		30271B6E2CEB5A2700FA43D5 /* ProfileViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewModel.swift; sourceTree = "<group>"; };
 		30271B702CEB5D6000FA43D5 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		3029B2C02D3E703500D310A7 /* VerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationView.swift; sourceTree = "<group>"; };
+		3029B2C22D3E73FA00D310A7 /* VerificationViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewViewModel.swift; sourceTree = "<group>"; };
 		3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTip.swift; sourceTree = "<group>"; };
 		306391932CEDC7A50096F047 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		306391952CEDC8310096F047 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 		306F8E5C2D3BAB7A00E308B1 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewViewModel.swift; sourceTree = "<group>"; };
+		306F8E662D3CE93300E308B1 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButtonView.swift; sourceTree = "<group>"; };
 		309F4E832D29D09C008A3936 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		30A4B1082D1F0741009BF054 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
@@ -221,6 +227,8 @@
 				309F4E832D29D09C008A3936 /* CustomAlertView.swift */,
 				306F8E5C2D3BAB7A00E308B1 /* WelcomeView.swift */,
 				306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */,
+				306F8E662D3CE93300E308B1 /* AlertView.swift */,
+				3029B2C02D3E703500D310A7 /* VerificationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -247,6 +255,7 @@
 				306AA5902D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift */,
 				30A4B10E2D1F3920009BF054 /* FavoriteRecipesManager.swift */,
 				306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */,
+				3029B2C22D3E73FA00D310A7 /* VerificationViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -379,9 +388,11 @@
 				306F8E5D2D3BAB7A00E308B1 /* WelcomeView.swift in Sources */,
 				306391962CEDC8310096F047 /* APIKey.swift in Sources */,
 				306391982CEE16170096F047 /* RecipeService.swift in Sources */,
+				3029B2C32D3E73FA00D310A7 /* VerificationViewViewModel.swift in Sources */,
 				30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */,
 				30BDD56B2CC709F8006F8EFA /* LoginViewViewModel.swift in Sources */,
 				30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */,
+				306F8E672D3CE93300E308B1 /* AlertView.swift in Sources */,
 				30A4B1092D1F0741009BF054 /* Lottie.swift in Sources */,
 				30BDD5622CC42FBA006F8EFA /* RegisterView.swift in Sources */,
 				30271B692CEB4B4A00FA43D5 /* ProfileView.swift in Sources */,
@@ -396,6 +407,7 @@
 				30271B652CEB492900FA43D5 /* MainTabView.swift in Sources */,
 				30D2347F2CD0FC3B00CFBA7F /* Extensions.swift in Sources */,
 				30A4B10F2D1F3920009BF054 /* FavoriteRecipesManager.swift in Sources */,
+				3029B2C12D3E703500D310A7 /* VerificationView.swift in Sources */,
 				306AA50E2D19F6DB0071C740 /* InfoPill.swift in Sources */,
 				30BDD56D2CC70A0C006F8EFA /* RegisterViewViewModel.swift in Sources */,
 				306AA5912D1CA2DF0071C740 /* DailyRecipesViewViewModel.swift in Sources */,

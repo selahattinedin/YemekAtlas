@@ -28,11 +28,9 @@ class FavoriteRecipesManager: ObservableObject {
         }
     }
 
-    // Favori tarifi eklerken içerik kontrolü yapıyoruz.
+    
     func toggleFavorite(recipe: Recipe) {
-        // Aynı isim ve içeriklere sahip tarifin tekrar eklenmesini engelliyoruz.
         if !favoriteRecipes.contains(where: { $0.name == recipe.name && $0.ingredients == recipe.ingredients }) {
-            // Tarif favorilerde yoksa, başa ekle
             favoriteRecipes.insert(recipe, at: 0)
         }
         saveFavoriteRecipes()

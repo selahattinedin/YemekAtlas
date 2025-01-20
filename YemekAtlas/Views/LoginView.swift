@@ -130,6 +130,7 @@ struct LoginView: View {
             }
         }
         .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $showForgotPasswordModal) {
             ForgotPasswordView() // Modal view
         }

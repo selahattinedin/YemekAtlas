@@ -9,22 +9,16 @@ import SwiftUI
 
 struct FirstView: View {
     var body: some View {
-        VStack {
-            Image("YemekAtlasIcon")
+        ZStack {
+            // Arka plan resmi
+            Image("welcomeImage2")
                 .resizable()
-                .scaledToFit()
-                .frame(width: 300, height: 300)
-                .clipShape(Circle())
-
-            Text("Yemek Atlası")
-                .bold()
-                .font(.largeTitle)
-                .italic()
-                .foregroundStyle(.white)
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .overlay(Color.black.opacity(0.6)) // Siyah overlay
+                .ignoresSafeArea()
+            
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.pink)
-        .ignoresSafeArea()
     }
 }
 

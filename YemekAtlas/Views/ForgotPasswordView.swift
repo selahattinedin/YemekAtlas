@@ -1,32 +1,22 @@
-//
-//  ForgotPasswordView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 18.01.2025.
-//
-
 import SwiftUI
 import FirebaseAuth
 
-
-import SwiftUI
-
 struct ForgotPasswordView: View {
-    @StateObject private var viewModel = ForgotPasswordViewViewModel() // ViewModel
-    @Environment(\.dismiss) private var dismiss // Modal'ı kapatmak için
+    @StateObject private var viewModel = ForgotPasswordViewViewModel()
+    @Environment(\.dismiss) private var dismiss
     
-    @State private var isAlertPresented = false // Alert'in gösterilip gösterilmeyeceğini kontrol eder
-    @State private var alertTitle = "" // Alert başlığı
-    @State private var alertMessage = "" // Alert mesajı
-    @State private var isSuccessAlert = false // Success mesajı için boolean
-
+    @State private var isAlertPresented = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @State private var isConfirmationAlert = true // Hangi alert'in gösterileceğini kontrol eder
+    
     var body: some View {
         ZStack {
-            Image("welcomeImage2") // Giriş ekranındaki arka plan resmi
+            Image("welcomeImage2")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .overlay(Color.black.opacity(0.6)) // Yarı şeffaf siyah overlay
+                .overlay(Color.black.opacity(0.6))
                 .ignoresSafeArea()
             
             VStack {
@@ -64,7 +54,10 @@ struct ForgotPasswordView: View {
                 
                 // Şifreyi Sıfırla Button
                 Button(action: {
-                    isAlertPresented.toggle() // Alert'i göster
+                    alertTitle = "Onay"
+                    alertMessage = "Şifre sıfırlama bağlantısı göndermek istediğinize emin misiniz?"
+                    isConfirmationAlert = true
+                    isAlertPresented = true
                 }) {
                     HStack(spacing: 15) {
                         Text("Şifreyi Sıfırla")
@@ -74,7 +67,7 @@ struct ForgotPasswordView: View {
                     }
                     .foregroundColor(.white)
                     .frame(width: 280, height: 70)
-                    .background(Color(red: 255/255, green: 99/255, blue: 71/255)) // Turuncu arka plan
+                    .background(Color(red: 255/255, green: 99/255, blue: 71/255))
                     .cornerRadius(27.5)
                     .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y: 5)
                 }
@@ -83,14 +76,14 @@ struct ForgotPasswordView: View {
                 Spacer()
             }
             
-            // Geri butonu - Sol üstte ve turuncu tasarım
+            // Geri butonu
             VStack {
                 HStack {
                     Button(action: {
-                        dismiss() // Modal'ı kapat
+                        dismiss()
                     }) {
                         HStack {
-                            Image(systemName: "chevron.left") // Geri ok simgesi
+                            Image(systemName: "chevron.left")
                                 .font(.title3)
                                 .foregroundColor(.white)
                             Text("Geri")
@@ -98,54 +91,67 @@ struct ForgotPasswordView: View {
                                 .foregroundColor(.white)
                         }
                         .padding()
-                        .background(Color(red: 255/255, green: 99/255, blue: 71/255)) // Turuncu arka plan
+                        .background(Color(red: 255/255, green: 99/255, blue: 71/255))
                         .cornerRadius(10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.white, lineWidth: 1)
                         )
                     }
-                    .padding(.top, 40) // Sol üstte konumlandırmak için üstten padding ekledik
-                    .padding(.leading, 60) // Sol taraftan padding ile köşeye yapıştırdık
+                    .padding(.top, 40)
+                    .padding(.leading, 60)
                     
                     Spacer()
                 }
                 Spacer()
             }
-            
         }
         .navigationBarHidden(true)
         .alert(isPresented: $isAlertPresented) {
-            Alert(
-                title: Text(alertTitle),
-                message: Text(alertMessage),
-                primaryButton: .destructive(Text("Evet")) {
-                    viewModel.resetPassword { success in
-                        if success {
-                            alertTitle = "Başarılı!"
-                            alertMessage = "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi."
-                            isSuccessAlert = true
+            if isConfirmationAlert {
+                // Onay Alert'i
+                Alert(
+                    title: Text(alertTitle),
+                    message: Text(alertMessage),
+                    primaryButton: .destructive(Text("Evet")) {
+                        viewModel.resetPassword { success in
+                            if success {
+                                alertTitle = "Başarılı!"
+                                alertMessage = "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi."
+                                isConfirmationAlert = false
+                                // Kısa bir gecikme ile success alert'ini göster
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    isAlertPresented = true
+                                }
+                            } else {
+                                alertTitle = "Hata"
+                                alertMessage = "Bir hata oluştu. Lütfen tekrar deneyin."
+                                isConfirmationAlert = false
+                                // Kısa bir gecikme ile error alert'ini göster
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    isAlertPresented = true
+                                }
+                            }
+                        }
+                    },
+                    secondaryButton: .cancel(Text("Hayır"))
+                )
+            } else {
+                // Sonuç Alert'i
+                Alert(
+                    title: Text(alertTitle),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("Tamam")) {
+                        if alertTitle == "Başarılı!" {
+                            dismiss()
                         }
                     }
-                },
-                secondaryButton: .cancel(Text("Hayır"))
-            )
-        }
-        .alert(isPresented: $isSuccessAlert) {
-            Alert(
-                title: Text(alertTitle),
-                message: Text(alertMessage),
-                dismissButton: .default(Text("Tamam"), action: {
-                    dismiss() // Modal'ı kapat
-                })
-            )
+                )
+            }
         }
     }
 }
 
-
-
-
-#Preview {
+#Preview{
     ForgotPasswordView()
 }

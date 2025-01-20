@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CD95B8A8-06AB-45A7-9CB1-75305957B331"
+            uuid = "E74EBDB9-ACFB-46F1-8F19-FBC668FF5F4F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YemekAtlas/Views/SearchView.swift"
+            filePath = "YemekAtlas/Other/YemekAtlasApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3"
-            endingLineNumber = "3"
+            startingLineNumber = "7"
+            endingLineNumber = "7"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>

@@ -5,6 +5,13 @@
 //  Created by Selahattin EDİN on 19.10.2024.
 //
 
+//
+//  YemekAtlasApp.swift
+//  YemekAtlas
+//
+//  Created by Selahattin EDİN on 19.10.2024.
+//
+
 import SwiftUI
 import FirebaseCore
 
@@ -22,7 +29,7 @@ struct YemekAtlasApp: App {
             if showPreviewPage{
                 FirstView()
                     .onAppear(){
-                        DispatchQueue.main.asyncAfter(deadline: .now()+3){
+                        DispatchQueue.main.asyncAfter(deadline: .now()){
                             showPreviewPage = false
                         }
                     }

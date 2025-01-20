@@ -1,25 +1,19 @@
-//
-//  ContentView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 19.10.2024.
-//
-
+import Foundation
+import FirebaseAuth
 import SwiftUI
 
 struct MainView: View {
-    
     @StateObject var viewModel = MainViewViewModel()
     
     var body: some View {
-        if viewModel.isSignIn, !viewModel.currentUserId.isEmpty{
-            MainTabView(selectedTab: .search)
-        } else{
+        if viewModel.isSignIn, !viewModel.currentUserId.isEmpty {
+            if viewModel.isEmailVerified {
+                MainTabView(selectedTab: .search)
+            } else {
+                VerificationView()
+            }
+        } else {
             WelcomeView()
         }
     }
-}
-
-#Preview {
-    MainView()
 }

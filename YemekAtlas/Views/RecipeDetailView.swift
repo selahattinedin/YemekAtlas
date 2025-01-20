@@ -215,7 +215,7 @@ struct RecipeDetailView: View {
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
-            .edgesIgnoringSafeArea(.all)
+            .edgesIgnoringSafeArea(.top)
             .onAppear {
                 favoritesManager.loadFavoriteRecipes()
             }
