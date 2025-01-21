@@ -20,6 +20,15 @@ struct MainTabView: View {
                 }
                 .tag(TabSelection.search)
             
+            FavoriteView()
+                .tabItem {
+                    Image(systemName: "heart")
+                    Text("Favourite")
+                }
+                .tag(TabSelection.favorite)
+            
+            
+            
             ProfileView()
                 .tabItem {
                     Image(systemName: "person")
@@ -35,6 +44,7 @@ enum TabSelection {
     
     case search
     case profile
+    case favorite
 }
 
 #Preview {

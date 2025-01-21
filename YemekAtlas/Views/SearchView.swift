@@ -9,35 +9,36 @@
 
 import SwiftUI
 import GoogleGenerativeAI
+import Lottie
 
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewViewModel()
     @FocusState private var isSearchFocused: Bool
-    @State private var showInputs = true  // Input alanlarını kontrol etmek için
-    
+    @State private var showInputs = true
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                if showInputs {  // Input alanlarını koşullu göster
+                if showInputs {
                     VStack(spacing: 8) {
                         Text("Yemek Atlas")
                             .font(.system(size: 40, weight: .bold, design: .rounded))
                             .foregroundColor(.orange)
                             .shadow(color: .orange.opacity(0.3), radius: 2, x: 0, y: 2)
-                        
+
                         Text("Lezzet Yolculuğuna Hoş Geldiniz")
                             .font(.system(size: 18, weight: .medium, design: .rounded))
                             .foregroundColor(.gray)
                     }
                     .padding(.top, 40)
                     .transition(.move(edge: .top).combined(with: .opacity))
-                
+
                     VStack(spacing: 16) {
                         HStack(spacing: 15) {
                             Image(systemName: "magnifyingglass")
                                 .font(.system(size: 22, weight: .semibold))
                                 .foregroundColor(.yellow)
-                            
+
                             TextField("Ne yemek yapmak istersin?", text: $viewModel.searchText)
                                 .font(.system(size: 17))
                                 .focused($isSearchFocused)
@@ -46,7 +47,7 @@ struct SearchView: View {
                                 .onSubmit {
                                     searchWithAnimation()
                                 }
-                            
+
                             if !viewModel.searchText.isEmpty {
                                 Button(action: {
                                     viewModel.searchText = ""
@@ -64,7 +65,7 @@ struct SearchView: View {
                                 .fill(Color.white)
                                 .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
                         )
-                        
+
                         Button {
                             searchWithAnimation()
                         } label: {
@@ -92,29 +93,12 @@ struct SearchView: View {
                     .padding(.horizontal)
                     .transition(.move(edge: .top).combined(with: .opacity))
                 }
-                
+
                 if viewModel.isLoading {
-                    Spacer()
-                    VStack(spacing: 15) {
-                        ProgressView()
-                            .scaleEffect(1.2)
-                            .tint(.pink)
-                        
-                        Text("Tarifler Hazırlanıyor...")
-                            .font(.system(size: 16, weight: .medium, design: .rounded))
-                            .foregroundColor(.secondary)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 20)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.white.opacity(0.8))
-                    )
-                    .padding(.horizontal)
-                    .transition(.opacity.animation(.easeIn(duration: 0.3)))
-                    Spacer()
+                    LoadingView()
+                        .transition(.opacity.animation(.easeIn(duration: 0.3)))
                 }
-                
+
                 if !viewModel.isLoading && viewModel.recipe == nil && showInputs {
                     VStack(spacing: 16) {
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -126,7 +110,7 @@ struct SearchView: View {
                             .padding(.horizontal)
                         }
                     }
-                    
+
                     DailyRecipesView()
                         .padding(.top, -30)
                 }
@@ -139,21 +123,19 @@ struct SearchView: View {
             }
         }
     }
-    
+
     private func searchWithAnimation() {
         withAnimation {
             showInputs = false
         }
         Task {
             await viewModel.fetchRecipe()
-            // Arama tamamlandığında inputları tekrar göster
             withAnimation {
                 showInputs = true
             }
         }
     }
 }
-
 #Preview {
     SearchView()
 }
