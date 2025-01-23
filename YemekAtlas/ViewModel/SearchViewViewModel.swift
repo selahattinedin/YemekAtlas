@@ -45,7 +45,8 @@ class SearchViewViewModel: ObservableObject {
         Protein: [Sadece sayı] g
         Karbonhidrat: [Sadece sayı] g
         Yağ: [Sadece sayı] g
-        Saat: [Sadece sayı] dak
+
+        Hazırlık Süresi: [Sadece sayı] dakika
 
         Alerjenler:
         [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
@@ -57,6 +58,7 @@ class SearchViewViewModel: ObservableObject {
 
         ImageURL: [Yemek görseli için URL]
         """
+
 
         do {
             let response = try await generativeModel.generateContent(prompt)
@@ -80,8 +82,8 @@ class SearchViewViewModel: ObservableObject {
         var allergens: [String] = []
         var instructions = ""
         var imageURL = "https://en.wikipedia.org/wiki/Adana_kebab%C4%B1#/media/File:Adana_kebab.jpg"
+        var clock = 0 // Varsayılan değer
         var currentSection = ""
-        var clock = 43
 
         let lines = text.components(separatedBy: .newlines)
 
@@ -97,10 +99,10 @@ class SearchViewViewModel: ObservableObject {
 
             case "Alerjenler:":
                 currentSection = "alerjenler"
-                    
-            case let str where str.lowercased().contains("Saat"):
-                    clock = extractNumber(from: str)
-                    
+
+            case let str where str.contains("Hazırlık Süresi:"):
+                clock = extractNumber(from: str)
+
             case let str where str.lowercased().contains("kalori"):
                 calories = extractNumber(from: str)
 
@@ -146,9 +148,10 @@ class SearchViewViewModel: ObservableObject {
             allergens: allergens.isEmpty ? ["Alerjen bulunmuyor"] : allergens,
             instructions: instructions.trim(),
             imageURL: imageURL,
-            clock: clock
+            clock: clock 
         )
     }
+
 
     private func extractNumber(from text: String) -> Int {
         let numberPattern = "\\d+"
