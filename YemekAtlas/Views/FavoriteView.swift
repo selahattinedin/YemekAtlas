@@ -42,7 +42,7 @@ struct FavoriteView: View {
                             ForEach(favoritesManager.favoriteRecipes) { recipe in
                                 ZStack(alignment: .topTrailing) {
                                     NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-                                        RecipesCard(recipe: recipe)
+                                        RecipesCardView(recipe: recipe)
                                     }
                                     
                                     Button {
