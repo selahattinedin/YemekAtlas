@@ -34,7 +34,7 @@ struct ChefSpecialsView: View {
             4. Mozzarella peynirini ekleyin ve fırında 220°C'de 10-12 dakika pişirin.
             5. Taze fesleğen yaprakları ile süsleyerek servis yapın.
             """,
-            imageURL: "margherita_pizza",
+            imageURL: "Pizza",
             clock: 20
         ),
         Recipe(
@@ -60,7 +60,7 @@ struct ChefSpecialsView: View {
             4. Somon ve avokado dilimlerini ekleyerek rulo yapın.
             5. Dilimleyip servis edin.
             """,
-            imageURL: "sushi",
+            imageURL: "Sushi",
             clock: 30
         ),
         Recipe(
@@ -84,7 +84,7 @@ struct ChefSpecialsView: View {
             3. Alt ekmeğin üzerine marul, domates dilimleri, pişen köfte ve cheddar peyniri ekleyin.
             4. Ketçap ve mayonezle tatlandırın, üst ekmeği kapatın.
             """,
-            imageURL: "hamburger",
+            imageURL: "Hamburger",
             clock: 20
         ),
         Recipe(
@@ -108,7 +108,7 @@ struct ChefSpecialsView: View {
             3. Tortillaların içine tavuk, mısır, domates ve soğan ekleyin.
             4. Dilerseniz üzerine sos ekleyerek servis yapın.
             """,
-            imageURL: "tacos",
+            imageURL: "Tacos",
             clock: 15
         ),
         Recipe(
@@ -133,7 +133,7 @@ struct ChefSpecialsView: View {
             4. Haşlanmış erişteyi tavaya ekleyin.
             5. Üzerine yer fıstığı serpip servis yapın.
             """,
-            imageURL: "pad_thai",
+            imageURL: "PadThai",
             clock: 25
         )
     ]

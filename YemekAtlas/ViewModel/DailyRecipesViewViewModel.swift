@@ -94,7 +94,7 @@ class DailyRecipesViewViewModel: ObservableObject {
         var fat = 0
         var allergens: [String] = []
         var instructions = ""
-        var imageURL = "https://via.placeholder.com/150"
+        var imageURL = "Hamburger"
         var clock = 43
         var currentSection = ""
         

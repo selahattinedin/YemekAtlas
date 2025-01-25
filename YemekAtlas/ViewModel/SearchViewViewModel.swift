@@ -81,7 +81,7 @@ class SearchViewViewModel: ObservableObject {
         var fat = 0
         var allergens: [String] = []
         var instructions = ""
-        var imageURL = "https://en.wikipedia.org/wiki/Adana_kebab%C4%B1#/media/File:Adana_kebab.jpg"
+        var imageURL = ""
         var clock = 0 // Varsayılan değer
         var currentSection = ""
 

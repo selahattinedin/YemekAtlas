@@ -21,7 +21,7 @@ struct RecipeDetailView: View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
                 
-                Image("welcomeImage")
+                Image("Pizza")
                     .resizable()
                     .scaledToFill()
                     .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
