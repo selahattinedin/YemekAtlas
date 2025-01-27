@@ -1,12 +1,3 @@
-//
-//  SearchView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 29.10.2024.
-//
-
-
-
 import SwiftUI
 import GoogleGenerativeAI
 import Lottie
@@ -14,119 +5,133 @@ import Lottie
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewViewModel()
     @FocusState private var isSearchFocused: Bool
+    @State private var isExpanded = false
+    @State private var searchOffset: CGFloat = 0
     @State private var showInputs = true
+
+    private let mainColor = Color("yemekbackcolor")
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    if showInputs {
-                        VStack(spacing: 8) {
-                            Text("Yemek Atlas")
-                                .font(.system(size: 40, weight: .bold, design: .rounded))
-                                .foregroundColor(.orange)
-                                .shadow(color: .orange.opacity(0.3), radius: 2, x: 0, y: 2)
-                            
-                            Text("Lezzet Yolculuğuna Hoş Geldiniz")
-                                .font(.system(size: 18, weight: .medium, design: .rounded))
-                                .foregroundColor(.gray)
-                        }
-                        .padding(.top, 40)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        
-                        VStack(spacing: 16) {
-                            HStack(spacing: 15) {
-                                Image(systemName: "magnifyingglass")
-                                    .font(.system(size: 22, weight: .semibold))
-                                    .foregroundColor(.yellow)
-                                
-                                TextField("Ne yemek yapmak istersin?", text: $viewModel.searchText)
-                                    .font(.system(size: 17))
-                                    .focused($isSearchFocused)
-                                    .submitLabel(.search)
-                                    .autocorrectionDisabled()
-                                    .onSubmit {
-                                        searchWithAnimation()
-                                    }
-                                
-                                if !viewModel.searchText.isEmpty {
-                                    Button(action: {
-                                        viewModel.searchText = ""
-                                    }) {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .foregroundColor(.gray)
-                                            .font(.system(size: 20))
-                                    }
-                                }
-                            }
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 15)
-                            .background(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .fill(Color.white)
-                                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
-                            )
-                            
-                            Button {
-                                searchWithAnimation()
-                            } label: {
-                                HStack(spacing: 10) {
-                                    Image(systemName: "sparkles")
-                                    Text("Tarif Bul")
-                                }
-                                .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 15)
-                                .background(
-                                    LinearGradient(
-                                        colors: [.orange, .orange.opacity(0.6)],
-                                        startPoint: .leading,
-                                        endPoint: .trailing
+            ZStack {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        GeometryReader { geometry in
+                            let minY = geometry.frame(in: .global).minY
+                            let scrollUpOffset = minY > 0 ? -minY : 0
+                            let opacity = (200 + minY) / 200
+
+                            ZStack {
+                                Image("Pizza")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: geometry.size.width, height: 300 + (minY > 0 ? minY : 0))
+                                    .clipped()
+                                    .overlay(
+                                        LinearGradient(
+                                            colors: [
+                                                mainColor.opacity(0.7),
+                                                mainColor.opacity(0.5)
+                                            ],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
                                     )
-                                )
-                                .clipShape(Capsule())
-                                .shadow(color: .pink.opacity(0.3), radius: 5, x: 0, y: 3)
+                                    .offset(y: scrollUpOffset)
+
+                                VStack {
+                                    Text("Yemek Atlas")
+                                        .font(.system(size: 40, weight: .heavy))
+                                        .foregroundColor(.white)
+                                        .shadow(radius: 2)
+
+                                    Text("Mutfağınızın Yeni Şefi")
+                                        .font(.title3)
+                                        .foregroundColor(.white.opacity(0.9))
+                                }
+                                .offset(y: scrollUpOffset)
+                                .opacity(opacity)
                             }
-                            .opacity(viewModel.searchText.isEmpty ? 0.6 : 1)
-                            .disabled(viewModel.searchText.isEmpty)
                         }
-                        .padding(.horizontal)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                    }
-                    
-                    if viewModel.isLoading {
-                        LoadingView()
-                            .transition(.opacity.animation(.easeIn(duration: 0.3)))
-                    }
-                    
-                    if !viewModel.isLoading && viewModel.recipe == nil && showInputs {
-                        VStack(spacing: 16) {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 16) {
-                                    ForEach(viewModel.popularRecipes) { recipe in
-                                        RecipesCardView(recipe: recipe)
+                        .frame(height: 300)
+
+                        VStack(spacing: 20) {
+                            if showInputs {
+                                VStack(spacing: 16) {
+                                    HStack(spacing: 10) {
+                                        HStack {
+                                            Image(systemName: "magnifyingglass")
+                                                .font(.system(size: 22, weight: .semibold))
+                                                .foregroundColor(.gray)
+
+                                            TextField("Ne yemek yapmak istersin?", text: $viewModel.searchText)
+                                                .font(.system(size: 18, weight: .medium))
+                                                .focused($isSearchFocused)
+                                                .submitLabel(.search)
+                                                .autocorrectionDisabled()
+                                                .onSubmit {
+                                                    searchWithAnimation()
+                                                }
+                                        }
+                                        .padding(.horizontal, 20)
+                                        .padding(.vertical, 15)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .fill(Color.white)
+                                                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
+                                        )
+
+                                        Button(action: {
+                                            searchWithAnimation()
+                                        }) {
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 25)
+                                                    .fill(LinearGradient(colors: [.orange, .red], startPoint: .leading, endPoint: .trailing))
+                                                    .frame(width: 60, height: 60)
+
+                                                Image(systemName: "arrow.right")
+                                                    .font(.system(size: 24, weight: .bold))
+                                                    .foregroundColor(.white)
+                                            }
+                                        }
                                     }
                                 }
                                 .padding(.horizontal)
+                                .transition(.move(edge: .top).combined(with: .opacity))
                             }
+
+                            DailyRecipesView()
+                                .padding(.bottom, 5)
+
+                            ChefSpecialsView()
+                                .padding(.top, -10)
                         }
-                        .padding(.top, -10)
-                        
-                        DailyRecipesView()
-                            .padding(.top, -10)
-                            .padding(.bottom, 1)
-                        ChefSpecialsView()
-                            .padding(.top, -30)
-                        
+                        .padding(.horizontal)
+                        .background(
+                            RoundedShape()
+                                .fill(Color(.systemBackground))
+                                .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: -5)
+                        )
+                        .offset(y: -50)
                     }
                 }
-                .animation(.easeInOut(duration: 0.3), value: showInputs)
-                .animation(.easeInOut(duration: 0.3), value: viewModel.isLoading)
-                .background(Color.white)
-                .navigationDestination(item: $viewModel.recipe) { recipe in
-                    RecipeDetailView(recipe: recipe)
+
+                if viewModel.isLoading {
+                    ZStack {
+                        Color.black.opacity(0.3)
+                            .edgesIgnoringSafeArea(.all)
+
+                        LoadingView()
+                            .transition(.opacity.animation(.easeIn(duration: 0.3)))
+                    }
                 }
+            }
+            .edgesIgnoringSafeArea(.top)
+            .navigationBarHidden(true)
+            .animation(.easeInOut(duration: 0.3), value: showInputs)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.isLoading)
+            .navigationDestination(item: $viewModel.recipe) { recipe in
+                RecipeDetailView(recipe: recipe)
             }
         }
     }
@@ -136,24 +141,36 @@ struct SearchView: View {
             showInputs = false
         }
         Task {
+            viewModel.isLoading = true
             await viewModel.fetchRecipe()
-            withAnimation {
-                showInputs = true
+            viewModel.isLoading = false
+            if let recipe = viewModel.recipe {
+                withAnimation {
+                    showInputs = true
+                }
             }
         }
     }
 }
+
+struct RoundedShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+
+        let width = rect.size.width
+        let height = rect.size.height
+
+        path.move(to: CGPoint(x: 0, y: 50))
+        path.addQuadCurve(to: CGPoint(x: width, y: 50),
+                          control: CGPoint(x: width / 2, y: 0))
+        path.addLine(to: CGPoint(x: width, y: height))
+        path.addLine(to: CGPoint(x: 0, y: height))
+        path.closeSubpath()
+
+        return path
+    }
+}
+
 #Preview {
     SearchView()
 }
-
-    
-
-
-
-
-    
-
-
-
-
