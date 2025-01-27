@@ -8,72 +8,88 @@
 import SwiftUI
 
 struct RecipesCardView: View {
-   let recipe: Recipe
+    let recipe: Recipe
 
-   var body: some View {
-       ZStack(alignment: .bottom) {
-           // Full bleed image
-           Image(recipe.imageURL)
-               .resizable()
-               .aspectRatio(contentMode: .fill)
-               .frame(width: 250, height: 250)
-               .clipped()
-               .cornerRadius(20)
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            // Full bleed image
+            Image(recipe.imageURL)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 185, height: 190)
+                .clipped()
+                .cornerRadius(16)
 
-           // Dark gradient overlay
-           LinearGradient(
-               gradient: Gradient(colors: [.clear, .black.opacity(0.7)]),
-               startPoint: .top,
-               endPoint: .bottom
-           )
-           .cornerRadius(20)
+            // Dark gradient overlay
+            LinearGradient(
+                gradient: Gradient(colors: [.clear, .black.opacity(0.7)]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .cornerRadius(16)
 
-           // Content overlay
-           VStack(alignment: .leading, spacing: 8) {
-               Spacer()
+            // Content overlay
+            VStack(alignment: .leading, spacing: 6) {
+                Spacer()
 
-               // Recipe name
-               Text(recipe.name)
-                   .font(.headline)
-                   .foregroundColor(.white)
-                   .lineLimit(2)
+                // Recipe name
+                Text(recipe.name)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
-               // Calories and allergen info
-               HStack {
-                   HStack {
-                       Image(systemName: "flame.fill")
-                           .foregroundColor(.orange)
-                       Text("\(recipe.calories) kcal")
-                           .foregroundColor(.white)
-                   }
+                // Calories and allergen info
+                HStack {
+                    HStack {
+                        Image(systemName: "flame.fill")
+                            .foregroundColor(.orange)
+                        Text("\(recipe.calories) kcal")
+                            .foregroundColor(.white)
+                    }
+                    .font(.caption)
 
-                   Spacer()
+                    Spacer()
 
-                   if !recipe.allergens.isEmpty {
-                       Image(systemName: "exclamationmark.triangle.fill")
-                           .foregroundColor(.yellow)
-                   }
-               }
-               .font(.caption)
-           }
-           .padding(12)
-       }
-       .frame(width: 250, height: 250)
-       .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
-   }
+                    if !recipe.allergens.isEmpty {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.yellow)
+                            .font(.caption)
+                    }
+                }
+            }
+            .padding(10)
+        }
+        .frame(width: 185, height: 200)
+        .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+    }
 }
 
 #Preview {
-   RecipesCardView(recipe: Recipe(
-       name: "Delicious Chicken Salad with Extra Long Name",
-       ingredients: ["Chicken", "Lettuce", "Tomatoes"],
-       calories: 350,
-       protein: 25,
-       carbohydrates: 15,
-       fat: 12,
-       allergens: ["Nuts"],
-       instructions: "Mix and serve",
-       imageURL: "",
-       clock: 20
-   ))
+    HStack(spacing: 16) {
+        RecipesCardView(recipe: Recipe(
+            name: "Chicken Salad",
+            ingredients: ["Chicken", "Lettuce", "Tomatoes"],
+            calories: 350,
+            protein: 25,
+            carbohydrates: 15,
+            fat: 12,
+            allergens: ["Nuts"],
+            instructions: "Mix and serve",
+            imageURL: "",
+            clock: 20
+        ))
+        RecipesCardView(recipe: Recipe(
+            name: "Margherita Pizza",
+            ingredients: ["Dough", "Tomato Sauce", "Mozzarella"],
+            calories: 270,
+            protein: 12,
+            carbohydrates: 30,
+            fat: 10,
+            allergens: [],
+            instructions: "Bake and serve",
+            imageURL: "",
+            clock: 30
+        ))
+    }
 }
