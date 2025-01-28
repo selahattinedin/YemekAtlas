@@ -1,18 +1,52 @@
-//
-//  SwiftUIView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 28.01.2025.
-//
-
 import SwiftUI
 
-struct SwiftUIView: View {
+struct RecentSearchesView: View {
+    @ObservedObject var searchManager: RecentSearchesManager // Dışarıdan veri aktarılıyor
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Geçmiş Aramalar")
+                    .font(.title2.bold())
+                    .foregroundColor(.orange)
+                
+                Spacer()
+                
+                if !searchManager.recentSearches.isEmpty {
+                    Button(action: {
+                        searchManager.clearSearches()
+                    }) {
+                        Text("Temizle")
+                            .font(.subheadline)
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+            .padding(.horizontal)
+            
+            if searchManager.recentSearches.isEmpty {
+                Text("Geçmiş arama bulunmamakta.")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        ForEach(searchManager.recentSearches) { recipe in
+                            NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
+                                RecipesCardView(recipe: recipe)
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+            }
+        }
+        .padding(.top, 16)
     }
 }
 
 #Preview {
-    SwiftUIView()
+    RecentSearchesView(searchManager: RecentSearchesManager())
 }

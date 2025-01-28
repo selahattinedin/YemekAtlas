@@ -4,6 +4,7 @@ import Lottie
 
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewViewModel()
+    @StateObject private var searchManager = RecentSearchesManager() // Ortak veri kaynağı
     @FocusState private var isSearchFocused: Bool
     @State private var isExpanded = false
     @State private var searchOffset: CGFloat = 0
@@ -100,6 +101,10 @@ struct SearchView: View {
                                 .transition(.move(edge: .top).combined(with: .opacity))
                             }
 
+                            // Geçmiş aramalar
+                            RecentSearchesView(searchManager: searchManager)
+                                .padding(.vertical, 5)
+
                             DailyRecipesView()
                                 .padding(.bottom, 5)
 
@@ -116,12 +121,13 @@ struct SearchView: View {
                     }
                 }
 
+                // Yüklenme animasyonu
                 if viewModel.isLoading {
                     ZStack {
                         Color.black.opacity(0.3)
                             .edgesIgnoringSafeArea(.all)
 
-                        LoadingView()
+                        LoadingView() // Yükleme animasyonu burada gösteriliyor
                             .transition(.opacity.animation(.easeIn(duration: 0.3)))
                     }
                 }
@@ -145,6 +151,7 @@ struct SearchView: View {
             await viewModel.fetchRecipe()
             viewModel.isLoading = false
             if let recipe = viewModel.recipe {
+                searchManager.addSearch(recipe) // Geçmiş aramaya ekleme
                 withAnimation {
                     showInputs = true
                 }
@@ -152,6 +159,7 @@ struct SearchView: View {
         }
     }
 }
+
 
 struct RoundedShape: Shape {
     func path(in rect: CGRect) -> Path {
