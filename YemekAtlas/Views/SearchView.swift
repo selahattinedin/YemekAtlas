@@ -10,7 +10,7 @@ struct SearchView: View {
     @State private var searchOffset: CGFloat = 0
     @State private var showInputs = true
 
-    private let mainColor = Color("yemekbackcolor")
+    private let mainColor = Color("foodbackcolor")
 
     var body: some View {
         NavigationStack {
@@ -124,11 +124,11 @@ struct SearchView: View {
                 // Yüklenme animasyonu
                 if viewModel.isLoading {
                     ZStack {
-                        Color.black.opacity(0.3)
+                        Color.black.opacity(0.9)
                             .edgesIgnoringSafeArea(.all)
 
                         LoadingView() // Yükleme animasyonu burada gösteriliyor
-                            .transition(.opacity.animation(.easeIn(duration: 0.3)))
+                            
                     }
                 }
             }

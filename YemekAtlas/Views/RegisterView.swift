@@ -110,7 +110,7 @@ struct RegisterView: View {
                         }
                         .foregroundColor(.white)
                         .frame(width: 280, height: 70)
-                        .background(Color(red: 255/255, green: 99/255, blue: 71/255))
+                        .background(Color("foodbackcolor"))
                         .cornerRadius(27.5)
                         .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y: 5)
                     }

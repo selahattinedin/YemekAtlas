@@ -1,111 +1,81 @@
-//
-//  ProfileView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 18.11.2024.
-//
-
-
 import SwiftUI
+import FirebaseAuth
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewViewModel()
     @State private var isLoggedOut = false
     @State private var showLogoutAlert = false
 
+    var user: User
+
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack {
-                    HStack {
-                        Image("Ben")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 80, height: 80)
-                            .clipShape(Circle())
-                        Spacer()
-                        HStack(spacing: 8) {
-                            VStack {
-                                Text("0")
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                Text("Posts")
-                                    .font(.subheadline)
-                                    .frame(width: 76)
-                            }
-                            VStack {
-                                Text("10")
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                Text("Takipçi")
-                                    .font(.subheadline)
-                                    .frame(width: 76)
-                            }
-                            VStack {
-                                Text("10")
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                Text("Takip")
-                                    .font(.subheadline)
-                                    .frame(width: 76)
+            VStack {
+                // Profil Fotoğrafı
+                Image(systemName: "person.crop.circle.fill") // Örnek, profil resmi eklenebilir
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 120, height: 120)
+                    .clipShape(Circle())
+                    .padding(.top, 150)
+
+                // Kullanıcı adı ve e-posta
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(user.name)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    Text(user.email)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                .padding(.top, 36)
+                .padding(.horizontal)
+                Spacer()
+                // Çıkış yapma butonu
+                Button {
+                    showLogoutAlert = true
+                } label: {
+                    Text("Çıkış Yap")
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        .frame(width: 365, height: 40)
+                        .foregroundStyle(.white)
+                        .background(Color("foodbackcolor"))
+                        .clipShape(RoundedRectangle(cornerRadius: 50))
+                }
+                .padding(.bottom, 250)
+
+            }
+            
+            .navigationTitle("Profil")
+            .navigationBarTitleDisplayMode(.inline)
+            .padding()
+
+            // CustomAlertView çağrısı
+            .overlay {
+                CustomAlertView(
+                    title: "Çıkış Yap",
+                    message: "Hesabınızdan çıkış yapmak istediğinize emin misiniz?",
+                    confirmButtonTitle: "Çıkış Yap",
+                    cancelButtonTitle: "İptal",
+                    confirmAction: {
+                        viewModel.logout { success in
+                            if success {
+                                isLoggedOut = true
                             }
                         }
-                    }
-                    .padding(.horizontal)
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Selahattin Edin")
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-
-                    Button {
-                        showLogoutAlert = true
-                    } label: {
-                        Text("Çıkış Yap")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                            .frame(width: 365, height: 32)
-                            .foregroundStyle(.white)
-                            .background(Color.yellow)
-                            .clipShape(RoundedRectangle(cornerRadius: 50))
-                    }
-                    .padding(.vertical)
-                }
+                    },
+                    cancelAction: {},
+                    isPresented: $showLogoutAlert
+                )
             }
-            .background(Color(.systemBackground))
         }
         .navigationDestination(isPresented: $isLoggedOut) {
-            LoginView()
-        }
-       
-        .overlay {
-            CustomAlertView(
-                title: "Çıkış Yap",
-                message: "Hesabınızdan çıkış yapmak istediğinize emin misiniz?",
-                confirmButtonTitle: "Çıkış Yap",
-                cancelButtonTitle: "İptal",
-                confirmAction: {
-                    viewModel.logout { success in
-                        if success {
-                            isLoggedOut = true
-                        }
-                    }
-                },
-                cancelAction: {},
-                isPresented: $showLogoutAlert
-            )
+            LoginView() // Çıkış sonrası login ekranına yönlendir
         }
     }
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(user: User(id: "123", name: "Selahattin Edin", email: "selahattin@edin.com", joined: Date().timeIntervalSince1970))
 }
-
-
-
-
-

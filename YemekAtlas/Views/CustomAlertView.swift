@@ -24,7 +24,7 @@ struct CustomAlertView: View {
                     .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
-                    // Title and Message
+                    
                     VStack(spacing: 8) {
                         Text(title)
                             .font(.headline)

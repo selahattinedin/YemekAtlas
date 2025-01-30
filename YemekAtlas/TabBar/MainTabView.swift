@@ -29,7 +29,7 @@ struct MainTabView: View {
             
             
             
-            ProfileView()
+            ProfileView(user: User(id: "1", name: "", email: "", joined: Date().timeIntervalSince1970))
                 .tabItem {
                     Image(systemName: "person")
                     Text("Profile")

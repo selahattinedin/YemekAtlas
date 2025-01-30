@@ -42,8 +42,8 @@ struct DailyRecipesView: View {
                     .padding(.vertical, 8)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.yellow)
-                            .shadow(color: .yellow.opacity(0.6), radius: 8, y: 4)
+                            .fill(Color("foodbackcolor"))
+                            .shadow(color: .orange.opacity(0.6), radius: 8, y: 4)
                     )
                 }
                 .disabled(viewModel.isLoading)
