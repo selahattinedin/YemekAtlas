@@ -4,11 +4,13 @@ import Lottie
 
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewViewModel()
-    @StateObject private var searchManager = RecentSearchesManager() // Ortak veri kaynağı
+    @StateObject private var searchManager = RecentSearchesManager()
     @FocusState private var isSearchFocused: Bool
     @State private var isExpanded = false
     @State private var searchOffset: CGFloat = 0
     @State private var showInputs = true
+    
+    var user:User
 
     private let mainColor = Color("foodbackcolor")
 
@@ -46,7 +48,7 @@ struct SearchView: View {
                                         .foregroundColor(.white)
                                         .shadow(radius: 2)
 
-                                    Text("Mutfağınızın Yeni Şefi")
+                                    Text("Bugün ne yemek istersin \(user.name)")
                                         .font(.title3)
                                         .foregroundColor(.white.opacity(0.9))
                                 }
@@ -180,5 +182,5 @@ struct RoundedShape: Shape {
 }
 
 #Preview {
-    SearchView()
+    SearchView(user: User(id: "1", name: "John", email: "john@example.com", joined: 0))
 }

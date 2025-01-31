@@ -5,9 +5,14 @@
 //  Created by Selahattin EDİN on 18.11.2024.
 //
 import Foundation
+import FirebaseFirestore
+
+
 
 struct Recipe: Codable, Identifiable, Equatable, Hashable {
+
     let id = UUID()
+    var firestoreDocumentId: String?
     let name: String
     let ingredients: [String]
     let calories: Int

@@ -17,7 +17,6 @@
 		3029B2C32D3E73FA00D310A7 /* VerificationViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029B2C22D3E73FA00D310A7 /* VerificationViewViewModel.swift */; };
 		3029B2C52D3EF9BC00D310A7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029B2C42D3EF9BC00D310A7 /* LoadingView.swift */; };
 		3029B2C72D3F8C4100D310A7 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3029B2C62D3F8C4100D310A7 /* FavoriteView.swift */; };
-		3051DDEE2CFCF8CF00ED2B63 /* HealthTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */; };
 		305CE8A72D455A14005FD629 /* RecipesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305CE8A62D455A14005FD629 /* RecipesCardView.swift */; };
 		305CE8A92D456467005FD629 /* ChefSpecialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305CE8A82D456467005FD629 /* ChefSpecialsView.swift */; };
 		305CE9082D4971BC005FD629 /* RecentSearchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305CE9072D4971BC005FD629 /* RecentSearchesView.swift */; };
@@ -92,7 +91,6 @@
 		3029B2C22D3E73FA00D310A7 /* VerificationViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewViewModel.swift; sourceTree = "<group>"; };
 		3029B2C42D3EF9BC00D310A7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3029B2C62D3F8C4100D310A7 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
-		3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTip.swift; sourceTree = "<group>"; };
 		305CE8A62D455A14005FD629 /* RecipesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCardView.swift; sourceTree = "<group>"; };
 		305CE8A82D456467005FD629 /* ChefSpecialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefSpecialsView.swift; sourceTree = "<group>"; };
 		305CE9072D4971BC005FD629 /* RecentSearchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesView.swift; sourceTree = "<group>"; };
@@ -280,7 +278,6 @@
 			children = (
 				30D2347C2CD0F5A800CFBA7F /* User.swift */,
 				30271B702CEB5D6000FA43D5 /* Recipe.swift */,
-				3051DDED2CFCF8CF00ED2B63 /* HealthTip.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -417,7 +414,6 @@
 				30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */,
 				309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */,
 				30D234832CD1031600CFBA7F /* SearchView.swift in Sources */,
-				3051DDEE2CFCF8CF00ED2B63 /* HealthTip.swift in Sources */,
 				306F8E632D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift in Sources */,
 				309F4E842D29D09C008A3936 /* CustomAlertView.swift in Sources */,
 				305CE9082D4971BC005FD629 /* RecentSearchesView.swift in Sources */,

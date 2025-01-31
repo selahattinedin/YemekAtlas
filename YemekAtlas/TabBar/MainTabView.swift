@@ -13,7 +13,7 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
     
-            SearchView()
+            SearchView(user: User(id: "1", name: "", email: "", joined: Date().timeIntervalSince1970))
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                     Text("Search")

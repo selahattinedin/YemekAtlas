@@ -17,6 +17,8 @@ struct RecipeDetailView: View {
     let recipe: Recipe
     let tabs = ["Malzemeler", "Yapılış", "Alerjenler"]
     
+    @State private var isRecipeFavorite: Bool = false // Başlangıçta false
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
@@ -45,9 +47,9 @@ struct RecipeDetailView: View {
                         Button(action: {
                             favoritesManager.toggleFavorite(recipe: recipe)
                         }) {
-                            Image(systemName: favoritesManager.isFavorite(recipe: recipe) ? "heart.fill" : "heart")
+                            Image(systemName: isRecipeFavorite ? "heart.fill" : "heart")
                                 .font(.title2)
-                                .foregroundColor(favoritesManager.isFavorite(recipe: recipe) ? .red : .white)
+                                .foregroundColor(isRecipeFavorite ? .red : .white)
                                 .padding(12)
                                 .background(Color.black.opacity(0.3))
                                 .clipShape(Circle())
@@ -91,7 +93,6 @@ struct RecipeDetailView: View {
                                 .padding(.horizontal,6)
                                 .frame(maxWidth: .infinity)
                             }
-
                             
                          
                             HStack(spacing: 12) {
@@ -143,8 +144,7 @@ struct RecipeDetailView: View {
                                             )
                                             .padding(.horizontal)
                                         }
-                                        
-                                    }else if selectedTab == "Yapılış" {
+                                    } else if selectedTab == "Yapılış" {
                                         Text("Hazırlanış Adımları")
                                             .font(.title2)
                                             .fontWeight(.bold)
@@ -218,10 +218,13 @@ struct RecipeDetailView: View {
             .edgesIgnoringSafeArea(.top)
             .onAppear {
                 favoritesManager.loadFavoriteRecipes()
+                // Favori durumu kontrol et
+                isRecipeFavorite = favoritesManager.isFavorite(recipe: recipe)
             }
         }
     }
 }
+
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let sampleRecipe = Recipe(

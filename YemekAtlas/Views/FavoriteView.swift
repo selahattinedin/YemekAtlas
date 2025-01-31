@@ -74,21 +74,24 @@ struct FavoriteView: View {
                     confirmButtonTitle: "Sil",
                     cancelButtonTitle: "İptal",
                     confirmAction: {
+                        print("✅ Silme işlemi başlatılıyor...") // 💡 Debugging için ekledik
                         if let index = favoritesManager.favoriteRecipes.firstIndex(where: { $0.id == recipe.id }) {
+                            print("🔍 Silinecek tarif bulundu: \(recipe.name), Index: \(index)")
                             favoritesManager.removeFavorite(at: IndexSet(integer: index))
+                        } else {
+                            print("❌ Tarif bulunamadı! Listede yok.")
                         }
                         recipeToDelete = nil
                     },
                     cancelAction: {
+                        print("❌ Silme işlemi iptal edildi.")
                         recipeToDelete = nil
                     },
                     isPresented: $showAlert
                 )
             }
         }
-        .onAppear {
-            favoritesManager.loadFavoriteRecipes()
-        }
+
     }
 }
 
