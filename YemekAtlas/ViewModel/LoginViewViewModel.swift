@@ -1,47 +1,59 @@
-//
-//  LoginViewViewModel.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 22.10.2024.
-//
-
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 
-class LoginViewViewModel : ObservableObject{
+class LoginViewViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var isPasswordVisible = false
     @Published var errorMessage = ""
     
-    init(){}
+    private let db = Firestore.firestore()
     
-    func login(){
-            guard validate()
-            else {
+    init() {}
+    
+    func login() {
+        guard validate() else {
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                }
                 return
             }
             
-            Auth.auth().signIn(withEmail: email, password: password)
-          
+            guard let user = result?.user else { return }
+            
+            self.db.collection("users").document(user.uid).setData([
+                "lastLogin": Date().timeIntervalSince1970
+            ], merge: true) { error in
+                if let error = error {
+                    print("🔥 Son giriş zamanı güncellenemedi: \(error.localizedDescription)")
+                } else {
+                    print("✅ Son giriş zamanı güncellendi.")
+                }
             }
+        }
+    }
     
-    func validate() -> Bool{
+    func validate() -> Bool {
         errorMessage = ""
+        
         guard !email.trimmingCharacters(in: .whitespaces).isEmpty,
-              !password.trimmingCharacters(in: .whitespaces).isEmpty
-        else{
+              !password.trimmingCharacters(in: .whitespaces).isEmpty else {
             errorMessage = "Lütfen tüm alanları doldurun."
             return false
         }
         
-        guard email.contains("@") && email.contains(".com") else{
+        guard email.contains("@") && email.contains(".com") else {
             errorMessage = "Lütfen geçerli bir email adresi giriniz."
             return false
-            
         }
         return true
-        
     }
-    
 }

@@ -1,5 +1,6 @@
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 
 class RegisterViewViewModel: ObservableObject {
     @Published var name = ""
@@ -8,7 +9,9 @@ class RegisterViewViewModel: ObservableObject {
     @Published var agreeToTerms = false
     @Published var errorMessage = ""
     @Published var showVerificationScreen = false
-    @Published var isRegistered = false // Kayıt durumunu takip etmek için
+    @Published var isRegistered = false
+    
+    private let db = Firestore.firestore()
     
     func register() {
         guard validate() else { return }
@@ -30,24 +33,37 @@ class RegisterViewViewModel: ObservableObject {
                 return
             }
             
-            // Kullanıcı adı ayarı
+            // Kullanıcı adı Firebase Authentication'a ekleniyor
             let changeRequest = user.createProfileChangeRequest()
             changeRequest.displayName = self.name
             changeRequest.commitChanges { error in
                 if let error = error {
-                    print("Kullanıcı adı güncellenemedi: \(error.localizedDescription)")
+                    print("🔥 Kullanıcı adı güncellenemedi: \(error.localizedDescription)")
+                } else {
+                    print("✅ Kullanıcı adı güncellendi: \(self.name)")
+                    
+                    // Firestore'a kullanıcıyı kaydet
+                    self.db.collection("users").document(user.uid).setData([
+                        "name": self.name,
+                        "email": self.email,
+                        "joined": Date().timeIntervalSince1970
+                    ]) { error in
+                        if let error = error {
+                            print("🔥 Firestore kayıt hatası: \(error.localizedDescription)")
+                        } else {
+                            print("✅ Kullanıcı Firestore'a başarıyla kaydedildi.")
+                        }
+                    }
                 }
             }
             
             // Doğrulama maili gönder
-            user.sendEmailVerification { [weak self] error in
-                guard let self = self else { return }
-                
+            user.sendEmailVerification { error in
                 DispatchQueue.main.async {
                     if let error = error {
                         self.errorMessage = "Doğrulama maili gönderilemedi: \(error.localizedDescription)"
                     } else {
-                        print("Doğrulama maili gönderildi!")
+                        print("✅ Doğrulama maili gönderildi!")
                         self.isRegistered = true
                         self.showVerificationScreen = true
                     }

@@ -14,7 +14,6 @@ class FavoriteRecipesManager: ObservableObject {
     }
     
     init() {
-        try? db.clearPersistence()
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
             if user != nil {
                 self?.setupFavoritesListener()
@@ -138,10 +137,6 @@ class FavoriteRecipesManager: ObservableObject {
             }
         }
     }
-
-
-
-
     
     func isFavorite(recipe: Recipe) -> Bool {
         return favoriteRecipes.contains(where: { $0.id == recipe.id })

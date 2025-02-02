@@ -5,12 +5,6 @@
 //  Created by Selahattin EDİN on 25.12.2024.
 //
 
-//
-//  GunlukYemekViewModel.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 25.12.2024.
-//
 
 import Foundation
 import GoogleGenerativeAI
