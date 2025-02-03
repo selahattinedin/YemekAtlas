@@ -14,30 +14,58 @@ struct FavoriteView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Favori Tariflerim")
+                                .font(.system(size: 28, weight: .bold))
+                                .foregroundColor(.primary)
+                                   
+                            HStack {
+                                Text("\(favoritesManager.favoriteRecipes.count)")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                       
+                                Image(systemName: "heart.fill")
+                                    .foregroundColor(.red)
+                                    .imageScale(.small)
+                                       
+                                Text("Tarif")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                               
+                               Spacer()
+                           }
+                           .padding(.horizontal)
+                           .padding(.vertical, 10)
+                    
                     if favoritesManager.favoriteRecipes.isEmpty {
-                        VStack(spacing: 12) {
+                        VStack(spacing: 20) {
                             Image(systemName: "heart.slash")
-                                .font(.system(size: 50))
-                                .foregroundColor(.gray)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                                .foregroundColor(.gray.opacity(0.5))
                             
-                            Text("Henüz favori tarifin yok")
-                                .font(.headline)
-                                .foregroundColor(.gray)
+                            Text("Favori Tarif Bulunamadı")
+                                .font(.title3)
+                                .fontWeight(.semibold)
                             
-                            Text("Tarifleri beğenerek favorilerine ekleyebilirsin")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
+                            Text("Beğendiğiniz tarifleri favorilerinize ekleyebilirsiniz")
+                                .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
                         }
-                        .padding(.top, 30)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
                     } else {
                         LazyVGrid(
                             columns: [
                                 GridItem(.flexible(), spacing: 16),
                                 GridItem(.flexible(), spacing: 16)
                             ],
-                            spacing: 16
+                            spacing: 12
                         ) {
                             ForEach(favoritesManager.favoriteRecipes) { recipe in
                                 ZStack(alignment: .topTrailing) {
@@ -49,22 +77,20 @@ struct FavoriteView: View {
                                         recipeToDelete = recipe
                                         showAlert = true
                                     } label: {
-                                        Image(systemName: "trash")
+                                        Image(systemName: "trash.circle.fill")
                                             .foregroundColor(.red)
-                                            .padding(8)
                                             .background(Color.white.opacity(0.8))
                                             .clipShape(Circle())
                                     }
-                                    .offset(x: -8, y: 8)
+                                    .padding(8)
                                 }
                             }
                         }
-                        .padding(.horizontal)
+                        .padding(.horizontal, 16)
                     }
                 }
             }
-            .navigationTitle("Favori Tariflerim")
-            .background(Color(.systemBackground))
+            .navigationBarHidden(true)
         }
         .overlay {
             if let recipe = recipeToDelete {
@@ -74,24 +100,18 @@ struct FavoriteView: View {
                     confirmButtonTitle: "Sil",
                     cancelButtonTitle: "İptal",
                     confirmAction: {
-                        print("✅ Silme işlemi başlatılıyor...") // 💡 Debugging için ekledik
                         if let index = favoritesManager.favoriteRecipes.firstIndex(where: { $0.id == recipe.id }) {
-                            print("🔍 Silinecek tarif bulundu: \(recipe.name), Index: \(index)")
                             favoritesManager.removeFavorite(at: IndexSet(integer: index))
-                        } else {
-                            print("❌ Tarif bulunamadı! Listede yok.")
                         }
                         recipeToDelete = nil
                     },
                     cancelAction: {
-                        print("❌ Silme işlemi iptal edildi.")
                         recipeToDelete = nil
                     },
                     isPresented: $showAlert
                 )
             }
         }
-
     }
 }
 

@@ -30,7 +30,6 @@
 		306F8E5D2D3BAB7A00E308B1 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E5C2D3BAB7A00E308B1 /* WelcomeView.swift */; };
 		306F8E612D3C1FB200E308B1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */; };
 		306F8E632D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */; };
-		306F8E672D3CE93300E308B1 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E662D3CE93300E308B1 /* AlertView.swift */; };
 		309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */; };
 		309F4E842D29D09C008A3936 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E832D29D09C008A3936 /* CustomAlertView.swift */; };
 		30A4B1072D1F06E3009BF054 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 30A4B1062D1F06E3009BF054 /* Lottie */; };
@@ -104,7 +103,6 @@
 		306F8E5C2D3BAB7A00E308B1 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewViewModel.swift; sourceTree = "<group>"; };
-		306F8E662D3CE93300E308B1 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButtonView.swift; sourceTree = "<group>"; };
 		309F4E832D29D09C008A3936 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		30A4B1082D1F0741009BF054 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 				309F4E832D29D09C008A3936 /* CustomAlertView.swift */,
 				306F8E5C2D3BAB7A00E308B1 /* WelcomeView.swift */,
 				306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */,
-				306F8E662D3CE93300E308B1 /* AlertView.swift */,
 				3029B2C02D3E703500D310A7 /* VerificationView.swift */,
 				3029B2C42D3EF9BC00D310A7 /* LoadingView.swift */,
 				3029B2C62D3F8C4100D310A7 /* FavoriteView.swift */,
@@ -406,7 +403,6 @@
 				30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */,
 				30BDD56B2CC709F8006F8EFA /* LoginViewViewModel.swift in Sources */,
 				30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */,
-				306F8E672D3CE93300E308B1 /* AlertView.swift in Sources */,
 				30A4B1092D1F0741009BF054 /* Lottie.swift in Sources */,
 				3029B2C52D3EF9BC00D310A7 /* LoadingView.swift in Sources */,
 				30BDD5622CC42FBA006F8EFA /* RegisterView.swift in Sources */,
