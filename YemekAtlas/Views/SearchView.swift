@@ -2,28 +2,30 @@ import SwiftUI
 import GoogleGenerativeAI
 import Lottie
 
+
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewViewModel()
     @StateObject private var searchManager = RecentSearchesManager()
     @FocusState private var isSearchFocused: Bool
+    @State private var showIngredientSelector = false
     @State private var isExpanded = false
     @State private var searchOffset: CGFloat = 0
     @State private var showInputs = true
     
-    var user:User
-
+    var user: User
     private let mainColor = Color("foodbackcolor")
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 ScrollView {
                     VStack(spacing: 0) {
+                        // Header Image
                         GeometryReader { geometry in
                             let minY = geometry.frame(in: .global).minY
                             let scrollUpOffset = minY > 0 ? -minY : 0
                             let opacity = (200 + minY) / 200
-
+                            
                             ZStack {
                                 Image("Pizza")
                                     .resizable()
@@ -41,13 +43,13 @@ struct SearchView: View {
                                         )
                                     )
                                     .offset(y: scrollUpOffset)
-
+                                
                                 VStack {
                                     Text("Yemek Atlas")
                                         .font(.system(size: 40, weight: .heavy))
                                         .foregroundColor(.white)
                                         .shadow(radius: 2)
-
+                                    
                                     Text("Bugün ne yemek istersin \(user.name)")
                                         .font(.title3)
                                         .foregroundColor(.white.opacity(0.9))
@@ -57,16 +59,17 @@ struct SearchView: View {
                             }
                         }
                         .frame(height: 300)
-
+                        
                         VStack(spacing: 20) {
                             if showInputs {
                                 VStack(spacing: 16) {
                                     HStack(spacing: 10) {
+                                        // Search Bar
                                         HStack {
                                             Image(systemName: "magnifyingglass")
                                                 .font(.system(size: 22, weight: .semibold))
                                                 .foregroundColor(.gray)
-
+                                            
                                             TextField("Ne yemek yapmak istersin?", text: $viewModel.searchText)
                                                 .font(.system(size: 18, weight: .medium))
                                                 .focused($isSearchFocused)
@@ -83,15 +86,29 @@ struct SearchView: View {
                                                 .fill(Color.white)
                                                 .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
                                         )
-
+                                        
+                                        // Ingredient Selection Button
+                                        Button(action: {
+                                            showIngredientSelector = true
+                                        }) {
+                                            Image(systemName: "square.grid.2x2")
+                                                .font(.system(size: 22))
+                                                .foregroundColor(.white)
+                                                .frame(width: 50, height: 50)
+                                                .background(Color.green)
+                                                .clipShape(Circle())
+                                                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
+                                        }
+                                        
+                                        // Search Button
                                         Button(action: {
                                             searchWithAnimation()
                                         }) {
                                             ZStack {
                                                 RoundedRectangle(cornerRadius: 25)
                                                     .fill(LinearGradient(colors: [.orange, .red], startPoint: .leading, endPoint: .trailing))
-                                                    .frame(width: 60, height: 60)
-
+                                                    .frame(width: 50, height: 50)
+                                                
                                                 Image(systemName: "arrow.right")
                                                     .font(.system(size: 24, weight: .bold))
                                                     .foregroundColor(.white)
@@ -102,14 +119,13 @@ struct SearchView: View {
                                 .padding(.horizontal)
                                 .transition(.move(edge: .top).combined(with: .opacity))
                             }
-
-                            // Geçmiş aramalar
+                            
                             RecentSearchesView(searchManager: searchManager)
                                 .padding(.vertical, 5)
-
+                            
                             DailyRecipesView()
                                 .padding(.bottom, 5)
-
+                            
                             ChefSpecialsView()
                                 .padding(.top, -10)
                         }
@@ -122,20 +138,20 @@ struct SearchView: View {
                         .offset(y: -50)
                     }
                 }
-
-                // Yüklenme animasyonu
+                
                 if viewModel.isLoading {
                     ZStack {
                         Color.black.opacity(0.9)
                             .edgesIgnoringSafeArea(.all)
-
-                        LoadingView() // Yükleme animasyonu burada gösteriliyor
-                            
+                        LoadingView()
                     }
                 }
             }
             .edgesIgnoringSafeArea(.top)
             .navigationBarHidden(true)
+            .sheet(isPresented: $showIngredientSelector) {
+                IngredientSelectionView(searchText: $viewModel.searchText)
+            }
             .animation(.easeInOut(duration: 0.3), value: showInputs)
             .animation(.easeInOut(duration: 0.3), value: viewModel.isLoading)
             .navigationDestination(item: $viewModel.recipe) { recipe in
@@ -143,7 +159,7 @@ struct SearchView: View {
             }
         }
     }
-
+    
     private func searchWithAnimation() {
         withAnimation {
             showInputs = false
@@ -153,7 +169,7 @@ struct SearchView: View {
             await viewModel.fetchRecipe()
             viewModel.isLoading = false
             if let recipe = viewModel.recipe {
-                searchManager.addSearch(recipe) // Geçmiş aramaya ekleme
+                searchManager.addSearch(recipe)
                 withAnimation {
                     showInputs = true
                 }
@@ -163,20 +179,19 @@ struct SearchView: View {
 }
 
 
+
+
 struct RoundedShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
-
         let width = rect.size.width
         let height = rect.size.height
-
         path.move(to: CGPoint(x: 0, y: 50))
         path.addQuadCurve(to: CGPoint(x: width, y: 50),
-                          control: CGPoint(x: width / 2, y: 0))
+                         control: CGPoint(x: width / 2, y: 0))
         path.addLine(to: CGPoint(x: width, y: height))
         path.addLine(to: CGPoint(x: 0, y: height))
         path.closeSubpath()
-
         return path
     }
 }
