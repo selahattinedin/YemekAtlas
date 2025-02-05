@@ -21,15 +21,15 @@ class IngredientsViewModel: ObservableObject {
     ]
     
     let ingredients: [Ingredient] = [
-        Ingredient(name: "Soğan", image: "onion", category: "Sebzeler"),
-        Ingredient(name: "Hamsi", image: "zucchini", category: "Et & Süt"),
-        Ingredient(name: "Domates", image: "zucchini", category: "Sebzeler"),
-        Ingredient(name: "Salatalık", image: "zucchini", category: "Sebzeler"),
-        Ingredient(name: "Karabiber", image: "zucchini", category: "Baharatlar"),
-        Ingredient(name: "Kabak", image: "zucchini", category: "Sebzeler"),
-        Ingredient(name: "Kabak", image: "zucchini", category: "Sebzeler"),
-        Ingredient(name: "Kabak", image: "zucchini", category: "Sebzeler"),
-        Ingredient(name: "Kabak", image: "zucchini", category: "Sebzeler")
+        Ingredient(name: "Marul", image: "marul", category: "Sebzeler"),
+        Ingredient(name: "Hamsi", image: "zucchini", category: "Balık"),
+        Ingredient(name: "Domates", image: "domates", category: "Sebzeler"),
+        Ingredient(name: "Salatalık", image: "domates", category: "Sebzeler"),
+        Ingredient(name: "Karabiber", image: "domates", category: "Baharatlar"),
+        Ingredient(name: "Kabak", image: "domates", category: "Sebzeler"),
+        Ingredient(name: "Kabak", image: "domates", category: "Sebzeler"),
+        Ingredient(name: "Kabak", image: "domates", category: "Sebzeler"),
+        Ingredient(name: "Kabak", image: "domates", category: "Sebzeler")
 
         
     ]

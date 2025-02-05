@@ -34,7 +34,7 @@ struct IngredientCard: View {
                     .foregroundColor(.black)
             }
             .padding(8)
-            .background(Color(.systemGray6).opacity(0.3))
+            .background(Color(.systemGray6).opacity(0.7))
             .cornerRadius(10)
         }
     }

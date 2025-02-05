@@ -17,101 +17,100 @@ struct RecipeDetailView: View {
     let recipe: Recipe
     let tabs = ["Malzemeler", "Yapılış", "Alerjenler"]
     
-    @State private var isRecipeFavorite: Bool = false // Başlangıçta false
+    @State private var isRecipeFavorite: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .top) {
-                
-                Image("Pizza")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
-                    .clipped()
-                    .ignoresSafeArea()
-                
-                VStack(spacing: 0) {
+            ScrollView { // Tüm ekran kaydırılabilir oldu
+                ZStack(alignment: .top) {
                     
-                    HStack {
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .foregroundColor(.black)
-                                .padding(12)
-                                .background(Color.orange)
-                                .clipShape(Circle())
+                    Image("Pizza")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
+                        .clipped()
+                        .ignoresSafeArea()
+                    
+                    VStack(spacing: 0) {
+                        
+                        HStack {
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss()
+                            }) {
+                                Image(systemName: "chevron.left")
+                                    .foregroundColor(.black)
+                                    .padding(12)
+                                    .background(Color.orange)
+                                    .clipShape(Circle())
+                            }
+                            Spacer()
+                            
+                            Button(action: {
+                                favoritesManager.toggleFavorite(recipe: recipe)
+                            }) {
+                                Image(systemName: isRecipeFavorite ? "heart.fill" : "heart")
+                                    .font(.title2)
+                                    .foregroundColor(isRecipeFavorite ? .red : .white)
+                                    .padding(12)
+                                    .background(Color.black.opacity(0.3))
+                                    .clipShape(Circle())
+                            }
                         }
+                        .padding(.horizontal)
+                        .padding(.top, geometry.safeAreaInsets.top + 10)
+                        
                         Spacer()
+                            .frame(height: geometry.size.height * 0.25)
                         
-                        Button(action: {
-                            favoritesManager.toggleFavorite(recipe: recipe)
-                        }) {
-                            Image(systemName: isRecipeFavorite ? "heart.fill" : "heart")
-                                .font(.title2)
-                                .foregroundColor(isRecipeFavorite ? .red : .white)
-                                .padding(12)
-                                .background(Color.black.opacity(0.3))
-                                .clipShape(Circle())
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.top, geometry.safeAreaInsets.top + 10)
-                    
-                    Spacer()
-                        .frame(height: geometry.size.height * 0.25)
-                    
-                    VStack {
-        
-                        RoundedRectangle(cornerRadius: 2.5)
-                            .fill(Color.white.opacity(0.5))
-                            .frame(width: 40, height: 5)
-                            .padding(.top, 15)
-                        
-                    
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text(recipe.name)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.primary)
-                                .padding(.horizontal)
+                        VStack {
                             
-                            Text("Western")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
-                                .padding(.horizontal)
-                                .padding(.top, -9)
-                        
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 6) {
-                                    InfoPill(icon: "clock", text: "\(recipe.clock)", subtext: "Dak")
-                                    InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Kal")
-                                    InfoPill(icon: "carrot.fill", text: "\(recipe.protein) gr", subtext: "Protein")
-                                    InfoPill(icon: "drop.fill", text: "\(recipe.fat) gr", subtext: "Yağ")
-                                    InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates) gr", subtext: "Carb")
-                                }
-                                .padding(.horizontal,6)
-                                .frame(maxWidth: .infinity)
-                            }
+                            RoundedRectangle(cornerRadius: 2.5)
+                                .fill(Color.white.opacity(0.5))
+                                .frame(width: 40, height: 5)
+                                .padding(.top, 15)
                             
-                         
-                            HStack(spacing: 12) {
-                                Spacer()
-                                ForEach(tabs, id: \.self) { tab in
-                                    Button(action: { selectedTab = tab }) {
-                                        Text(tab)
-                                            .fontWeight(selectedTab == tab ? .bold : .regular)
-                                            .foregroundColor(selectedTab == tab ? .white : .gray)
-                                            .frame(width: 100, height: 40)
-                                            .background(selectedTab == tab ? Color.orange : Color.clear)
-                                            .cornerRadius(20)
-                                            .animation(.easeInOut(duration: 0.3), value: selectedTab)
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text(recipe.name)
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.primary)
+                                    .padding(.horizontal)
+                                
+                                Text("Western")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
+                                    .padding(.horizontal)
+                                    .padding(.top, -9)
+                                
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 6) {
+                                        InfoPill(icon: "clock", text: "\(recipe.clock)", subtext: "Dak")
+                                        InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Kal")
+                                        InfoPill(icon: "carrot.fill", text: "\(recipe.protein) gr", subtext: "Protein")
+                                        InfoPill(icon: "drop.fill", text: "\(recipe.fat) gr", subtext: "Yağ")
+                                        InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates) gr", subtext: "Carb")
                                     }
+                                    .padding(.horizontal, 6)
+                                    .frame(maxWidth: .infinity)
                                 }
-                                Spacer()
-                            }
-                          
-                            ScrollView(showsIndicators: false) {
+                                
+                                HStack(spacing: 12) {
+                                    Spacer()
+                                    ForEach(tabs, id: \.self) { tab in
+                                        Button(action: { selectedTab = tab }) {
+                                            Text(tab)
+                                                .fontWeight(selectedTab == tab ? .bold : .regular)
+                                                .foregroundColor(selectedTab == tab ? .white : .gray)
+                                                .frame(width: 100, height: 40)
+                                                .background(selectedTab == tab ? Color.orange : Color.clear)
+                                                .cornerRadius(20)
+                                                .animation(.easeInOut(duration: 0.3), value: selectedTab)
+                                        }
+                                    }
+                                    Spacer()
+                                }
+                                
+                                // Tab İçeriği
                                 VStack(alignment: .leading, spacing: 16) {
                                     if selectedTab == "Malzemeler" {
                                         Text("Tarif Malzemeleri")
@@ -204,13 +203,13 @@ struct RecipeDetailView: View {
                                 .padding(.vertical)
                             }
                         }
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 30)
+                                .fill(Color.white)
+                        )
+                        .offset(y: -20)
                     }
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 30)
-                            .fill(Color.white)
-                    )
-                    .offset(y: -20)
                 }
             }
             .navigationBarBackButtonHidden(true)
@@ -218,12 +217,12 @@ struct RecipeDetailView: View {
             .edgesIgnoringSafeArea(.top)
             .onAppear {
                 favoritesManager.loadFavoriteRecipes()
-                // Favori durumu kontrol et
                 isRecipeFavorite = favoritesManager.isFavorite(recipe: recipe)
             }
         }
     }
 }
+
 
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
