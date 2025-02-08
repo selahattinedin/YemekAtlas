@@ -2,7 +2,6 @@ import SwiftUI
 import GoogleGenerativeAI
 import Lottie
 
-
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewViewModel()
     @StateObject private var searchManager = RecentSearchesManager()
@@ -63,56 +62,73 @@ struct SearchView: View {
                         VStack(spacing: 20) {
                             if showInputs {
                                 VStack(spacing: 16) {
-                                    HStack(spacing: 10) {
-                                        // Search Bar
-                                        HStack {
-                                            Image(systemName: "magnifyingglass")
-                                                .font(.system(size: 22, weight: .semibold))
-                                                .foregroundColor(.gray)
-                                            
-                                            TextField("Ne yemek yapmak istersin?", text: $viewModel.searchText)
-                                                .font(.system(size: 18, weight: .medium))
-                                                .focused($isSearchFocused)
-                                                .submitLabel(.search)
-                                                .autocorrectionDisabled()
-                                                .onSubmit {
-                                                    searchWithAnimation()
-                                                }
-                                        }
-                                        .padding(.horizontal, 20)
-                                        .padding(.vertical, 15)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 30)
-                                                .fill(Color.white)
-                                                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
-                                        )
+                                    // Search Bar
+                                    HStack {
+                                        Image(systemName: "magnifyingglass")
+                                            .font(.system(size: 22, weight: .semibold))
+                                            .foregroundColor(.gray)
                                         
+                                        TextField("Ne yemek yapmak istersin?", text: $viewModel.searchText)
+                                            .font(.system(size: 18, weight: .medium))
+                                            .focused($isSearchFocused)
+                                            .submitLabel(.search)
+                                            .autocorrectionDisabled()
+                                            .onSubmit {
+                                                validateAndSearch()
+                                            }
+                                    }
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 15)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 30)
+                                            .fill(Color.white)
+                                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
+                                    )
+                                    
+                                    // Buttons Row
+                                    HStack(spacing: 15) {
                                         // Ingredient Selection Button
                                         Button(action: {
                                             showIngredientSelector = true
                                         }) {
-                                            Image(systemName: "square.grid.2x2")
-                                                .font(.system(size: 22))
-                                                .foregroundColor(.white)
-                                                .frame(width: 50, height: 50)
-                                                .background(Color.green)
-                                                .clipShape(Circle())
-                                                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
+                                            HStack {
+                                                Image(systemName: "square.grid.2x2")
+                                                    .font(.system(size: 22))
+                                                Text("Malzemeler")
+                                                    .font(.system(size: 16, weight: .medium))
+                                            }
+                                            .foregroundColor(.white)
+                                            .frame(height: 55)
+                                            .frame(maxWidth: .infinity)
+                                            .background(
+                                                LinearGradient(colors: [.orange, .red],
+                                                             startPoint: .leading,
+                                                             endPoint: .trailing)
+                                            )
+                                            .clipShape(RoundedRectangle(cornerRadius: 27.5))
+                                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
                                         }
                                         
                                         // Search Button
                                         Button(action: {
-                                            searchWithAnimation()
+                                            validateAndSearch()
                                         }) {
-                                            ZStack {
-                                                RoundedRectangle(cornerRadius: 25)
-                                                    .fill(LinearGradient(colors: [.orange, .red], startPoint: .leading, endPoint: .trailing))
-                                                    .frame(width: 50, height: 50)
-                                                
+                                            HStack {
                                                 Image(systemName: "arrow.right")
-                                                    .font(.system(size: 24, weight: .bold))
-                                                    .foregroundColor(.white)
+                                                    .font(.system(size: 22))
+                                                Text("Ara")
+                                                    .font(.system(size: 16, weight: .medium))
                                             }
+                                            .foregroundColor(.white)
+                                            .frame(height: 55)
+                                            .frame(maxWidth: .infinity)
+                                            .background(
+                                                LinearGradient(colors: [.orange, .red],
+                                                             startPoint: .leading,
+                                                             endPoint: .trailing)
+                                            )
+                                            .clipShape(RoundedRectangle(cornerRadius: 27.5))
+                                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
                                         }
                                     }
                                 }
@@ -160,26 +176,33 @@ struct SearchView: View {
         }
     }
     
-    private func searchWithAnimation() {
-        withAnimation {
-            showInputs = false
+    private func validateAndSearch() {
+        guard !viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return
         }
+        searchWithAnimation()
+    }
+    
+    private func searchWithAnimation() {
         Task {
             viewModel.isLoading = true
+            withAnimation {
+                showInputs = false
+            }
+            
             await viewModel.fetchRecipe()
+            
             viewModel.isLoading = false
             if let recipe = viewModel.recipe {
                 searchManager.addSearch(recipe)
-                withAnimation {
-                    showInputs = true
-                }
+            }
+            
+            withAnimation {
+                showInputs = true
             }
         }
     }
 }
-
-
-
 
 struct RoundedShape: Shape {
     func path(in rect: CGRect) -> Path {
