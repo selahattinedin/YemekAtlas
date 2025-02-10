@@ -37,6 +37,7 @@
 		306F8E632D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */; };
 		309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */; };
 		309F4E842D29D09C008A3936 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E832D29D09C008A3936 /* CustomAlertView.swift */; };
+		30A453522D5A1ED4003665B6 /* GradientButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A453512D5A1ED4003665B6 /* GradientButtonView.swift */; };
 		30A4B1072D1F06E3009BF054 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 30A4B1062D1F06E3009BF054 /* Lottie */; };
 		30A4B1092D1F0741009BF054 /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4B1082D1F0741009BF054 /* Lottie.swift */; };
 		30A4B10B2D1F0976009BF054 /* Food.json in Resources */ = {isa = PBXBuildFile; fileRef = 30A4B10A2D1F0976009BF054 /* Food.json */; };
@@ -115,6 +116,7 @@
 		306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewViewModel.swift; sourceTree = "<group>"; };
 		309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButtonView.swift; sourceTree = "<group>"; };
 		309F4E832D29D09C008A3936 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		30A453512D5A1ED4003665B6 /* GradientButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButtonView.swift; sourceTree = "<group>"; };
 		30A4B1082D1F0741009BF054 /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
 		30A4B10A2D1F0976009BF054 /* Food.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Food.json; sourceTree = "<group>"; };
 		30A4B10C2D1F1C1A009BF054 /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				305CE9072D4971BC005FD629 /* RecentSearchesView.swift */,
 				305CE9112D529D88005FD629 /* IngredientsSelectionView.swift */,
 				305CE9132D529DC2005FD629 /* IngredientsCardView.swift */,
+				30A453512D5A1ED4003665B6 /* GradientButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */,
 				30BDD56B2CC709F8006F8EFA /* LoginViewViewModel.swift in Sources */,
 				30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */,
+				30A453522D5A1ED4003665B6 /* GradientButtonView.swift in Sources */,
 				30A4B1092D1F0741009BF054 /* Lottie.swift in Sources */,
 				3029B2C52D3EF9BC00D310A7 /* LoadingView.swift in Sources */,
 				30BDD5622CC42FBA006F8EFA /* RegisterView.swift in Sources */,

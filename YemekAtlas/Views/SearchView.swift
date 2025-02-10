@@ -59,7 +59,7 @@ struct SearchView: View {
                         }
                         .frame(height: 300)
                         
-                        VStack(spacing: 20) {
+                        VStack(spacing: 15) {
                             if showInputs {
                                 VStack(spacing: 16) {
                                     // Search Bar
@@ -85,50 +85,19 @@ struct SearchView: View {
                                             .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
                                     )
                                     
-                                    // Buttons Row
                                     HStack(spacing: 15) {
-                                        // Ingredient Selection Button
-                                        Button(action: {
+                                        GradientButtonView(
+                                            icon: "square.grid.2x2",
+                                            title: "Malzemeler"
+                                        ) {
                                             showIngredientSelector = true
-                                        }) {
-                                            HStack {
-                                                Image(systemName: "square.grid.2x2")
-                                                    .font(.system(size: 22))
-                                                Text("Malzemeler")
-                                                    .font(.system(size: 16, weight: .medium))
-                                            }
-                                            .foregroundColor(.white)
-                                            .frame(height: 55)
-                                            .frame(maxWidth: .infinity)
-                                            .background(
-                                                LinearGradient(colors: [.orange, .red],
-                                                             startPoint: .leading,
-                                                             endPoint: .trailing)
-                                            )
-                                            .clipShape(RoundedRectangle(cornerRadius: 27.5))
-                                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
                                         }
                                         
-                                        // Search Button
-                                        Button(action: {
+                                        GradientButtonView(
+                                            icon: "arrow.right",
+                                            title: "Ara"
+                                        ) {
                                             validateAndSearch()
-                                        }) {
-                                            HStack {
-                                                Image(systemName: "arrow.right")
-                                                    .font(.system(size: 22))
-                                                Text("Ara")
-                                                    .font(.system(size: 16, weight: .medium))
-                                            }
-                                            .foregroundColor(.white)
-                                            .frame(height: 55)
-                                            .frame(maxWidth: .infinity)
-                                            .background(
-                                                LinearGradient(colors: [.orange, .red],
-                                                             startPoint: .leading,
-                                                             endPoint: .trailing)
-                                            )
-                                            .clipShape(RoundedRectangle(cornerRadius: 27.5))
-                                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
                                         }
                                     }
                                 }
@@ -136,14 +105,11 @@ struct SearchView: View {
                                 .transition(.move(edge: .top).combined(with: .opacity))
                             }
                             
-                            RecentSearchesView(searchManager: searchManager)
-                                .padding(.vertical, 5)
-                            
-                            DailyRecipesView()
-                                .padding(.bottom, 5)
-                            
-                            ChefSpecialsView()
-                                .padding(.top, -10)
+                            VStack(spacing: 12) {
+                                RecentSearchesView(searchManager: searchManager)
+                                DailyRecipesView()
+                                ChefSpecialsView()
+                            }
                         }
                         .padding(.horizontal)
                         .background(
