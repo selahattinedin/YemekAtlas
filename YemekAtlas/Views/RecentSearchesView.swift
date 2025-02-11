@@ -3,8 +3,8 @@
 import SwiftUI
 
 struct RecentSearchesView: View {
-    @ObservedObject var searchManager: RecentSearchesManager // Dışarıdan veri aktarılıyor
-    @State private var showCustomAlert = false // Alert kontrolü için state
+    @StateObject var searchManager: RecentSearchesManager 
+    @State private var showCustomAlert = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -17,7 +17,7 @@ struct RecentSearchesView: View {
                 
                 if !searchManager.recentSearches.isEmpty {
                     Button(action: {
-                        showCustomAlert = true // Custom alerti tetikle
+                        showCustomAlert = true
                     }) {
                         HStack(spacing: 8) {
                             Image(systemName: "trash")

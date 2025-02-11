@@ -49,7 +49,7 @@ struct SearchView: View {
                                         .foregroundColor(.white)
                                         .shadow(radius: 2)
                                     
-                                    Text("Bugün ne yemek istersin \(user.name)")
+                                    Text("Bugün ne yemek istersin")
                                         .font(.title3)
                                         .foregroundColor(.white.opacity(0.9))
                                 }
@@ -95,7 +95,9 @@ struct SearchView: View {
                                         
                                         GradientButtonView(
                                             icon: "arrow.right",
-                                            title: "Ara"
+                                            title: "Ara",
+                                            startColor: Color(red: 0.5, green: 0.1, blue: 1.0),
+                                                                endColor: Color(red: 0.0, green: 0.5, blue: 1.0)
                                         ) {
                                             validateAndSearch()
                                         }
@@ -105,7 +107,7 @@ struct SearchView: View {
                                 .transition(.move(edge: .top).combined(with: .opacity))
                             }
                             
-                            VStack(spacing: 12) {
+                            VStack(spacing: 2) {
                                 RecentSearchesView(searchManager: searchManager)
                                 DailyRecipesView()
                                 ChefSpecialsView()

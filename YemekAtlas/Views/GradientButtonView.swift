@@ -1,15 +1,25 @@
-//
-//  GradientButtonView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 10.02.2025.
-//
-
 import SwiftUI
+
 struct GradientButtonView: View {
     let icon: String
     let title: String
+    let startColor: Color
+    let endColor: Color
     let action: () -> Void
+    
+    init(
+        icon: String,
+        title: String,
+        startColor: Color = .orange,
+        endColor: Color = .red,
+        action: @escaping () -> Void
+    ) {
+        self.icon = icon
+        self.title = title
+        self.startColor = startColor
+        self.endColor = endColor
+        self.action = action
+    }
     
     var body: some View {
         Button(action: action) {
@@ -23,7 +33,7 @@ struct GradientButtonView: View {
             .frame(height: 55)
             .frame(maxWidth: .infinity)
             .background(
-                LinearGradient(colors: [.orange, .red],
+                LinearGradient(colors: [startColor, endColor],
                              startPoint: .leading,
                              endPoint: .trailing)
             )
@@ -32,6 +42,7 @@ struct GradientButtonView: View {
         }
     }
 }
+
 #Preview {
     GradientButtonView(icon: "", title: "", action: {})
 }

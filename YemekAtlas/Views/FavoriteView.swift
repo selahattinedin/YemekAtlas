@@ -62,10 +62,10 @@ struct FavoriteView: View {
                     } else {
                         LazyVGrid(
                             columns: [
-                                GridItem(.flexible(), spacing: 16),
-                                GridItem(.flexible(), spacing: 16)
+                                GridItem(.flexible(), spacing: 1),
+                                GridItem(.flexible(), spacing: 1)
                             ],
-                            spacing: 12
+                            spacing: 16
                         ) {
                             ForEach(favoritesManager.favoriteRecipes) { recipe in
                                 ZStack(alignment: .topTrailing) {

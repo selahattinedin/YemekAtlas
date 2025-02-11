@@ -17,9 +17,9 @@ struct DailyRecipesView: View {
         VStack(spacing: 16) {
             HStack {
                 Text("Günlük Tarifler")
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundStyle(.primary)
-                
+                    .font(.title2.bold())
+                    .foregroundColor(.orange)
+                    .padding(.horizontal)
                 Spacer()
                 
                 Button(action: {
@@ -54,10 +54,10 @@ struct DailyRecipesView: View {
             if viewModel.isLoading {
                 VStack {
                     Spacer()
-                    LottieView(animationName: "Food")
-                        .frame(width: 100, height: 100)
+                    LottieView(animationName: "Loading")
+                        .frame(width: 150)
                         .scaleEffect(0.6)
-                        .padding(.top, 200)
+                        .padding(.top, 10)
                 }
                 .frame(maxWidth: .infinity)
             } else if let errorMessage = viewModel.errorMessage {
@@ -73,7 +73,6 @@ struct DailyRecipesView: View {
                 .padding()
                 .frame(maxWidth: .infinity)
             } else {
-                // Yatay ScrollView
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         ForEach(viewModel.dailyRecipes) { recipe in
