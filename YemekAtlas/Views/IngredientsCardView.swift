@@ -17,7 +17,7 @@ struct IngredientCard: View {
         Button(action: action) {
             VStack {
                 ZStack(alignment: .topTrailing) {
-                    Image(ingredient.image)
+                    Image(ingredient.imageUrl)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 80)
@@ -42,5 +42,5 @@ struct IngredientCard: View {
 
 
 #Preview {
-    IngredientCard(ingredient: Ingredient(name: "", image: "", category: ""), isSelected: true, action: {})
+    IngredientCard(ingredient: Ingredient(name: "", imageUrl:"", category: ""), isSelected: true, action: {})
 }
