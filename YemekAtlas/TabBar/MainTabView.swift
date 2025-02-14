@@ -23,16 +23,16 @@ struct MainTabView: View {
             FavoriteView()
                 .tabItem {
                     Image(systemName: "heart")
-                    Text("Favourite")
+                    Text("Favorite")
                 }
                 .tag(TabSelection.favorite)
             
             
             
-            ProfileView()
+            SettingsView()
                 .tabItem {
-                    Image(systemName: "person")
-                    Text("Profile")
+                    Image(systemName: "gear")
+                    Text("Setting")
                 }
                 .tag(TabSelection.profile)
         }

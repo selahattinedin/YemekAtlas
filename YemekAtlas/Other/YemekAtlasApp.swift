@@ -4,14 +4,6 @@
 //
 //  Created by Selahattin EDİN on 19.10.2024.
 //
-
-//
-//  YemekAtlasApp.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 19.10.2024.
-//
-
 import SwiftUI
 import FirebaseCore
 

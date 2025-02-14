@@ -1,5 +1,11 @@
+//
+//  IngredientsSelectionView.swift
+//  YemekAtlas
+//
+//  Created by Selahattin EDİN on 4.02.2025.
+//
+
 import SwiftUI
-import Kingfisher
 
 struct IngredientSelectionView: View {
     @StateObject private var viewModel = IngredientsViewModel()
@@ -11,28 +17,13 @@ struct IngredientSelectionView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // 📌 Burada marul.png görselini ekledik!
-            if let imageUrl = viewModel.marulImageUrl {
-                KFImage(URL(string: imageUrl))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 150)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .shadow(radius: 5)
-            } else {
-                ProgressView("Yükleniyor...")
-            }
-            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
                     ForEach(viewModel.categories) { category in
                         CategoryButton(
                             name: category.name,
                             isSelected: viewModel.selectedCategory == category.name,
-                            action: {
-                                viewModel.selectedCategory = category.name
-                                viewModel.updateFilteredIngredients()
-                            }
+                            action: { viewModel.selectedCategory = category.name }
                         )
                     }
                 }
@@ -46,7 +37,6 @@ struct IngredientSelectionView: View {
                             ingredient: ingredient,
                             isSelected: viewModel.selectedIngredients.contains(ingredient.name)
                         ) {
-                            viewModel.objectWillChange.send()
                             if viewModel.selectedIngredients.contains(ingredient.name) {
                                 viewModel.selectedIngredients.remove(ingredient.name)
                             } else {
@@ -73,4 +63,29 @@ struct IngredientSelectionView: View {
             .padding()
         }
     }
+}
+
+struct CategoryButton: View {
+    let name: String
+    let isSelected: Bool
+    let action: () -> Void
+    private let mainColor = Color("foodbackcolor")
+    
+    var body: some View {
+        Button(action: action) {
+            Text(name)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 8)
+                .background(isSelected ? mainColor : Color.white)
+                .foregroundColor(isSelected ? .white : .black)
+                .cornerRadius(20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(mainColor, lineWidth: 1)
+                )
+        }
+    }
+}
+#Preview {
+    IngredientSelectionView(searchText: .constant(""))
 }

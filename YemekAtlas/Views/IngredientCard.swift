@@ -1,4 +1,12 @@
 //
+//  IngredientCard.swift
+//  YemekAtlas
+//
+//  Created by Selahattin EDİN on 13.02.2025.
+//
+
+
+//
 //  IngredientsCardView.swift
 //  YemekAtlas
 //

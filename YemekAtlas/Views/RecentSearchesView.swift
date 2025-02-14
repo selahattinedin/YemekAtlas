@@ -5,6 +5,8 @@ import SwiftUI
 struct RecentSearchesView: View {
     @StateObject var searchManager: RecentSearchesManager 
     @State private var showCustomAlert = false
+    
+    
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
