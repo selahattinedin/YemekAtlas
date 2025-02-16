@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct ChefSpecialsView: View {
     let specialRecipes: [Recipe] = [
         Recipe(

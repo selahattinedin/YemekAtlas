@@ -56,39 +56,74 @@ class FavoriteRecipesManager: ObservableObject {
                     return
                 }
                 
-                self.favoriteRecipes = documents.compactMap { document in
-                    print("📌 Firestore'daki Tarif ID: \(document.documentID)")
-                    var recipe = try? document.data(as: Recipe.self)
-                    recipe?.firestoreDocumentId = document.documentID
-                    return recipe
-                }.sorted {
-                    $0.firestoreDocumentId ?? "" > $1.firestoreDocumentId ?? ""
+                do {
+                    self.favoriteRecipes = try documents.compactMap { document in
+                        var recipe = try document.data(as: Recipe.self)
+                        recipe.id = document.documentID // Document ID'yi recipe ID'si olarak kullan
+                        recipe.firestoreDocumentId = document.documentID
+                        print("📌 Yüklenen tarif - ID: \(recipe.id), İsim: \(recipe.name)")
+                        return recipe
+                    }
+                    print("✅ Toplam \(self.favoriteRecipes.count) tarif yüklendi")
+                } catch {
+                    print("❌ Veri dönüştürme hatası: \(error.localizedDescription)")
+                    self.error = "Veriler dönüştürülürken hata oluştu"
                 }
             }
     }
 
-    
     func toggleFavorite(recipe: Recipe) {
         guard let userId = currentUser?.uid else {
             self.error = "Favorilere eklemek için giriş yapmalısınız"
             return
         }
         
+        print("🔄 Toggle işlemi başlatıldı - Tarif ID: \(recipe.id), İsim: \(recipe.name)")
+        
         let recipeRef = db.collection("users")
             .document(userId)
             .collection("favorites")
-            .document(recipe.id.uuidString)
+            .document(recipe.id)
         
-        if !isFavorite(recipe: recipe) {
-            do {
-                try recipeRef.setData(from: recipe)
-            } catch {
-                self.error = "Tarif favorilere eklenirken hata oluştu: \(error.localizedDescription)"
+        // Önce document'in var olup olmadığını kontrol et
+        recipeRef.getDocument { [weak self] (document, error) in
+            guard let self = self else { return }
+            
+            if let error = error {
+                print("❌ Favori kontrolü hatası: \(error.localizedDescription)")
+                self.error = "Favori durumu kontrol edilirken hata oluştu"
+                return
             }
-        } else {
-            recipeRef.delete { error in
-                if let error = error {
-                    self.error = "Tarif favorilerden kaldırılırken hata oluştu: \(error.localizedDescription)"
+            
+            if let document = document, document.exists {
+                // Document varsa (yani favorilerdeyse) - Sil
+                print("🗑️ Tarif favorilerde bulundu, siliniyor...")
+                recipeRef.delete { [weak self] error in
+                    guard let self = self else { return }
+                    
+                    if let error = error {
+                        print("❌ Silme hatası: \(error.localizedDescription)")
+                        self.error = "Tarif favorilerden kaldırılırken hata oluştu"
+                    } else {
+                        print("✅ Tarif başarıyla silindi - ID: \(recipe.id)")
+                        DispatchQueue.main.async {
+                            // Local array'den de sil
+                            self.favoriteRecipes.removeAll { $0.id == recipe.id }
+                        }
+                    }
+                }
+            } else {
+                // Document yoksa (yani favorilerde değilse) - Ekle
+                print("➕ Tarif favorilerde bulunamadı, ekleniyor...")
+                var recipeToSave = recipe
+                recipeToSave.firestoreDocumentId = recipe.id
+                
+                do {
+                    try recipeRef.setData(from: recipeToSave)
+                    print("✅ Tarif başarıyla eklendi - ID: \(recipe.id)")
+                } catch {
+                    print("❌ Ekleme hatası: \(error.localizedDescription)")
+                    self.error = "Tarif favorilere eklenirken hata oluştu"
                 }
             }
         }
@@ -96,42 +131,35 @@ class FavoriteRecipesManager: ObservableObject {
     
     func removeFavorite(at offsets: IndexSet) {
         guard let userId = currentUser?.uid else {
-            print("Hata: Kullanıcı oturumu açık değil.")
-            self.error = "Kullanıcı oturumu açık değil."
+            print("❌ Kullanıcı oturumu açık değil")
+            self.error = "Kullanıcı oturumu açık değil"
             return
         }
 
         for index in offsets {
             guard index < favoriteRecipes.count else {
-                print("Hata: Geçersiz index!")
-                return
+                print("❌ Geçersiz index: \(index)")
+                continue
             }
 
             let recipe = favoriteRecipes[index]
+            let documentId = recipe.id
             
-            guard let documentId = recipe.firestoreDocumentId else {
-                print("Hata: Firestore document ID'si bulunamadı")
-                return
-            }
+            print("🗑️ Silme işlemi başlatıldı - ID: \(documentId)")
 
             let recipeRef = db.collection("users")
                 .document(userId)
                 .collection("favorites")
                 .document(documentId)
 
-            print("Firestore'dan silme işlemi başlatılıyor: \(documentId)")
-
-            // Firestore'dan silme işlemi
             recipeRef.delete { [weak self] error in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        print("Firestore silme hatası: \(error.localizedDescription)")
-                        self?.error = "Tarif silinirken hata oluştu: \(error.localizedDescription)"
-                    } else {
-                        print("Firestore'dan başarıyla silindi: \(documentId)")
-                        
-                        // Favori tarifi silme işlemi başarılı, veriyi tekrar yükle
-                        self?.setupFavoritesListener()
+                if let error = error {
+                    print("❌ Silme hatası: \(error.localizedDescription)")
+                    self?.error = "Tarif silinirken hata oluştu"
+                } else {
+                    print("✅ Tarif başarıyla silindi - ID: \(documentId)")
+                    DispatchQueue.main.async {
+                        self?.favoriteRecipes.removeAll { $0.id == documentId }
                     }
                 }
             }
@@ -139,7 +167,9 @@ class FavoriteRecipesManager: ObservableObject {
     }
     
     func isFavorite(recipe: Recipe) -> Bool {
-        return favoriteRecipes.contains(where: { $0.id == recipe.id })
+        let isFav = favoriteRecipes.contains { $0.id == recipe.id }
+        print("🔍 Favori kontrolü - Tarif ID: \(recipe.id), Favori mi?: \(isFav)")
+        return isFav
     }
     
     deinit {

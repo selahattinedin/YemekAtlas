@@ -10,20 +10,21 @@ import SwiftUI
 struct RecipeDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedTab = "Malzemeler"
-    @State private var isLiked = false
     @State private var selectedIngredients: [String: Bool] = [:]
     @StateObject private var favoritesManager = FavoriteRecipesManager()
     
     let recipe: Recipe
     let tabs = ["Malzemeler", "Yapılış", "Alerjenler"]
     
-    @State private var isRecipeFavorite: Bool = false
+    // isRecipeFavorite artık computed property
+    var isRecipeFavorite: Bool {
+        favoritesManager.isFavorite(recipe: recipe)
+    }
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView { // Tüm ekran kaydırılabilir oldu
+            ScrollView {
                 ZStack(alignment: .top) {
-                    
                     Image("Pizza")
                         .resizable()
                         .scaledToFill()
@@ -32,7 +33,6 @@ struct RecipeDetailView: View {
                         .ignoresSafeArea()
                     
                     VStack(spacing: 0) {
-                        
                         HStack {
                             Button(action: {
                                 presentationMode.wrappedValue.dismiss()
@@ -63,7 +63,6 @@ struct RecipeDetailView: View {
                             .frame(height: geometry.size.height * 0.25)
                         
                         VStack {
-                            
                             RoundedRectangle(cornerRadius: 2.5)
                                 .fill(Color.white.opacity(0.5))
                                 .frame(width: 40, height: 5)
@@ -217,12 +216,10 @@ struct RecipeDetailView: View {
             .edgesIgnoringSafeArea(.top)
             .onAppear {
                 favoritesManager.loadFavoriteRecipes()
-                isRecipeFavorite = favoritesManager.isFavorite(recipe: recipe)
             }
         }
     }
 }
-
 
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {

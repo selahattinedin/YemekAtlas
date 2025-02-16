@@ -36,7 +36,6 @@
 		309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */; };
 		309F4E842D29D09C008A3936 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E832D29D09C008A3936 /* CustomAlertView.swift */; };
 		30A453522D5A1ED4003665B6 /* GradientButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A453512D5A1ED4003665B6 /* GradientButtonView.swift */; };
-		30A4536C2D5CFCF5003665B6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 30A4536B2D5CFCF5003665B6 /* Kingfisher */; };
 		30A4B1072D1F06E3009BF054 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 30A4B1062D1F06E3009BF054 /* Lottie */; };
 		30A4B1092D1F0741009BF054 /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4B1082D1F0741009BF054 /* Lottie.swift */; };
 		30A4B10B2D1F0976009BF054 /* Food.json in Resources */ = {isa = PBXBuildFile; fileRef = 30A4B10A2D1F0976009BF054 /* Food.json */; };
@@ -172,7 +171,6 @@
 				30BDD52A2CC3D778006F8EFA /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				30BDD5442CC3D778006F8EFA /* FirebaseInAppMessaging-Beta in Frameworks */,
 				30BDD5322CC3D778006F8EFA /* FirebaseAuthCombine-Community in Frameworks */,
-				30A4536C2D5CFCF5003665B6 /* Kingfisher in Frameworks */,
 				30BDD5362CC3D778006F8EFA /* FirebaseCrashlytics in Frameworks */,
 				30BDD5482CC3D778006F8EFA /* FirebaseMLModelDownloader in Frameworks */,
 				30BDD5502CC3D778006F8EFA /* FirebaseStorage in Frameworks */,
@@ -351,7 +349,6 @@
 				30BDD5532CC3D778006F8EFA /* FirebaseVertexAI-Preview */,
 				30D234852CEA6D3500CFBA7F /* GoogleGenerativeAI */,
 				30A4B1062D1F06E3009BF054 /* Lottie */,
-				30A4536B2D5CFCF5003665B6 /* Kingfisher */,
 			);
 			productName = YemekAtlas;
 			productReference = 30BDD5132CC3D6EA006F8EFA /* YemekAtlas.app */;
@@ -386,7 +383,6 @@
 				30D234842CEA6D3500CFBA7F /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
 				30A4B1052D1F06E3009BF054 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				3029B2C82D44079E00D310A7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				30A4536A2D5CF2F3003665B6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 30BDD5142CC3D6EA006F8EFA /* Products */;
 			projectDirPath = "";
@@ -680,14 +676,6 @@
 				minimumVersion = 8.0.0;
 			};
 		};
-		30A4536A2D5CF2F3003665B6 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.2.0;
-			};
-		};
 		30A4B1052D1F06E3009BF054 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
@@ -715,11 +703,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		30A4536B2D5CFCF5003665B6 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 30A4536A2D5CF2F3003665B6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
 		30A4B1062D1F06E3009BF054 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 30A4B1052D1F06E3009BF054 /* XCRemoteSwiftPackageReference "lottie-spm" */;
