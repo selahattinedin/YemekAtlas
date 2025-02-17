@@ -19,7 +19,7 @@ struct SearchView: View {
             ZStack {
                 ScrollView {
                     VStack(spacing: 0) {
-                        // Header Image
+
                         GeometryReader { geometry in
                             let minY = geometry.frame(in: .global).minY
                             let scrollUpOffset = minY > 0 ? -minY : 0
@@ -109,7 +109,7 @@ struct SearchView: View {
                             
                             VStack(spacing: 2) {
                                 RecentSearchesView(searchManager: searchManager)
-                                DailyRecipesView()
+                                DailyRecipeView()
                                 ChefSpecialsView()
                             }
                         }

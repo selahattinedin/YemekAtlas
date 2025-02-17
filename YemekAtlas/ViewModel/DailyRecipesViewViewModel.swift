@@ -1,14 +1,5 @@
-//
-//  GunlukYemekViewModel.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 25.12.2024.
-//
-
-
 import Foundation
 import GoogleGenerativeAI
-import SwiftUI
 
 class DailyRecipesViewViewModel: ObservableObject {
     @Published var dailyRecipes: [Recipe] = []
@@ -31,41 +22,46 @@ class DailyRecipesViewViewModel: ObservableObject {
         dailyRecipes = []
         
         let prompt = """
-        Bana Türk ve dünya mutfağından 4 rastgele yemek tarifi ver. Her tarif şu formatta olmalı:
+                Dünya mutfağından yemek tarifi için sadece tek bir tarif olacak şekilde aşağıdaki formatta bilgi ver. Önemli alerjenleri özellikle kontrol et ve belirt:
 
-        İsim: [Tarif adı]
+                İsim: [Tarif adı]
 
-        Malzemeler: 
-        (Tarif için malzemeleri listele ve başına - koy )
-        - [Malzeme ve miktarı]
+                Malzemeler: 
+                (Tek tarif için malzemeleri listele ve başına - koy)
+                - [Malzeme ve miktarı]
 
-        Kalori: Tarif adına uygun bir kalori ver. [Sadece sayı] kcal
+                Kalori: Tarif adına uygun bir kalori ver. [Sadece sayı] kcal
 
-        Besin Değerleri:
-        Protein: [Sadece sayı] g
-        Karbonhidrat: [Sadece sayı] g
-        Yağ: [Sadece sayı] g
-        Saat: [Sadece sayı] Dak
+                Besin Değerleri:
+                Protein: [Sadece sayı] g
+                Karbonhidrat: [Sadece sayı] g
+                Yağ: [Sadece sayı] g
 
-        Alerjenler:
-        [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
-        - Eğer malzemelerde gluten, kabuklu deniz ürünleri, yumurta, süt ürünleri, balık, hardal, yer fıstığı, karabiber veya soya varsa "Alerjen:" başlığı altında yaz.
-        - Sadece alerjen madde olanları Alerjen başlığı altında belirt listede hiçbiri yoksa o zaman "Bulunmuyor" yaz.]
+                Hazırlık Süresi: [Sadece sayı] dakika
 
-        Yapılış:
-        Cümle sonunda nokta varsa eğer alt satırda göster
-        [Detaylı tarif]
+                Alerjenler:
+                [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
+                - Eğer malzemelerde gluten, kabuklu deniz ürünleri, yumurta, süt ürünleri, balık, hardal, yer fıstığı, karabiber veya soya varsa "Alerjen:" başlığı altında yaz.
+                - Sadece alerjen madde olanları Alerjen başlığı altında belirt listede hiçbiri yoksa o zaman "Bulunmuyor" yaz.]
 
-        ImageURL: [Yemek görseli için URL]
-        """
+                Yapılış:
+                [Detaylı tarif] Detaylı tarif verirken madde madde yaz her noktadan sonra alt satıra geç.
+
+                ImageURL: [Yemek görseli için URL]
+                """
         
         do {
             let response = try await generativeModel.generateContent(prompt)
             if let text = response.text {
-                dailyRecipes = parseMultipleRecipesText(text)
+                // Yanıtı kontrol et ve eksik veriler varsa hata mesajı göster
+                if text.contains("İsim:") && text.contains("Malzemeler:") && text.contains("Besin Değerleri:") && text.contains("Alerjenler:") && text.contains("Yapılış:") {
+                    dailyRecipes = parseMultipleRecipesText(text)
+                } else {
+                    errorMessage = "API'den tam yanıt alınamadı. Lütfen tekrar deneyin."
+                }
             }
         } catch {
-            errorMessage = "Günlük tarifler yüklenirken hata oluştu: \(error.localizedDescription)"
+            errorMessage = "Tarif yüklenirken hata oluştu: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -76,7 +72,7 @@ class DailyRecipesViewViewModel: ObservableObject {
             .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
         
         let recipes = recipeBlocks.compactMap { parseRecipeText($0) }
-        return Array(recipes.prefix(4))
+        return Array(recipes.prefix(1)) 
     }
     
     private func parseRecipeText(_ text: String) -> Recipe? {
@@ -88,12 +84,12 @@ class DailyRecipesViewViewModel: ObservableObject {
         var fat = 0
         var allergens: [String] = []
         var instructions = ""
-        var imageURL = "Hamburger"
-        var clock = 43
+        var imageURL = ""
+        var clock = 0
         var currentSection = ""
         
         let lines = text.components(separatedBy: .newlines)
-            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
         
         for line in lines {
@@ -112,11 +108,10 @@ class DailyRecipesViewViewModel: ObservableObject {
                 
             case "Yapılış:":
                 currentSection = "yapilis"
-                    
-            
-            case let str where str.lowercased().contains("Saat:"):
+                
+            case let str where str.lowercased().contains("saat:"):
                 clock = extractNumber(from: str)
-                    
+                
             case let str where str.lowercased().contains("kalori:"):
                 calories = extractNumber(from: str)
                 
@@ -156,10 +151,8 @@ class DailyRecipesViewViewModel: ObservableObject {
             }
         }
         
-      
         guard !name.isEmpty else { return nil }
         
-       
         if allergens.isEmpty {
             allergens = ["Alerjen bulunmuyor"]
         }
@@ -175,7 +168,6 @@ class DailyRecipesViewViewModel: ObservableObject {
             instructions: instructions.trim(),
             imageURL: imageURL,
             clock: clock
-            
         )
     }
     

@@ -82,7 +82,7 @@ class SearchViewViewModel: ObservableObject {
         var allergens: [String] = []
         var instructions = ""
         var imageURL = ""
-        var clock = 0 // Varsayılan değer
+        var clock = 0 
         var currentSection = ""
 
         let lines = text.components(separatedBy: .newlines)
