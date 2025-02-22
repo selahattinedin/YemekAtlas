@@ -1,6 +1,6 @@
 //
-//  IngredientsSelectionView.swift
-//  YemekAtlas
+//  IngredientSelectionView.swift
+//  FoodAtlas
 //
 //  Created by Selahattin EDİN on 4.02.2025.
 //
@@ -23,7 +23,7 @@ struct IngredientSelectionView: View {
                     .foregroundColor(mainColor)
                     .font(.system(size: 20))
                 
-                TextField("Malzeme Ara...", text: $viewModel.searchQuery)
+                TextField("Search Ingredient...", text: $viewModel.searchQuery)
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.system(size: 16))
                     .tint(mainColor)
@@ -91,7 +91,7 @@ struct IngredientSelectionView: View {
                 dismiss()
             }) {
                 HStack(spacing: 12) {
-                    Text("Malzemeleri Ekle")
+                    Text("Add Ingredients")
                         .font(.headline)
                         .fontWeight(.semibold)
                     

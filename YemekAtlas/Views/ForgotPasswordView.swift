@@ -8,7 +8,7 @@ struct ForgotPasswordView: View {
     @State private var isAlertPresented = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
-    @State private var isConfirmationAlert = true // Hangi alert'in gösterileceğini kontrol eder
+    @State private var isConfirmationAlert = true // Controls which alert is shown
     
     var body: some View {
         ZStack {
@@ -24,24 +24,24 @@ struct ForgotPasswordView: View {
                 
                 // Header
                 VStack(spacing: 12) {
-                    Text("Şifrenizi Sıfırlayın")
+                    Text("Reset Your Password")
                         .font(.custom("Avenir-Black", size: 32))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.white)
                     
-                    Text("E-posta adresinizi girin\nşifre sıfırlama bağlantısı gönderilecek.")
+                    Text("Enter your email address\nand a password reset link will be sent.")
                         .font(.custom("Avenir-Medium", size: 20))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.white.opacity(0.9))
                 }
                 .padding(.bottom, 30)
                 
-                // E-posta Field
+                // Email Field
                 VStack(spacing: 20) {
                     HStack(spacing: 15) {
                         Image(systemName: "envelope.fill")
                             .foregroundColor(.black)
-                        TextField("E-posta", text: $viewModel.email)
+                        TextField("Email", text: $viewModel.email)
                             .foregroundColor(.black)
                             .autocapitalization(.none)
                             .autocorrectionDisabled()
@@ -52,15 +52,15 @@ struct ForgotPasswordView: View {
                 }
                 .padding(.horizontal, 60)
                 
-                // Şifreyi Sıfırla Button
+                // Reset Password Button
                 Button(action: {
-                    alertTitle = "Onay"
-                    alertMessage = "Şifre sıfırlama bağlantısı göndermek istediğinize emin misiniz?"
+                    alertTitle = "Confirmation"
+                    alertMessage = "Are you sure you want to send a password reset link?"
                     isConfirmationAlert = true
                     isAlertPresented = true
                 }) {
                     HStack(spacing: 15) {
-                        Text("Şifreyi Sıfırla")
+                        Text("Reset Password")
                             .font(.custom("Avenir-Heavy", size: 20))
                         Image(systemName: "arrow.right")
                             .font(.system(size: 20, weight: .medium))
@@ -76,7 +76,7 @@ struct ForgotPasswordView: View {
                 Spacer()
             }
             
-            // Geri butonu
+            // Back button
             VStack {
                 HStack {
                     Button(action: {
@@ -86,7 +86,7 @@ struct ForgotPasswordView: View {
                             Image(systemName: "chevron.left")
                                 .font(.title3)
                                 .foregroundColor(.white)
-                            Text("Geri")
+                            Text("Back")
                                 .font(.custom("Avenir-Medium", size: 16))
                                 .foregroundColor(.white)
                         }
@@ -109,40 +109,40 @@ struct ForgotPasswordView: View {
         .navigationBarHidden(true)
         .alert(isPresented: $isAlertPresented) {
             if isConfirmationAlert {
-                // Onay Alert'i
+                // Confirmation Alert
                 Alert(
                     title: Text(alertTitle),
                     message: Text(alertMessage),
-                    primaryButton: .destructive(Text("Evet")) {
+                    primaryButton: .destructive(Text("Yes")) {
                         viewModel.resetPassword { success in
                             if success {
-                                alertTitle = "Başarılı!"
-                                alertMessage = "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi."
+                                alertTitle = "Success!"
+                                alertMessage = "A password reset link has been sent to your email."
                                 isConfirmationAlert = false
-                                // Kısa bir gecikme ile success alert'ini göster
+                                // Show success alert after a short delay
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                     isAlertPresented = true
                                 }
                             } else {
-                                alertTitle = "Hata"
-                                alertMessage = "Bir hata oluştu. Lütfen tekrar deneyin."
+                                alertTitle = "Error"
+                                alertMessage = "An error occurred. Please try again."
                                 isConfirmationAlert = false
-                                // Kısa bir gecikme ile error alert'ini göster
+                                // Show error alert after a short delay
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                     isAlertPresented = true
                                 }
                             }
                         }
                     },
-                    secondaryButton: .cancel(Text("Hayır"))
+                    secondaryButton: .cancel(Text("No"))
                 )
             } else {
-                // Sonuç Alert'i
+                // Result Alert
                 Alert(
                     title: Text(alertTitle),
                     message: Text(alertMessage),
-                    dismissButton: .default(Text("Tamam")) {
-                        if alertTitle == "Başarılı!" {
+                    dismissButton: .default(Text("OK")) {
+                        if alertTitle == "Success!" {
                             dismiss()
                         }
                     }

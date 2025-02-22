@@ -3,7 +3,7 @@ import FirebaseAuth
 
 class VerificationViewViewModel: ObservableObject {
     @Published var errorMessage = ""
-    @Published var verificationStatus = "E-posta doğrulaması bekleniyor..."
+    @Published var verificationStatus = "Email verification is pending..."
     @Published var isVerified = false
     @Published var shouldNavigateToLogin = false
     
@@ -17,30 +17,30 @@ class VerificationViewViewModel: ObservableObject {
     
     func checkVerificationStatus() {
         guard let user = Auth.auth().currentUser else {
-            errorMessage = "Kullanıcı bulunamadı"
+            errorMessage = "User not found"
             return
         }
         
         user.reload { [weak self] error in
             if let error = error {
                 DispatchQueue.main.async {
-                    self?.errorMessage = "Hata: \(error.localizedDescription)"
+                    self?.errorMessage = "Error: \(error.localizedDescription)"
                 }
                 return
             }
             
             DispatchQueue.main.async {
                 if user.isEmailVerified {
-                    self?.verificationStatus = "E-posta doğrulandı!"
+                    self?.verificationStatus = "Email verified!"
                     self?.verificationTimer?.invalidate()
                     
-                    // Kısa bir gecikme ile çıkış yapıp login'e yönlendir
+                    // Log out and navigate to login after a short delay
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         self?.signOut()
                         self?.shouldNavigateToLogin = true
                     }
                 } else {
-                    self?.verificationStatus = "E-posta henüz doğrulanmadı.\nLütfen mail kutunuzu kontrol edin."
+                    self?.verificationStatus = "Email not verified yet.\nPlease check your inbox."
                 }
             }
         }
@@ -48,16 +48,16 @@ class VerificationViewViewModel: ObservableObject {
     
     func resendVerificationEmail() {
         guard let user = Auth.auth().currentUser else {
-            errorMessage = "Kullanıcı bulunamadı"
+            errorMessage = "User not found"
             return
         }
         
         user.sendEmailVerification { [weak self] error in
             DispatchQueue.main.async {
                 if let error = error {
-                    self?.errorMessage = "Mail gönderilemedi: \(error.localizedDescription)"
+                    self?.errorMessage = "Unable to send email: \(error.localizedDescription)"
                 } else {
-                    self?.verificationStatus = "Yeni doğrulama maili gönderildi!"
+                    self?.verificationStatus = "A new verification email has been sent!"
                 }
             }
         }
@@ -67,7 +67,7 @@ class VerificationViewViewModel: ObservableObject {
         do {
             try Auth.auth().signOut()
         } catch {
-            errorMessage = "Çıkış yapılamadı: \(error.localizedDescription)"
+            errorMessage = "Unable to sign out: \(error.localizedDescription)"
         }
     }
     

@@ -1,11 +1,9 @@
-
 import SwiftUI
-import Kingfisher
 
 struct LoginView: View {
     @StateObject var viewModel = LoginViewViewModel()
     @State private var isPasswordVisible = false
-    @State private var showForgotPasswordModal = false // Modal'ı açmak için
+    @State private var showForgotPasswordModal = false // Show modal
 
     var body: some View {
         ZStack {
@@ -23,12 +21,12 @@ struct LoginView: View {
                     
                     // Header
                     VStack(spacing: 12) {
-                        Text("Hoş Geldiniz!")
+                        Text("Welcome!")
                             .font(.custom("Avenir-Black", size: 32))
                             .multilineTextAlignment(.center)
                             .foregroundColor(.white)
                         
-                        Text("Mutfak yolculuğunuza\ndevam edin!")
+                        Text("Continue your kitchen journey!")
                             .font(.custom("Avenir-Medium", size: 20))
                             .multilineTextAlignment(.center)
                             .foregroundColor(.white.opacity(0.9))
@@ -49,7 +47,7 @@ struct LoginView: View {
                         HStack(spacing: 15) {
                             Image(systemName: "envelope.fill")
                                 .foregroundColor(.black)
-                            TextField("E-posta", text: $viewModel.email)
+                            TextField("Email", text: $viewModel.email)
                                 .foregroundColor(.black)
                                 .autocapitalization(.none)
                                 .autocorrectionDisabled()
@@ -63,10 +61,10 @@ struct LoginView: View {
                             Image(systemName: "lock.fill")
                                 .foregroundColor(.black)
                             if isPasswordVisible {
-                                TextField("Şifre", text: $viewModel.password)
+                                TextField("Password", text: $viewModel.password)
                                     .foregroundColor(.black)
                             } else {
-                                SecureField("Şifre", text: $viewModel.password)
+                                SecureField("Password", text: $viewModel.password)
                                     .foregroundColor(.black)
                             }
                             Button(action: {
@@ -87,9 +85,9 @@ struct LoginView: View {
                     
                     // Forgot Password Button (opens modal)
                     Button(action: {
-                        showForgotPasswordModal.toggle() // Modal'ı göster
+                        showForgotPasswordModal.toggle() // Show modal
                     }) {
-                        Text("Şifremi Unuttum")
+                        Text("Forgot Password")
                             .foregroundColor(.white.opacity(0.9))
                             .font(.custom("Avenir-Medium", size: 20))
                     }
@@ -100,7 +98,7 @@ struct LoginView: View {
                         viewModel.login()
                     }) {
                         HStack(spacing: 15) {
-                            Text("Giriş Yap")
+                            Text("Login")
                                 .font(.custom("Avenir-Heavy", size: 20))
                             Image(systemName: "arrow.right")
                                 .font(.system(size: 20, weight: .medium))
@@ -115,10 +113,10 @@ struct LoginView: View {
                     
                     // Register Link
                     HStack(spacing: 5) {
-                        Text("Hesabınız yok mu?")
+                        Text("Don't have an account?")
                             .foregroundColor(.white)
                         NavigationLink(destination: RegisterView()) {
-                            Text("Kayıt Ol")
+                            Text("Sign Up")
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("foodbackcolor"))
                         }

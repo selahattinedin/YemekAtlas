@@ -1,17 +1,13 @@
-
-
 import SwiftUI
 
 struct RecentSearchesView: View {
-    @StateObject var searchManager: RecentSearchesManager 
+    @StateObject var searchManager: RecentSearchesManager
     @State private var showCustomAlert = false
     
-    
-
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Geçmiş Aramalar")
+                Text("Recent Searches")
                     .font(.title2.bold())
                     .foregroundColor(.orange)
                 
@@ -24,7 +20,7 @@ struct RecentSearchesView: View {
                         HStack(spacing: 8) {
                             Image(systemName: "trash")
                                 .font(.system(size: 14, weight: .bold))
-                            Text("Temizle")
+                            Text("Clear")
                                 .font(.system(size: 14, weight: .semibold))
                         }
                         .foregroundColor(.white)
@@ -41,7 +37,7 @@ struct RecentSearchesView: View {
             .padding(.horizontal)
             
             if searchManager.recentSearches.isEmpty {
-                Text("Geçmiş arama bulunmamakta.")
+                Text("No recent searches found.")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .padding(.horizontal)
@@ -62,15 +58,15 @@ struct RecentSearchesView: View {
         .padding(.top, 16)
         .overlay(
             CustomAlertView(
-                title: "Geçmişi Temizle",
-                message: "Tüm geçmiş aramaları temizlemek istediğinizden emin misiniz?",
-                confirmButtonTitle: "Temizle",
-                cancelButtonTitle: "İptal",
+                title: "Clear History",
+                message: "Are you sure you want to clear all recent searches?",
+                confirmButtonTitle: "Clear",
+                cancelButtonTitle: "Cancel",
                 confirmAction: {
                     searchManager.clearSearches()
                 },
                 cancelAction: {},
-                isPresented: $showCustomAlert 
+                isPresented: $showCustomAlert
             )
         )
     }

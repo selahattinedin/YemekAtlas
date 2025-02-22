@@ -5,18 +5,24 @@
 //  Created by Selahattin EDİN on 18.11.2024.
 //
 
+//
+//  HomeView.swift
+//  YemekAtlas
+//
+//  Created by Selahattin EDİN on 18.11.2024.
+//
+
 import SwiftUI
 
 struct RecipeDetailView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var selectedTab = "Malzemeler"
+    @State private var selectedTab = "Ingredients"
     @State private var selectedIngredients: [String: Bool] = [:]
     @StateObject private var favoritesManager = FavoriteRecipesManager()
     
     let recipe: Recipe
-    let tabs = ["Malzemeler", "Yapılış", "Alerjenler"]
+    let tabs = ["Ingredients", "Instructions", "Allergens"]
     
-    // isRecipeFavorite artık computed property
     var isRecipeFavorite: Bool {
         favoritesManager.isFavorite(recipe: recipe)
     }
@@ -83,11 +89,11 @@ struct RecipeDetailView: View {
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 6) {
-                                        InfoPill(icon: "clock", text: "\(recipe.clock)", subtext: "Dak")
-                                        InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Kal")
-                                        InfoPill(icon: "carrot.fill", text: "\(recipe.protein) gr", subtext: "Protein")
-                                        InfoPill(icon: "drop.fill", text: "\(recipe.fat) gr", subtext: "Yağ")
-                                        InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates) gr", subtext: "Carb")
+                                        InfoPill(icon: "clock", text: "\(recipe.clock)", subtext: "Min")
+                                        InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Cal")
+                                        InfoPill(icon: "carrot.fill", text: "\(recipe.protein) g", subtext: "Protein")
+                                        InfoPill(icon: "drop.fill", text: "\(recipe.fat) g", subtext: "Fat")
+                                        InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates) g", subtext: "Carb")
                                     }
                                     .padding(.horizontal, 6)
                                     .frame(maxWidth: .infinity)
@@ -109,10 +115,9 @@ struct RecipeDetailView: View {
                                     Spacer()
                                 }
                                 
-                                // Tab İçeriği
                                 VStack(alignment: .leading, spacing: 16) {
-                                    if selectedTab == "Malzemeler" {
-                                        Text("Tarif Malzemeleri")
+                                    if selectedTab == "Ingredients" {
+                                        Text("Recipe Ingredients")
                                             .font(.title2)
                                             .fontWeight(.bold)
                                             .padding(.horizontal)
@@ -142,8 +147,8 @@ struct RecipeDetailView: View {
                                             )
                                             .padding(.horizontal)
                                         }
-                                    } else if selectedTab == "Yapılış" {
-                                        Text("Hazırlanış Adımları")
+                                    } else if selectedTab == "Instructions" {
+                                        Text("Preparation Steps")
                                             .font(.title2)
                                             .fontWeight(.bold)
                                             .padding(.horizontal)
@@ -151,7 +156,7 @@ struct RecipeDetailView: View {
                                         ForEach(Array(recipe.instructions.components(separatedBy: "\n").enumerated()), id: \.element) { index, step in
                                             if !step.isEmpty {
                                                 VStack(alignment: .leading) {
-                                                    Text("Adım \(index + 1)")
+                                                    Text("Step \(index + 1)")
                                                         .font(.headline)
                                                         .foregroundColor(.orange)
                                                     Text(step)
@@ -170,13 +175,13 @@ struct RecipeDetailView: View {
                                                 .padding(.horizontal)
                                             }
                                         }
-                                    } else if selectedTab == "Alerjenler" {
-                                        Text("Alerjen Bilgileri")
+                                    } else if selectedTab == "Allergens" {
+                                        Text("Allergen Information")
                                             .font(.title2)
                                             .fontWeight(.bold)
                                             .padding(.horizontal)
                                         
-                                        ForEach(recipe.allergens.isEmpty ? ["Alerjen bulunmuyor."] : recipe.allergens, id: \.self) { allergen in
+                                        ForEach(recipe.allergens.isEmpty ? ["No allergens found."] : recipe.allergens, id: \.self) { allergen in
                                             HStack {
                                                 Text(allergen)
                                                     .font(.headline)

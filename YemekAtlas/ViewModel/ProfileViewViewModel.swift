@@ -17,7 +17,7 @@ class ProfileViewViewModel: ObservableObject {
     
     func setupUserListener() {
         guard let userId = Auth.auth().currentUser?.uid else {
-            errorMessage = "Kullanıcı oturumu bulunamadı"
+            errorMessage = "User session not found"
             return
         }
         
@@ -32,30 +32,30 @@ class ProfileViewViewModel: ObservableObject {
                     self.isLoading = false
                     
                     if let error = error {
-                        print("Firestore hatası: \(error.localizedDescription)")
-                        self.errorMessage = "Veri okuma hatası: \(error.localizedDescription)"
+                        print("Firestore error: \(error.localizedDescription)")
+                        self.errorMessage = "Data reading error: \(error.localizedDescription)"
                         return
                     }
                     
                     guard let document = documentSnapshot, document.exists,
                           let data = document.data() else {
-                        print("Döküman bulunamadı veya boş")
-                        self.errorMessage = "Kullanıcı bilgileri bulunamadı"
+                        print("Document not found or empty")
+                        self.errorMessage = "User information not found"
                         return
                     }
                     
-                    // Firestore verilerini kontrol edelim
-                    print("Firestore döküman verisi:", data)
+                    // Let's check Firestore data
+                    print("Firestore document data:", data)
                     
-                    // Gerekli alanları kontrol et ve dönüştür
+                    // Check and convert the necessary fields
                     guard let name = data["name"] as? String,
                           let email = data["email"] as? String else {
-                        print("Gerekli alanlar eksik veya yanlış formatta")
-                        self.errorMessage = "Veri formatı uyumsuz"
+                        print("Required fields are missing or in wrong format")
+                        self.errorMessage = "Incompatible data format"
                         return
                     }
                     
-                    // joined ve lastLogin için timestamp kontrolü
+                    // Check timestamp for joined and lastLogin
                     let joined: TimeInterval
                     if let joinedTimestamp = data["joined"] as? Timestamp {
                         joined = Double(joinedTimestamp.seconds)
@@ -64,13 +64,13 @@ class ProfileViewViewModel: ObservableObject {
                     } else if let joinedDouble = data["joined"] as? Double {
                         joined = joinedDouble
                     } else {
-                        print("joined alanı uygun formatta değil")
-                        self.errorMessage = "Veri formatı uyumsuz (joined)"
+                        print("Joined field is not in a proper format")
+                        self.errorMessage = "Incompatible data format (joined)"
                         return
                     }
 
                     
-                    // lastLogin için optional kontrol
+                    // Optional check for lastLogin
                     var lastLogin: TimeInterval?
                     if let lastLoginTimestamp = data["lastLogin"] as? Timestamp {
                         lastLogin = Double(lastLoginTimestamp.seconds)
@@ -80,7 +80,7 @@ class ProfileViewViewModel: ObservableObject {
                         lastLogin = lastLoginDouble
                     }
                     
-                    // User nesnesini oluştur
+                    // Create the User object
                     let user = User(
                         id: document.documentID,
                         name: name,
@@ -89,7 +89,7 @@ class ProfileViewViewModel: ObservableObject {
                         lastLogin: lastLogin
                     )
                     
-                    print("User nesnesi başarıyla oluşturuldu:", user)
+                    print("User object created successfully:", user)
                     self.user = user
                 }
             }
@@ -110,8 +110,8 @@ class ProfileViewViewModel: ObservableObject {
     
     func deleteUser(completion: @escaping (Bool) -> Void) {
         guard let user = Auth.auth().currentUser else {
-            print("Kullanıcı oturumu bulunamadı")
-            self.errorMessage = "Kullanıcı oturumu bulunamadı"
+            print("User session not found")
+            self.errorMessage = "User session not found"
             completion(false)
             return
         }
@@ -119,19 +119,19 @@ class ProfileViewViewModel: ObservableObject {
         let userId = user.uid
         let userRef = db.collection("users").document(userId)
         
-        // Önce tüm alt koleksiyonları sil
+        // First, delete all subcollections
         deleteAllSubcollections(userId: userId) { success in
             guard success else {
-                self.errorMessage = "Alt koleksiyonlar silinemedi"
+                self.errorMessage = "Subcollections could not be deleted"
                 completion(false)
                 return
             }
 
-            // Kullanıcı ana belgesini sil
+            // Delete the main user document
             userRef.delete { error in
                 if let error = error {
-                    print("Firestore kullanıcı silme hatası: \(error.localizedDescription)")
-                    self.errorMessage = "Kullanıcı verileri silinemedi: \(error.localizedDescription)"
+                    print("Firestore delete user error: \(error.localizedDescription)")
+                    self.errorMessage = "User data could not be deleted: \(error.localizedDescription)"
                     completion(false)
                     return
                 }
@@ -141,8 +141,8 @@ class ProfileViewViewModel: ObservableObject {
                     guard let self = self else { return }
                     
                     if let error = error {
-                        print("Authentication silme hatası: \(error.localizedDescription)")
-                        self.errorMessage = "Kullanıcı hesabı silinemedi: \(error.localizedDescription)"
+                        print("Authentication delete error: \(error.localizedDescription)")
+                        self.errorMessage = "User account could not be deleted: \(error.localizedDescription)"
                         
                         try? Auth.auth().signOut()
                     }
@@ -165,7 +165,7 @@ class ProfileViewViewModel: ObservableObject {
 
         userRef.collection("favorites").getDocuments { (querySnapshot, error) in
             if let error = error {
-                print("Alt koleksiyon okunamadı: \(error.localizedDescription)")
+                print("Subcollections could not be read: \(error.localizedDescription)")
                 completion(false)
                 return
             }
@@ -178,10 +178,10 @@ class ProfileViewViewModel: ObservableObject {
 
             batch.commit { error in
                 if let error = error {
-                    print("Alt koleksiyonlar silinemedi: \(error.localizedDescription)")
+                    print("Subcollections could not be deleted: \(error.localizedDescription)")
                     completion(false)
                 } else {
-                    print("Tüm alt koleksiyonlar silindi")
+                    print("All subcollections deleted")
                     completion(true)
                 }
             }

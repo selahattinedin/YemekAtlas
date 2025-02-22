@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 struct WelcomeView: View {
     @State private var shouldNavigateToLogin = false
     
@@ -21,12 +22,12 @@ struct WelcomeView: View {
                 
                 VStack(spacing: 20) {
                     Spacer()
-                    Text("Yapay Zeka ile\nMutfağınızı Keşfedin")
+                    Text("Discover Your Kitchen\nwith AI")
                         .font(.custom("Avenir-Black", size: 38))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.white)
                     
-                    Text("Kişiselleştirilmiş tarifler ve\nakıllı öneriler ile\ngeleceğin mutfağını keşfedin!")
+                    Text("Explore the future of cooking\nwith personalized recipes\nand smart suggestions!")
                         .font(.custom("Avenir-Medium", size: 25))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.white.opacity(0.9))
@@ -36,9 +37,8 @@ struct WelcomeView: View {
                     Spacer()
                     
                     NavigationLink(destination: LoginView()) {
-                        
                         HStack(spacing: 15) {
-                            Text("Lezzeti Keşfet")
+                            Text("Discover the Taste")
                                 .font(.custom("Avenir-Heavy", size: 20))
                             Image(systemName: "arrow.right")
                                 .font(.system(size: 20, weight: .medium))
@@ -56,7 +56,6 @@ struct WelcomeView: View {
         }
     }
 }
-
 
 #Preview {
     WelcomeView()

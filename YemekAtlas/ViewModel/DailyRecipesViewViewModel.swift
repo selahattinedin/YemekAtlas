@@ -22,46 +22,46 @@ class DailyRecipesViewViewModel: ObservableObject {
         dailyRecipes = []
         
         let prompt = """
-                Dünya mutfağından yemek tarifi için sadece tek bir tarif olacak şekilde aşağıdaki formatta bilgi ver. Önemli alerjenleri özellikle kontrol et ve belirt:
+                Provide information for only one recipe from world cuisine in the format below. Specifically check and mention important allergens:
 
-                İsim: [Tarif adı]
+                Name: [Recipe Name]
 
-                Malzemeler: 
-                (Tek tarif için malzemeleri listele ve başına - koy)
-                - [Malzeme ve miktarı]
+                Ingredients: 
+                (List ingredients for only one recipe and put - in front of each)
+                - [Ingredient and amount]
 
-                Kalori: Tarif adına uygun bir kalori ver. [Sadece sayı] kcal
+                Calories: Give an appropriate calorie count for the recipe name. [Only number] kcal
 
-                Besin Değerleri:
-                Protein: [Sadece sayı] g
-                Karbonhidrat: [Sadece sayı] g
-                Yağ: [Sadece sayı] g
+                Nutritional Values:
+                Protein: [Only number] g
+                Carbohydrates: [Only number] g
+                Fat: [Only number] g
 
-                Hazırlık Süresi: [Sadece sayı] dakika
+                Preparation Time: [Only number] minutes
 
-                Alerjenler:
-                [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
-                - Eğer malzemelerde gluten, kabuklu deniz ürünleri, yumurta, süt ürünleri, balık, hardal, yer fıstığı, karabiber veya soya varsa "Alerjen:" başlığı altında yaz.
-                - Sadece alerjen madde olanları Alerjen başlığı altında belirt listede hiçbiri yoksa o zaman "Bulunmuyor" yaz.]
+                Allergens:
+                [CHECK THE INGREDIENTS ONE BY ONE AND LIST BELOW:
+                - If any ingredients contain gluten, shellfish, eggs, dairy products, fish, mustard, peanuts, black pepper, or soy, write them under the "Allergen:" heading.
+                - Only list the allergenic substances under the Allergen heading. If none, write "Not Available".]
 
-                Yapılış:
-                [Detaylı tarif] Detaylı tarif verirken madde madde yaz her noktadan sonra alt satıra geç.
+                Instructions:
+                [Provide a detailed recipe, list it step by step with each point starting on a new line.]
 
-                ImageURL: [Yemek görseli için URL]
+                ImageURL: [URL for the food image]
                 """
         
         do {
             let response = try await generativeModel.generateContent(prompt)
             if let text = response.text {
-                // Yanıtı kontrol et ve eksik veriler varsa hata mesajı göster
-                if text.contains("İsim:") && text.contains("Malzemeler:") && text.contains("Besin Değerleri:") && text.contains("Alerjenler:") && text.contains("Yapılış:") {
+                // Check the response and show error message if any data is missing
+                if text.contains("Name:") && text.contains("Ingredients:") && text.contains("Nutritional Values:") && text.contains("Allergens:") && text.contains("Instructions:") {
                     dailyRecipes = parseMultipleRecipesText(text)
                 } else {
-                    errorMessage = "API'den tam yanıt alınamadı. Lütfen tekrar deneyin."
+                    errorMessage = "The full response could not be obtained from the API. Please try again."
                 }
             }
         } catch {
-            errorMessage = "Tarif yüklenirken hata oluştu: \(error.localizedDescription)"
+            errorMessage = "An error occurred while loading the recipe: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -72,7 +72,7 @@ class DailyRecipesViewViewModel: ObservableObject {
             .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
         
         let recipes = recipeBlocks.compactMap { parseRecipeText($0) }
-        return Array(recipes.prefix(1)) 
+        return Array(recipes.prefix(1))
     }
     
     private func parseRecipeText(_ text: String) -> Recipe? {
@@ -94,34 +94,34 @@ class DailyRecipesViewViewModel: ObservableObject {
         
         for line in lines {
             switch line {
-            case let str where str.hasPrefix("İsim:"):
-                name = str.replacingOccurrences(of: "İsim:", with: "").trim()
+            case let str where str.hasPrefix("Name:"):
+                name = str.replacingOccurrences(of: "Name:", with: "").trim()
                 
-            case "Malzemeler:":
-                currentSection = "malzemeler"
+            case "Ingredients:":
+                currentSection = "ingredients"
                 
-            case "Besin Değerleri:":
-                currentSection = "besin"
+            case "Nutritional Values:":
+                currentSection = "nutrition"
                 
-            case "Alerjenler:":
-                currentSection = "alerjenler"
+            case "Allergens:":
+                currentSection = "allergens"
                 
-            case "Yapılış:":
-                currentSection = "yapilis"
+            case "Instructions:":
+                currentSection = "instructions"
                 
-            case let str where str.lowercased().contains("saat:"):
+            case let str where str.lowercased().contains("time:"):
                 clock = extractNumber(from: str)
                 
-            case let str where str.lowercased().contains("kalori:"):
+            case let str where str.lowercased().contains("calories:"):
                 calories = extractNumber(from: str)
                 
             case let str where str.contains("Protein:"):
                 protein = extractNumber(from: str)
                 
-            case let str where str.contains("Karbonhidrat:"):
+            case let str where str.contains("Carbohydrates:"):
                 carbohydrates = extractNumber(from: str)
                 
-            case let str where str.contains("Yağ:"):
+            case let str where str.contains("Fat:"):
                 fat = extractNumber(from: str)
                 
             case let str where str.hasPrefix("ImageURL:"):
@@ -130,10 +130,10 @@ class DailyRecipesViewViewModel: ObservableObject {
             case let str where str.hasPrefix("-"):
                 let item = str.replacingOccurrences(of: "- ", with: "").trim()
                 switch currentSection {
-                case "malzemeler":
+                case "ingredients":
                     ingredients.append(item)
-                case "alerjenler":
-                    if item.lowercased() != "bulunmuyor" {
+                case "allergens":
+                    if item.lowercased() != "not available" {
                         allergens.append(item)
                     }
                 default:
@@ -141,7 +141,7 @@ class DailyRecipesViewViewModel: ObservableObject {
                 }
                 
             default:
-                if currentSection == "yapilis" {
+                if currentSection == "instructions" {
                     if instructions.isEmpty {
                         instructions = line
                     } else {
@@ -154,7 +154,7 @@ class DailyRecipesViewViewModel: ObservableObject {
         guard !name.isEmpty else { return nil }
         
         if allergens.isEmpty {
-            allergens = ["Alerjen bulunmuyor"]
+            allergens = ["No allergens found."]
         }
         
         return Recipe(

@@ -82,6 +82,7 @@
 		30D234832CD1031600CFBA7F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D234822CD1031600CFBA7F /* SearchView.swift */; };
 		30D234862CEA6D3500CFBA7F /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 30D234852CEA6D3500CFBA7F /* GoogleGenerativeAI */; };
 		30DA81FF2D63CD660060032C /* DailyRecipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DA81FE2D63CD660060032C /* DailyRecipeCardView.swift */; };
+		30DA82012D69CA150060032C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 30DA82002D69CA150060032C /* Localizable.xcstrings */; };
 		30F4C7AE2D5E172E007B5710 /* IngredientSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4C7AD2D5E172E007B5710 /* IngredientSelectionView.swift */; };
 		30F4C7B02D5F5791007B5710 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4C7AF2D5F5791007B5710 /* SettingsView.swift */; };
 		30F4C7B22D5F5855007B5710 /* UserProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4C7B12D5F5855007B5710 /* UserProfileDetailView.swift */; };
@@ -140,6 +141,7 @@
 		30D234802CD0FEF900CFBA7F /* MainViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewViewModel.swift; sourceTree = "<group>"; };
 		30D234822CD1031600CFBA7F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		30DA81FE2D63CD660060032C /* DailyRecipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipeCardView.swift; sourceTree = "<group>"; };
+		30DA82002D69CA150060032C /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		30F4C7AD2D5E172E007B5710 /* IngredientSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSelectionView.swift; sourceTree = "<group>"; };
 		30F4C7AF2D5F5791007B5710 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		30F4C7B12D5F5855007B5710 /* UserProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDetailView.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				30A4B1082D1F0741009BF054 /* Lottie.swift */,
 				30A4B10A2D1F0976009BF054 /* Food.json */,
 				30A4B10C2D1F1C1A009BF054 /* Loading.json */,
+				30DA82002D69CA150060032C /* Localizable.xcstrings */,
 			);
 			path = YemekAtlas;
 			sourceTree = "<group>";
@@ -378,7 +381,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				tr,
 			);
 			mainGroup = 30BDD50A2CC3D6E9006F8EFA;
 			packageReferences = (
@@ -406,6 +409,7 @@
 				30BDD51B2CC3D6EB006F8EFA /* Assets.xcassets in Resources */,
 				306391942CEDC7A50096F047 /* GenerativeAI-Info.plist in Resources */,
 				30A4B10B2D1F0976009BF054 /* Food.json in Resources */,
+				30DA82012D69CA150060032C /* Localizable.xcstrings in Resources */,
 				30BDD5592CC3ED0A006F8EFA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,6 +534,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -586,6 +591,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

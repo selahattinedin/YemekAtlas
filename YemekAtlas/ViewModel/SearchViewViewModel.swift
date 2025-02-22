@@ -31,32 +31,32 @@ class SearchViewViewModel: ObservableObject {
         recipe = nil
 
         let prompt = """
-        '\(searchText)' tarifi için sadece tek bir tarif olacak şekilde aşağıdaki formatta bilgi ver. Önemli alerjenleri özellikle kontrol et ve belirt:
+        Provide the recipe for '\(searchText)' in the format below for only one recipe. Be sure to check and mention important allergens:
 
-        İsim: [Tarif adı]
+        Name: [Recipe name]
 
-        Malzemeler: 
-        (Tek tarif için malzemeleri listele ve başına - koy)
-        - [Malzeme ve miktarı]
+        Ingredients:
+        (List the ingredients for a single recipe with a - before each item)
+        - [Ingredient and quantity]
 
-        Kalori: Tarif adına uygun bir kalori ver. [Sadece sayı] kcal
+        Calories: Provide a suitable calorie count for the recipe. [Only number] kcal
 
-        Besin Değerleri:
-        Protein: [Sadece sayı] g
-        Karbonhidrat: [Sadece sayı] g
-        Yağ: [Sadece sayı] g
+        Nutritional Values:
+        Protein: [Only number] g
+        Carbohydrates: [Only number] g
+        Fat: [Only number] g
 
-        Hazırlık Süresi: [Sadece sayı] dakika
+        Preparation Time: [Only number] minutes
 
-        Alerjenler:
-        [MALZEMELERİ TEK TEK KONTROL ET VE AŞAĞIDA LİSTELE:
-        - Eğer malzemelerde gluten, kabuklu deniz ürünleri, yumurta, süt ürünleri, balık, hardal, yer fıstığı, karabiber veya soya varsa "Alerjen:" başlığı altında yaz.
-        - Sadece alerjen madde olanları Alerjen başlığı altında belirt listede hiçbiri yoksa o zaman "Bulunmuyor" yaz.]
+        Allergens:
+        [CHECK EACH INGREDIENT AND LIST BELOW:
+        - If the ingredients contain gluten, shellfish, eggs, dairy, fish, mustard, peanuts, black pepper, or soy, list them under the "Allergen:" heading.
+        - Only mention allergenic ingredients under the Allergen heading, and if none are found, write "Not available."]
+        
+        Instructions:
+        [Detailed recipe]
 
-        Yapılış:
-        [Detaylı tarif]
-
-        ImageURL: [Yemek görseli için URL]
+        ImageURL: [URL for dish image]
         """
 
 
@@ -66,7 +66,7 @@ class SearchViewViewModel: ObservableObject {
                 recipe = parseRecipeText(text)
             }
         } catch {
-            errorMessage = "Hata: \(error.localizedDescription)"
+            errorMessage = "Error: \(error.localizedDescription)"
         }
 
         isLoading = false
@@ -82,7 +82,7 @@ class SearchViewViewModel: ObservableObject {
         var allergens: [String] = []
         var instructions = ""
         var imageURL = ""
-        var clock = 0 
+        var clock = 0
         var currentSection = ""
 
         let lines = text.components(separatedBy: .newlines)
@@ -91,46 +91,46 @@ class SearchViewViewModel: ObservableObject {
             let trimmedLine = line.trimmingCharacters(in: .whitespaces)
 
             switch trimmedLine {
-            case let str where str.hasPrefix("İsim:"):
-                name = str.replacingOccurrences(of: "İsim:", with: "").trim()
+            case let str where str.hasPrefix("Name:"):
+                name = str.replacingOccurrences(of: "Name:", with: "").trim()
 
-            case "Malzemeler:":
-                currentSection = "malzemeler"
+            case "Ingredients:":
+                currentSection = "ingredients"
 
-            case "Alerjenler:":
-                currentSection = "alerjenler"
+            case "Allergens:":
+                currentSection = "allergens"
 
-            case let str where str.contains("Hazırlık Süresi:"):
+            case let str where str.contains("Preparation Time:"):
                 clock = extractNumber(from: str)
 
-            case let str where str.lowercased().contains("kalori"):
+            case let str where str.lowercased().contains("calories"):
                 calories = extractNumber(from: str)
 
             case let str where str.contains("Protein:"):
                 protein = extractNumber(from: str)
 
-            case let str where str.contains("Karbonhidrat:"):
+            case let str where str.contains("Carbohydrates:"):
                 carbohydrates = extractNumber(from: str)
 
-            case let str where str.contains("Yağ:"):
+            case let str where str.contains("Fat:"):
                 fat = extractNumber(from: str)
 
-            case let str where str.hasPrefix("Yapılış:"):
-                currentSection = "yapilis"
-                instructions = str.replacingOccurrences(of: "Yapılış:", with: "").trim()
+            case let str where str.hasPrefix("Instructions:"):
+                currentSection = "instructions"
+                instructions = str.replacingOccurrences(of: "Instructions:", with: "").trim()
 
             case let str where str.hasPrefix("ImageURL:"):
                 imageURL = str.replacingOccurrences(of: "ImageURL:", with: "").trim()
 
             case let str where str.hasPrefix("-"):
                 let item = str.replacingOccurrences(of: "- ", with: "").trim()
-                if currentSection == "malzemeler" {
+                if currentSection == "ingredients" {
                     ingredients.append(item)
-                } else if currentSection == "alerjenler" && item != "Bulunmuyor" {
+                } else if currentSection == "allergens" && item != "Not available" {
                     allergens.append(item)
                 }
 
-            case let str where currentSection == "yapilis" && !str.isEmpty:
+            case let str where currentSection == "instructions" && !str.isEmpty:
                 instructions += (instructions.isEmpty ? "" : "\n") + str.trim()
 
             default:
@@ -145,10 +145,10 @@ class SearchViewViewModel: ObservableObject {
             protein: protein,
             carbohydrates: carbohydrates,
             fat: fat,
-            allergens: allergens.isEmpty ? ["Alerjen bulunmuyor"] : allergens,
+            allergens: allergens.isEmpty ? ["No allergens found"] : allergens,
             instructions: instructions.trim(),
             imageURL: imageURL,
-            clock: clock 
+            clock: clock
         )
     }
 
@@ -167,4 +167,3 @@ private extension String {
         self.trimmingCharacters(in: .whitespaces)
     }
 }
-

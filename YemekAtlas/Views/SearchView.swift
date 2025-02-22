@@ -44,12 +44,12 @@ struct SearchView: View {
                                     .offset(y: scrollUpOffset)
                                 
                                 VStack {
-                                    Text("Yemek Atlas")
+                                    Text("yemek atlas")
                                         .font(.system(size: 40, weight: .heavy))
                                         .foregroundColor(.white)
                                         .shadow(radius: 2)
                                     
-                                    Text("Bugün ne yemek istersin")
+                                    Text("What do you want to eat today?")
                                         .font(.title3)
                                         .foregroundColor(.white.opacity(0.9))
                                 }
@@ -68,7 +68,7 @@ struct SearchView: View {
                                             .font(.system(size: 22, weight: .semibold))
                                             .foregroundColor(.gray)
                                         
-                                        TextField("Ne yemek yapmak istersin?", text: $viewModel.searchText)
+                                        TextField("What do you want to cook?", text: $viewModel.searchText)
                                             .font(.system(size: 18, weight: .medium))
                                             .focused($isSearchFocused)
                                             .submitLabel(.search)
@@ -88,16 +88,16 @@ struct SearchView: View {
                                     HStack(spacing: 15) {
                                         GradientButtonView(
                                             icon: "square.grid.2x2",
-                                            title: "Malzemeler"
+                                            title: "Ingredients"
                                         ) {
                                             showIngredientSelector = true
                                         }
                                         
                                         GradientButtonView(
                                             icon: "arrow.right",
-                                            title: "Ara",
+                                            title: "Search",
                                             startColor: Color(red: 0.5, green: 0.1, blue: 1.0),
-                                                                endColor: Color(red: 0.0, green: 0.5, blue: 1.0)
+                                            endColor: Color(red: 0.0, green: 0.5, blue: 1.0)
                                         ) {
                                             validateAndSearch()
                                         }

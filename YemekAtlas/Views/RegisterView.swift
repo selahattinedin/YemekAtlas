@@ -19,12 +19,12 @@ struct RegisterView: View {
                     
                     // Header
                     VStack(spacing: 12) {
-                        Text("Mutfak Yolculuğuna\nHoş Geldiniz!")
+                        Text("Welcome to \nKitchen Journey!")
                             .font(.custom("Avenir-Black", size: 32))
                             .multilineTextAlignment(.center)
                             .foregroundColor(.white)
                         
-                        Text("Hesabınızı oluşturun ve\nmutfağı keşfedin!")
+                        Text("Create your account and\nexplore the kitchen!")
                             .font(.custom("Avenir-Medium", size: 20))
                             .multilineTextAlignment(.center)
                             .foregroundColor(.white.opacity(0.9))
@@ -45,7 +45,7 @@ struct RegisterView: View {
                         HStack(spacing: 15) {
                             Image(systemName: "person.fill")
                                 .foregroundColor(.black)
-                            TextField("Ad Soyad", text: $viewModel.name)
+                            TextField("Full Name", text: $viewModel.name)
                                 .foregroundColor(.black)
                                 .autocapitalization(.words)
                         }
@@ -57,7 +57,7 @@ struct RegisterView: View {
                         HStack(spacing: 15) {
                             Image(systemName: "envelope.fill")
                                 .foregroundColor(.black)
-                            TextField("E-posta", text: $viewModel.email)
+                            TextField("Email", text: $viewModel.email)
                                 .foregroundColor(.black)
                                 .autocapitalization(.none)
                                 .autocorrectionDisabled()
@@ -71,7 +71,7 @@ struct RegisterView: View {
                         HStack(spacing: 15) {
                             Image(systemName: "lock.fill")
                                 .foregroundColor(.black)
-                            SecureField("Şifre", text: $viewModel.password)
+                            SecureField("Password", text: $viewModel.password)
                                 .foregroundColor(.black)
                         }
                         .padding()
@@ -88,7 +88,7 @@ struct RegisterView: View {
                                     .font(.system(size: 20))
                             }
                             
-                            Text("Kullanım koşullarını kabul ediyorum")
+                            Text("I accept the terms and conditions")
                                 .font(.custom("Avenir-Medium", size: 14))
                                 .foregroundColor(.white)
                             
@@ -103,7 +103,7 @@ struct RegisterView: View {
                         viewModel.register()
                     }) {
                         HStack(spacing: 15) {
-                            Text("Kayıt Ol")
+                            Text("Sign Up")
                                 .font(.custom("Avenir-Heavy", size: 20))
                             Image(systemName: "arrow.right")
                                 .font(.system(size: 20, weight: .medium))

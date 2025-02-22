@@ -1,6 +1,6 @@
 //
 //  ChefSpecialsView.swift
-//  YemekAtlas
+//  FoodAtlas
 //
 //  Created by Selahattin EDİN on 25.01.2025.
 //
@@ -12,25 +12,25 @@ struct ChefSpecialsView: View {
         Recipe(
             name: "Margherita Pizza",
             ingredients: [
-                "250 g un",
-                "150 ml su",
-                "5 g maya",
-                "1 tutam tuz",
-                "200 g mozzarella peyniri",
-                "100 g domates sosu",
-                "Taze fesleğen yaprakları"
+                "250 g flour",
+                "150 ml water",
+                "5 g yeast",
+                "A pinch of salt",
+                "200 g mozzarella cheese",
+                "100 g tomato sauce",
+                "Fresh basil leaves"
             ],
             calories: 270,
             protein: 12,
             carbohydrates: 33,
             fat: 10,
-            allergens: ["Gluten", "Süt ürünleri"],
+            allergens: ["Gluten", "Dairy"],
             instructions: """
-            1. Un, su, maya ve tuzu karıştırarak pürüzsüz bir hamur hazırlayın.
-            2. Hamuru 30 dakika dinlendirin.
-            3. Hamuru açıp üzerine domates sosu sürün.
-            4. Mozzarella peynirini ekleyin ve fırında 220°C'de 10-12 dakika pişirin.
-            5. Taze fesleğen yaprakları ile süsleyerek servis yapın.
+            1. Mix flour, water, yeast, and salt to prepare a smooth dough.
+            2. Let the dough rest for 30 minutes.
+            3. Roll out the dough and spread tomato sauce on top.
+            4. Add mozzarella cheese and bake at 220°C for 10-12 minutes.
+            5. Garnish with fresh basil leaves and serve.
             """,
             imageURL: "Pizza",
             clock: 20
@@ -38,25 +38,25 @@ struct ChefSpecialsView: View {
         Recipe(
             name: "Sushi",
             ingredients: [
-                "200 g suşi pirinci",
-                "50 ml pirinç sirkesi",
-                "1 tatlı kaşığı şeker",
-                "1 çay kaşığı tuz",
-                "Nori yosunu",
-                "200 g somon",
-                "Avokado dilimleri"
+                "200 g sushi rice",
+                "50 ml rice vinegar",
+                "1 teaspoon sugar",
+                "1 teaspoon salt",
+                "Nori seaweed",
+                "200 g salmon",
+                "Avocado slices"
             ],
             calories: 180,
             protein: 15,
             carbohydrates: 30,
             fat: 5,
-            allergens: ["Balık"],
+            allergens: ["Fish"],
             instructions: """
-            1. Pirinci yıkayın ve kaynatarak pişirin.
-            2. Pirinç sirkesi, şeker ve tuzu karıştırıp sıcak pirince ekleyin.
-            3. Nori yosununun üzerine pirinci ince bir tabaka halinde yayın.
-            4. Somon ve avokado dilimlerini ekleyerek rulo yapın.
-            5. Dilimleyip servis edin.
+            1. Rinse the rice and cook it by boiling.
+            2. Mix rice vinegar, sugar, and salt, then add to the hot rice.
+            3. Spread the rice thinly over the nori seaweed.
+            4. Add salmon and avocado slices, then roll.
+            5. Slice and serve.
             """,
             imageURL: "Sushi",
             clock: 30
@@ -64,23 +64,23 @@ struct ChefSpecialsView: View {
         Recipe(
             name: "Hamburger",
             ingredients: [
-                "1 hamburger ekmeği",
-                "150 g dana kıyma",
-                "1 dilim cheddar peyniri",
-                "2 dilim domates",
-                "1 yaprak marul",
-                "Ketçap ve mayonez"
+                "1 hamburger bun",
+                "150 g ground beef",
+                "1 slice cheddar cheese",
+                "2 slices tomato",
+                "1 lettuce leaf",
+                "Ketchup and mayonnaise"
             ],
             calories: 450,
             protein: 25,
             carbohydrates: 40,
             fat: 20,
-            allergens: ["Gluten", "Süt ürünleri"],
+            allergens: ["Gluten", "Dairy"],
             instructions: """
-            1. Dana kıymayı yuvarlayarak köfte şekline getirin ve tavada pişirin.
-            2. Hamburger ekmeğini ikiye bölerek ısıtın.
-            3. Alt ekmeğin üzerine marul, domates dilimleri, pişen köfte ve cheddar peyniri ekleyin.
-            4. Ketçap ve mayonezle tatlandırın, üst ekmeği kapatın.
+            1. Shape the ground beef into a patty and cook in a pan.
+            2. Slice the hamburger bun in half and toast it.
+            3. Place lettuce, tomato slices, the cooked patty, and cheddar cheese on the bottom bun.
+            4. Add ketchup and mayonnaise, then close with the top bun.
             """,
             imageURL: "Hamburger",
             clock: 20
@@ -88,12 +88,12 @@ struct ChefSpecialsView: View {
         Recipe(
             name: "Tacos",
             ingredients: [
-                "2 adet tortilla",
-                "150 g tavuk göğsü",
-                "50 g mısır",
-                "50 g domates",
-                "50 g soğan",
-                "1 tatlı kaşığı taco baharatı"
+                "2 tortillas",
+                "150 g chicken breast",
+                "50 g corn",
+                "50 g tomato",
+                "50 g onion",
+                "1 teaspoon taco seasoning"
             ],
             calories: 250,
             protein: 20,
@@ -101,10 +101,10 @@ struct ChefSpecialsView: View {
             fat: 8,
             allergens: ["Gluten"],
             instructions: """
-            1. Tavuk göğsünü küçük parçalara bölün ve taco baharatı ile marine edin.
-            2. Tavukları tavada pişirin.
-            3. Tortillaların içine tavuk, mısır, domates ve soğan ekleyin.
-            4. Dilerseniz üzerine sos ekleyerek servis yapın.
+            1. Cut the chicken breast into small pieces and marinate with taco seasoning.
+            2. Cook the chicken in a pan.
+            3. Fill the tortillas with chicken, corn, tomato, and onion.
+            4. Add sauce if desired and serve.
             """,
             imageURL: "Tacos",
             clock: 15
@@ -112,24 +112,24 @@ struct ChefSpecialsView: View {
         Recipe(
             name: "Pad Thai",
             ingredients: [
-                "200 g pirinç eriştesi",
-                "100 g karides",
-                "2 yemek kaşığı soya sosu",
-                "1 yemek kaşığı balık sosu",
-                "1 adet yumurta",
-                "50 g yer fıstığı"
+                "200 g rice noodles",
+                "100 g shrimp",
+                "2 tablespoons soy sauce",
+                "1 tablespoon fish sauce",
+                "1 egg",
+                "50 g peanuts"
             ],
             calories: 380,
             protein: 22,
             carbohydrates: 50,
             fat: 12,
-            allergens: ["Soya", "Balık", "Yumurta", "Yer fıstığı"],
+            allergens: ["Soy", "Fish", "Egg", "Peanuts"],
             instructions: """
-            1. Pirinç eriştesini haşlayıp süzün.
-            2. Tavada yumurtayı çırparak pişirin.
-            3. Karides, soya sosu ve balık sosunu ekleyerek karıştırın.
-            4. Haşlanmış erişteyi tavaya ekleyin.
-            5. Üzerine yer fıstığı serpip servis yapın.
+            1. Boil and drain the rice noodles.
+            2. Scramble the egg in a pan.
+            3. Add shrimp, soy sauce, and fish sauce, then mix well.
+            4. Add the boiled noodles to the pan.
+            5. Sprinkle peanuts on top and serve.
             """,
             imageURL: "PadThai",
             clock: 25
@@ -138,7 +138,7 @@ struct ChefSpecialsView: View {
 
     var body: some View {
             VStack(alignment: .leading, spacing: 12) {
-                Text("Şefin Spesiyeli")
+                Text("Chef's Specials")
                     .font(.title2.bold())
                     .foregroundColor(.orange)
                     .padding(.horizontal)

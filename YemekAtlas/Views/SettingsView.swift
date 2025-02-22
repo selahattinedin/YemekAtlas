@@ -10,58 +10,58 @@ struct SettingsView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
-                    // Kullanıcı Bilgileri Kartı
+                    // User Information Card
                     NavigationLink {
                         UserProfileView(viewModel: viewModel)
                     } label: {
                         SettingsCardView(
-                            title: "Kullanıcı Bilgileri",
+                            title: "User Information",
                             icon: "person.fill",
-                            description: viewModel.user?.name ?? "Yükleniyor...",
+                            description: viewModel.user?.name ?? "Loading...",
                             color: .blue
                         )
                     }
                     
-                    // Tercihler Sayfası
+                   
                     NavigationLink {
                         PreferencesView()
                     } label: {
                         SettingsCardView(
-                            title: "Tercihler",
+                            title: "Preferences",
                             icon: "gear",
-                            description: "Tema, Dil, Bildirimler",
+                            description: "Theme, Language, Notifications",
                             color: .purple
                         )
                     }
                     
                     SettingsCardView(
-                        title: "Güvenlik",
+                        title: "Security",
                         icon: "lock.fill",
-                        description: "Şifre, Güvenlik Ayarları",
+                        description: "Password, Security Settings",
                         color: .green
                     )
                     
                     SettingsCardView(
-                        title: "Yardım",
+                        title: "Help",
                         icon: "questionmark.circle.fill",
-                        description: "SSS, İletişim",
+                        description: "FAQ, Contact",
                         color: .orange
                     )
                     
                     SettingsCardView(
-                        title: "Hakkında",
+                        title: "About",
                         icon: "info.circle.fill",
-                        description: "Uygulama Bilgileri",
+                        description: "App Information",
                         color: .gray
                     )
                     
-                    // Çıkış Yap Butonu
+                    // Logout Button
                     Button {
                         showLogoutAlert = true
                     } label: {
                         HStack {
                             Image(systemName: "rectangle.portrait.and.arrow.right")
-                            Text("Çıkış Yap")
+                            Text("Log Out")
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -72,16 +72,16 @@ struct SettingsView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Ayarlar")
+            .navigationTitle("Settings")
             .navigationDestination(isPresented: $isLoggedOut) {
                 LoginView()
             }
             .overlay(
                 CustomAlertView(
-                    title: "Çıkış Yap",
-                    message: "Hesabınızdan çıkış yapmak istediğinize emin misiniz?",
-                    confirmButtonTitle: "Çıkış Yap",
-                    cancelButtonTitle: "İptal",
+                    title: "Log Out",
+                    message: "Are you sure you want to log out of your account?",
+                    confirmButtonTitle: "Log Out",
+                    cancelButtonTitle: "Cancel",
                     confirmAction: {
                         viewModel.logout { success in
                             if success {

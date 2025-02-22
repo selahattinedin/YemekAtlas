@@ -5,7 +5,6 @@
 //  Created by Selahattin EDİN on 18.01.2025.
 //
 
-
 import Foundation
 import FirebaseAuth
 
@@ -15,62 +14,62 @@ class ForgotPasswordViewViewModel: ObservableObject {
     @Published var successMessage = ""
 
     func resetPassword(completion: @escaping (Bool) -> Void) {
-        // Debug: Email kontrolü yapalım
-        print("E-posta kontrol ediliyor: \(email)")
+        // Debug: Checking email
+        print("Checking email: \(email)")
         
         guard !email.isEmpty else {
-            errorMessage = "E-posta adresinizi girin."
-            print("Hata: E-posta boş")
+            errorMessage = "Please enter your email address."
+            print("Error: Email is empty")
             completion(false)
             return
         }
         
-        // Firebase üzerinden şifre sıfırlama işlemi başlatma
-        print("Şifre sıfırlama işlemi başlatılıyor...")
+        // Starting password reset process
+        print("Starting password reset process...")
         
-        // Firebase'in şifre sıfırlama işlemi başlatması
+        // Firebase password reset process
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let error = error {
-                // Firebase hata mesajı
-                self.errorMessage = "Bir hata oluştu: \(error.localizedDescription)"
-                print("Firebase Hata: \(error.localizedDescription)")
-                print("Hata Tipi: \(type(of: error))")
+                // Firebase error message
+                self.errorMessage = "An error occurred: \(error.localizedDescription)"
+                print("Firebase Error: \(error.localizedDescription)")
+                print("Error Type: \(type(of: error))")
                 completion(false)
                 return
             }
             
-            // Başarı mesajı
-            self.successMessage = "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi."
-            print("Başarılı: Şifre sıfırlama bağlantısı gönderildi.")
+            // Success message
+            self.successMessage = "A password reset link has been sent to your email address."
+            print("Success: Password reset link sent.")
             completion(true)
         }
     }
     
-    // Debug: E-posta geçerliliğini kontrol etme
+    // Debug: Validating email
     func validateEmail() -> Bool {
-        print("E-posta doğrulaması yapılıyor: \(email)")
+        print("Validating email: \(email)")
         
-        // E-posta formatının doğru olduğundan emin olalım
+        // Ensure the email format is correct
         let emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         let isValid = emailTest.evaluate(with: email)
         
         if isValid {
-            print("E-posta formatı geçerli: \(email)")
+            print("Valid email format: \(email)")
         } else {
-            print("Geçersiz e-posta formatı: \(email)")
+            print("Invalid email format: \(email)")
         }
         
         return isValid
     }
     
-    // Debug: Firebase kimlik doğrulama durumu
+    // Debug: Checking Firebase authentication status
     func checkFirebaseAuthStatus() {
-        print("Firebase kimlik doğrulama durumu kontrol ediliyor...")
+        print("Checking Firebase authentication status...")
         if let currentUser = Auth.auth().currentUser {
-            print("Giriş yapan kullanıcı: \(currentUser.email ?? "Bilinmeyen")")
+            print("Logged-in user: \(currentUser.email ?? "Unknown")")
         } else {
-            print("Kullanıcı giriş yapmamış.")
+            print("User is not logged in.")
         }
     }
 }

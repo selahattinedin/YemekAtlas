@@ -32,7 +32,7 @@ struct DailyRecipeCardView: View {
                         HStack(spacing: 6) {
                             Image(systemName: "clock")
                                 .foregroundColor(.gray)
-                            Text("\(recipe.clock) Dak.")
+                            Text("\(recipe.clock) Min.")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }

@@ -25,12 +25,12 @@ struct VerificationView: View {
                         .foregroundColor(.white)
                         .padding(.bottom, 20)
                     
-                    Text("E-posta Doğrulama")
+                    Text("Email Verification")
                         .font(.custom("Avenir-Black", size: 32))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.white)
                     
-                    Text("Lütfen e-posta adresinize gönderilen\ndoğrulama bağlantısını onaylayın")
+                    Text("Please confirm the verification link\nsent to your email address.")
                         .font(.custom("Avenir-Medium", size: 20))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.white.opacity(0.9))
@@ -45,19 +45,19 @@ struct VerificationView: View {
                         .padding(.horizontal)
                 }
                 
-                // Doğrulama Durumu
+                // Verification Status
                 Text(viewModel.verificationStatus)
                     .font(.custom("Avenir-Medium", size: 16))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
                 
-                // Kontrol Et Butonu
+                // Check Status Button
                 Button(action: {
                     viewModel.checkVerificationStatus()
                 }) {
                     HStack(spacing: 15) {
-                        Text("Doğrulama Durumunu Kontrol Et")
+                        Text("Check Verification Status")
                             .font(.custom("Avenir-Heavy", size: 18))
                         Image(systemName: "arrow.clockwise")
                             .font(.system(size: 18, weight: .medium))
@@ -70,11 +70,11 @@ struct VerificationView: View {
                 }
                 .padding(.top, 20)
                 
-                // Mail Tekrar Gönder Butonu
+                // Resend Email Button
                 Button(action: {
                     viewModel.resendVerificationEmail()
                 }) {
-                    Text("Doğrulama Mailini Tekrar Gönder")
+                    Text("Resend Verification Email")
                         .font(.custom("Avenir-Medium", size: 16))
                         .foregroundColor(.white)
                         .underline()
@@ -83,11 +83,11 @@ struct VerificationView: View {
                 
                 Spacer()
                 
-                // Çıkış Yap Butonu
+                // Sign Out Button
                 Button(action: {
                     viewModel.signOut()
                 }) {
-                    Text("Çıkış Yap")
+                    Text("Sign Out")
                         .font(.custom("Avenir-Medium", size: 16))
                         .foregroundColor(.white)
                         .underline()
@@ -107,7 +107,6 @@ struct VerificationView: View {
         }
     }
 }
-
 
 #Preview {
     VerificationView()

@@ -1,6 +1,6 @@
 //
-//  FavouriteRecipeView.swift
-//  YemekAtlas
+//  FavoriteRecipeView.swift
+//  FoodAtlas
 //
 //  Created by Selahattin EDİN on 21.01.2025.
 //
@@ -17,7 +17,7 @@ struct FavoriteView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Favori Tariflerim")
+                            Text("My Favorite Recipes")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(.primary)
                                    
@@ -30,7 +30,7 @@ struct FavoriteView: View {
                                     .foregroundColor(.red)
                                     .imageScale(.small)
                                        
-                                Text("Tarif")
+                                Text("Recipe")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
@@ -49,11 +49,11 @@ struct FavoriteView: View {
                                 .frame(width: 100, height: 100)
                                 .foregroundColor(.gray.opacity(0.5))
                             
-                            Text("Favori Tarif Bulunamadı")
+                            Text("No Favorite Recipes Found")
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             
-                            Text("Beğendiğiniz tarifleri favorilerinize ekleyebilirsiniz")
+                            Text("You can add your favorite recipes to your favorites")
                                 .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
                         }
@@ -95,10 +95,10 @@ struct FavoriteView: View {
         .overlay {
             if let recipe = recipeToDelete {
                 CustomAlertView(
-                    title: "Tarifi Sil",
-                    message: "\(recipe.name) adlı tarifi silmek istiyor musunuz?",
-                    confirmButtonTitle: "Sil",
-                    cancelButtonTitle: "İptal",
+                    title: "Delete Recipe",
+                    message: "Do you want to delete the recipe named \(recipe.name)?",
+                    confirmButtonTitle: "Delete",
+                    cancelButtonTitle: "Cancel",
                     confirmAction: {
                         if let index = favoritesManager.favoriteRecipes.firstIndex(where: { $0.id == recipe.id }) {
                             favoritesManager.removeFavorite(at: IndexSet(integer: index))
@@ -118,4 +118,3 @@ struct FavoriteView: View {
 #Preview {
     FavoriteView()
 }
-

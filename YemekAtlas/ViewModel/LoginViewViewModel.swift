@@ -33,9 +33,9 @@ class LoginViewViewModel: ObservableObject {
                 "lastLogin": Date().timeIntervalSince1970
             ], merge: true) { error in
                 if let error = error {
-                    print("🔥 Son giriş zamanı güncellenemedi: \(error.localizedDescription)")
+                    print("🔥 Failed to update last login time: \(error.localizedDescription)")
                 } else {
-                    print("✅ Son giriş zamanı güncellendi.")
+                    print("✅ Last login time updated successfully.")
                 }
             }
         }
@@ -46,12 +46,12 @@ class LoginViewViewModel: ObservableObject {
         
         guard !email.trimmingCharacters(in: .whitespaces).isEmpty,
               !password.trimmingCharacters(in: .whitespaces).isEmpty else {
-            errorMessage = "Lütfen tüm alanları doldurun."
+            errorMessage = "Please fill in all fields."
             return false
         }
         
         guard email.contains("@") && email.contains(".com") else {
-            errorMessage = "Lütfen geçerli bir email adresi giriniz."
+            errorMessage = "Please enter a valid email address."
             return false
         }
         return true

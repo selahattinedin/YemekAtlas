@@ -21,49 +21,49 @@ class RegisterViewViewModel: ObservableObject {
             
             if let error = error {
                 DispatchQueue.main.async {
-                    self.errorMessage = "Kayıt başarısız: \(error.localizedDescription)"
+                    self.errorMessage = "Registration failed: \(error.localizedDescription)"
                 }
                 return
             }
             
             guard let user = result?.user else {
                 DispatchQueue.main.async {
-                    self.errorMessage = "Kullanıcı oluşturulamadı."
+                    self.errorMessage = "User could not be created."
                 }
                 return
             }
             
-            // Kullanıcı adı Firebase Authentication'a ekleniyor
+            // Add username to Firebase Authentication
             let changeRequest = user.createProfileChangeRequest()
             changeRequest.displayName = self.name
             changeRequest.commitChanges { error in
                 if let error = error {
-                    print("🔥 Kullanıcı adı güncellenemedi: \(error.localizedDescription)")
+                    print("🔥 Failed to update username: \(error.localizedDescription)")
                 } else {
-                    print("✅ Kullanıcı adı güncellendi: \(self.name)")
+                    print("✅ Username updated: \(self.name)")
                     
-                    // Firestore'a kullanıcıyı kaydet
+                    // Save user to Firestore
                     self.db.collection("users").document(user.uid).setData([
                         "name": self.name,
                         "email": self.email,
                         "joined": Date().timeIntervalSince1970
                     ]) { error in
                         if let error = error {
-                            print("🔥 Firestore kayıt hatası: \(error.localizedDescription)")
+                            print("🔥 Firestore save error: \(error.localizedDescription)")
                         } else {
-                            print("✅ Kullanıcı Firestore'a başarıyla kaydedildi.")
+                            print("✅ User successfully saved to Firestore.")
                         }
                     }
                 }
             }
             
-            // Doğrulama maili gönder
+            // Send verification email
             user.sendEmailVerification { error in
                 DispatchQueue.main.async {
                     if let error = error {
-                        self.errorMessage = "Doğrulama maili gönderilemedi: \(error.localizedDescription)"
+                        self.errorMessage = "Verification email could not be sent: \(error.localizedDescription)"
                     } else {
-                        print("✅ Doğrulama maili gönderildi!")
+                        print("✅ Verification email sent!")
                         self.isRegistered = true
                         self.showVerificationScreen = true
                     }
@@ -78,22 +78,22 @@ class RegisterViewViewModel: ObservableObject {
         guard !name.trimmingCharacters(in: .whitespaces).isEmpty,
               !email.trimmingCharacters(in: .whitespaces).isEmpty,
               !password.trimmingCharacters(in: .whitespaces).isEmpty else {
-            errorMessage = "Lütfen tüm alanları doldurun."
+            errorMessage = "Please fill in all fields."
             return false
         }
         
         guard agreeToTerms else {
-            errorMessage = "Kullanım koşullarını kabul etmelisiniz."
+            errorMessage = "You must accept the terms and conditions."
             return false
         }
         
         guard email.contains("@") && email.contains(".") else {
-            errorMessage = "Geçerli bir e-posta adresi giriniz."
+            errorMessage = "Please enter a valid email address."
             return false
         }
         
         guard password.count >= 6 else {
-            errorMessage = "Şifre en az 6 karakter uzunluğunda olmalıdır."
+            errorMessage = "Password must be at least 6 characters long."
             return false
         }
         

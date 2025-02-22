@@ -7,7 +7,7 @@ struct DailyRecipeView: View {
     var body: some View {
         VStack(spacing: 16) {
             HStack {
-                Text("Günün Tarifi")
+                Text("Recipe Of The Day")
                     .font(.title2.bold())
                     .foregroundStyle(Color("foodbackcolor"))
                 Spacer()

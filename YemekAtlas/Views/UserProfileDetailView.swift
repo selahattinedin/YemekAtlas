@@ -12,23 +12,23 @@ struct UserProfileView: View {
                     ProgressView()
                 } else if let user = viewModel.user {
                     Form {
-                        Section("Kişisel Bilgiler") {
+                        Section("Personal Information") {
                             HStack {
-                                Text("Ad Soyad")
+                                Text("Full Name")
                                 Spacer()
                                 Text(user.name)
                                     .foregroundColor(.gray)
                             }
                             
                             HStack {
-                                Text("E-posta")
+                                Text("Email")
                                 Spacer()
                                 Text(user.email)
                                     .foregroundColor(.gray)
                             }
                             
                             HStack {
-                                Text("Katılma Tarihi")
+                                Text("Join Date")
                                 Spacer()
                                 Text(Date(timeIntervalSince1970: user.joined)
                                     .formatted(date: .abbreviated, time: .omitted))
@@ -37,7 +37,7 @@ struct UserProfileView: View {
                             
                             if let lastLogin = user.lastLogin {
                                 HStack {
-                                    Text("Son Giriş")
+                                    Text("Last Login")
                                     Spacer()
                                     Text(Date(timeIntervalSince1970: lastLogin)
                                         .formatted(date: .abbreviated, time: .omitted))
@@ -47,7 +47,7 @@ struct UserProfileView: View {
                         }
                         
                         Section {
-                            Button("Hesabımı Sil") {
+                            Button("Delete My Account") {
                                 showingAlert = true
                             }
                             .foregroundColor(.white)
@@ -56,25 +56,25 @@ struct UserProfileView: View {
                             .cornerRadius(8)
                         }
                     }
-                    .alert("Hesabınızı Silmek Üzeresiniz", isPresented: $showingAlert) {
-                        Button("İptal", role: .cancel) { }
-                        Button("Sil", role: .destructive) {
+                    .alert("You Are About to Delete Your Account", isPresented: $showingAlert) {
+                        Button("Cancel", role: .cancel) { }
+                        Button("Delete", role: .destructive) {
                             viewModel.deleteUser { success in
                                 if success {
-                                    // Kullanıcı silindiğinde LoginView'a dön
+                                    // Return to LoginView when user is deleted
                                     dismiss()
                                 }
                             }
                         }
                     } message: {
-                        Text("Bu işlem geri alınamaz. Emin misiniz?")
+                        Text("This action cannot be undone. Are you sure?")
                     }
                 } else if let error = viewModel.errorMessage {
                     Text(error)
                         .foregroundColor(.red)
                 }
             }
-            .navigationTitle("Profil Bilgileri")
+            .navigationTitle("Profile Information")
         }
         .onChange(of: viewModel.isLoggedOut) { newValue in
             if newValue {
