@@ -29,7 +29,7 @@ struct DailyRecipeView: View {
                     Image(systemName: "exclamationmark.triangle")
                         .font(.system(size: 40))
                         .foregroundColor(.red)
-                    Text(errorMessage)
+                    Text(errorMessage) 
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
                         .foregroundColor(.red)
@@ -43,8 +43,6 @@ struct DailyRecipeView: View {
         }
     }
 }
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

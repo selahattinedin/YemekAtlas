@@ -1,0 +1,62 @@
+/* 
+  Localizable.strings
+  YemekAtlas
+
+  Created by Selahattin EDİN on 24.02.2025.
+  
+*/
+
+"theme_selection" = "Theme Selection";
+"system_default" = "System Default";
+"light_mode" = "Light Mode";
+"dark_mode" = "Dark Mode";
+"language" = "Language";
+"select_language" = "Select Language";
+"English" = "English";
+"Turkish" = "Turkish";
+"preferences" = "preferences";
+
+"user_information" = "User Information";
+"preferences" = "Preferences";
+"theme_language_notifications" = "Theme, Language, Notifications";
+"security" = "Security";
+"password_security_settings" = "Password, Security Settings";
+"help" = "Help";
+"faq_contact" = "FAQ, Contact";
+"about" = "About";
+"app_information" = "App Information";
+"log_out" = "Log Out";
+"settings" = "Settings";
+"log_out_confirmation" = "Are you sure you want to log out of your account?";
+"cancel" = "Cancel";
+
+"personal_information" = "Personal Information";
+"full_name" = "Full Name";
+"email" = "Email";
+"join_date" = "Join Date";
+"last_login" = "Last Login";
+"delete_my_account" = "Delete My Account";
+"delete_account_alert" = "You Are About to Delete Your Account";
+"delete_account_warning" = "This action cannot be undone. Are you sure?";
+"profile_information" = "Profile Information";
+"cancel" = "Cancel";
+"delete" = "Delete";
+
+"my_favorite_recipes" = "My Favorite Recipes";
+"no_favorite_recipes_found" = "No Favorite Recipes Found";
+"add_to_favorites" = "You can add your favorite recipes to your favorites";
+"delete_recipe" = "Delete Recipe";
+"delete" = "Delete";
+"cancel" = "Cancel";
+"do_you_want_to_delete_recipe ?" = "Do you want to delete the recipe ?";
+"Recipe" = "Recipe";
+
+"food_atlas" = "Food Atlas";
+"What do you want to cook?" = "What do you want to cook?";
+"Ingredients" = "Ingredients";
+"Search" = "Search";
+"What_do_you_want_to_eat_today?" = "What do you want to eat today?";
+
+
+
+

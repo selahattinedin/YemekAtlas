@@ -8,8 +8,8 @@
 import SwiftUI
 struct InfoPill: View {
     let icon: String
-    let text: String
-    let subtext: String
+    let text: LocalizedStringKey
+    let subtext: LocalizedStringKey
     
     var body: some View {
         ZStack {
@@ -26,11 +26,10 @@ struct InfoPill: View {
                     .foregroundColor(.black)
                     .font(.title2)
                 
-                if !text.isEmpty {
-                    Text(text)
-                        .fontWeight(.bold)
-                        .font(.footnote)
-                }
+                Text(text)
+                    .fontWeight(.bold)
+                    .font(.footnote)
+                
                 Text(subtext)
                     .font(.caption)
                     .foregroundColor(.gray)

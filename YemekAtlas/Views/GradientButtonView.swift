@@ -2,14 +2,14 @@ import SwiftUI
 
 struct GradientButtonView: View {
     let icon: String
-    let title: String
+    let title: LocalizedStringKey
     let startColor: Color
     let endColor: Color
     let action: () -> Void
     
     init(
         icon: String,
-        title: String,
+        title: LocalizedStringKey,
         startColor: Color = .orange,
         endColor: Color = .red,
         action: @escaping () -> Void

@@ -2,69 +2,55 @@ import SwiftUI
 
 struct PreferencesView: View {
     @AppStorage("colorScheme") private var colorScheme: String = "system"
-    @AppStorage("selectedLanguage") private var selectedLanguage: String = "en"
-    @Environment(\.locale) private var locale
-    
+    @ObservedObject private var localeManager = LocaleManager.shared
+
     var body: some View {
         Form {
             Section {
-                Text("Theme Selection")
+                Text(LocalizedStringKey("theme_selection"))
                     .font(.headline)
                     .textCase(.none)
-                
-                HStack {
-                    Text("System Default")
-                    Spacer()
-                    Toggle("", isOn: Binding(
-                        get: { colorScheme == "system" },
-                        set: { if $0 { colorScheme = "system" } }
-                    ))
-                }
-                
-                HStack {
-                    Text("Light Mode")
-                    Spacer()
-                    Toggle("", isOn: Binding(
-                        get: { colorScheme == "light" },
-                        set: { if $0 { colorScheme = "light" } }
-                    ))
-                }
-                
-                HStack {
-                    Text("Dark Mode")
-                    Spacer()
-                    Toggle("", isOn: Binding(
-                        get: { colorScheme == "dark" },
-                        set: { if $0 { colorScheme = "dark" } }
-                    ))
-                }
+
+                ToggleRow(title: LocalizedStringKey("system_default"), selected: $colorScheme, value: "system")
+                ToggleRow(title: LocalizedStringKey("light_mode"), selected: $colorScheme, value: "light")
+                ToggleRow(title: LocalizedStringKey("dark_mode"), selected: $colorScheme, value: "dark")
             }
-            
+
             Section {
-                Text("Language")
+                Text(LocalizedStringKey("language"))
                     .font(.headline)
                     .textCase(.none)
-                
-                Picker("Select Language", selection: $selectedLanguage) {
-                    Text("English").tag("en")
-                    Text("Turkish").tag("tr")
+
+                Picker(LocalizedStringKey("select_language"), selection: Binding(
+                    get: { localeManager.locale.identifier },
+                    set: { localeManager.setLocale(identifier: $0) }
+                )) {
+                    Text(LocalizedStringKey("english")).tag("en")
+                    Text(LocalizedStringKey("turkish")).tag("tr")
                 }
+                .pickerStyle(.menu)
             }
         }
-        .navigationTitle("Preferences")
-        .environment(\.locale, Locale(identifier: selectedLanguage))
-        .onChange(of: selectedLanguage) { _ in
-            updateLocale()
-        }
-    }
-    
-    private func updateLocale() {
-        UserDefaults.standard.set([selectedLanguage], forKey: "AppleLanguages")
-        UserDefaults.standard.synchronize()
-        NotificationCenter.default.post(name: NSNotification.Name("LanguageChanged"), object: nil)
+        .navigationTitle(LocalizedStringKey("preferences"))
+        .environment(\.locale, localeManager.locale) // Apply language change
     }
 }
 
-#Preview {
-    PreferencesView()
+// Toggle için özel satır bileşeni
+struct ToggleRow: View {
+    let title: LocalizedStringKey
+    @Binding var selected: String
+    let value: String
+
+    var body: some View {
+        HStack {
+            Text(title)
+            Spacer()
+            Toggle("", isOn: Binding(
+                get: { selected == value },
+                set: { if $0 { selected = value } }
+            ))
+            .labelsHidden() // Toggle etiketini gizle
+        }
+    }
 }

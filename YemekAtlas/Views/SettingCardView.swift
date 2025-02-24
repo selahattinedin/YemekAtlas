@@ -1,16 +1,9 @@
-//
-//  SettingCardView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 14.02.2025.
-//
-
 import SwiftUI
 
 struct SettingsCardView: View {
-    let title: String
+    let titleKey: LocalizedStringKey
+    let description: LocalizedStringKey  // Dinamik veri sadece String olarak tutulur
     let icon: String
-    let description: String
     let color: Color
     
     var body: some View {
@@ -21,9 +14,9 @@ struct SettingsCardView: View {
                 .frame(width: 30)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(title)
+                Text(titleKey)  // Yerelleştirilmiş başlık
                     .font(.headline)
-                Text(description)
+                Text(description)  // Yerelleştirilmiş açıklama
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
@@ -38,8 +31,4 @@ struct SettingsCardView: View {
         .cornerRadius(10)
         .shadow(color: .black.opacity(0.1), radius: 5)
     }
-}
-
-#Preview {
-    SettingsCardView(title: "", icon: "", description: "", color: .white)
 }

@@ -1,0 +1,60 @@
+/* 
+  Localizable.strings
+  YemekAtlas
+
+  Created by Selahattin EDİN on 24.02.2025.
+  
+*/
+
+"theme_selection" = "Tema Seçin";
+"system_default" = "sistemde ";
+"light_mode" = "açık Mod";
+"dark_mode" = "koyu Mod";
+"language" = "diller";
+"select_language" = "dil seçimi";
+"English" = "ingilizce";
+"Turkish" = "türkçe";
+"preferences" = "Tercihler";
+
+"user_information" = "Kullanıcı Bilgisi";
+"preferences" = "Tercihler";
+"theme_language_notifications" = "Tema, Dil, Bildirimler";
+"security" = "Güvenlik";
+"password_security_settings" = "Şifre, Güvenlik Ayarları";
+"help" = "Yardım";
+"faq_contact" = "SSS, İletişim";
+"about" = "Hakkında";
+"app_information" = "Uygulama Bilgisi";
+"log_out" = "Çıkış Yap";
+"settings" = "Ayarlar";
+"log_out_confirmation" = "Hesabınızdan çıkmak istediğinizden emin misiniz?";
+"cancel" = "İptal";
+
+"personal_information" = "Kişisel Bilgiler";
+"full_name" = "Tam Ad";
+"email" = "E-posta";
+"join_date" = "Katılım Tarihi";
+"last_login" = "Son Giriş";
+"delete_my_account" = "Hesabımı Sil";
+"delete_account_alert" = "Hesabınızı Silmek Üzeresiniz";
+"delete_account_warning" = "Bu işlem geri alınamaz. Emin misiniz?";
+"profile_information" = "Profil Bilgileri";
+"cancel" = "İptal";
+"delete" = "Sil";
+
+"my_favorite_recipes" = "Favori Tariflerim";
+"no_favorite_recipes_found" = "Favori Tarif Bulunamadı";
+"add_to_favorites" = "Favori tariflerinizi ekleyebilirsiniz";
+"delete_recipe" = "Tarifi Sil";
+"delete" = "Sil";
+"cancel" = "İptal";
+"do_you_want_to_delete_recipe ?" = "Bu tarifi silmek istediğinizden emin misiniz ?";
+"Recipe" = "Tarif";
+
+"food_atlas" = "Yemek Atlası";
+"What do you want to cook?" = "Ne pişirmek istersiniz?";
+"Ingredients" = "Malzemeler";
+"Search" = "Ara";
+"What_do_you_want_to_eat_today?" = "Bugün ne pişirmek istersin?";
+
+

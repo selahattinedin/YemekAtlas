@@ -1,17 +1,3 @@
-//
-//  HomeView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 18.11.2024.
-//
-
-//
-//  HomeView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 18.11.2024.
-//
-
 import SwiftUI
 
 struct RecipeDetailView: View {
@@ -21,7 +7,11 @@ struct RecipeDetailView: View {
     @StateObject private var favoritesManager = FavoriteRecipesManager()
     
     let recipe: Recipe
-    let tabs = ["Ingredients", "Instructions", "Allergens"]
+    let tabs = [
+        NSLocalizedString("Ingredients", comment: ""),
+        NSLocalizedString("Instructions", comment: ""),
+        NSLocalizedString("Allergens", comment: "")
+    ]
     
     var isRecipeFavorite: Bool {
         favoritesManager.isFavorite(recipe: recipe)
@@ -81,7 +71,7 @@ struct RecipeDetailView: View {
                                     .foregroundColor(.primary)
                                     .padding(.horizontal)
                                 
-                                Text("Western")
+                                Text(String(localized: "Western"))
                                     .foregroundColor(.gray)
                                     .font(.subheadline)
                                     .padding(.horizontal)
@@ -89,11 +79,11 @@ struct RecipeDetailView: View {
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 6) {
-                                        InfoPill(icon: "clock", text: "\(recipe.clock)", subtext: "Min")
-                                        InfoPill(icon: "flame", text: "\(recipe.calories)", subtext: "Cal")
-                                        InfoPill(icon: "carrot.fill", text: "\(recipe.protein) g", subtext: "Protein")
-                                        InfoPill(icon: "drop.fill", text: "\(recipe.fat) g", subtext: "Fat")
-                                        InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates) g", subtext: "Carb")
+                                        InfoPill(icon: "clock", text: "\(recipe.clock)", subtext:("Min"))
+                                        InfoPill(icon: "flame", text: "\(recipe.calories)", subtext:("Cal"))
+                                        InfoPill(icon: "carrot.fill", text: "\(recipe.protein) g", subtext:("Protein"))
+                                        InfoPill(icon: "drop.fill", text: "\(recipe.fat) g", subtext:("Fat"))
+                                        InfoPill(icon: "leaf.fill", text: "\(recipe.carbohydrates) g", subtext: ("Carb" ))
                                     }
                                     .padding(.horizontal, 6)
                                     .frame(maxWidth: .infinity)
@@ -116,8 +106,8 @@ struct RecipeDetailView: View {
                                 }
                                 
                                 VStack(alignment: .leading, spacing: 16) {
-                                    if selectedTab == "Ingredients" {
-                                        Text("Recipe Ingredients")
+                                    if selectedTab == NSLocalizedString("Ingredients", comment: "") {
+                                        Text(NSLocalizedString("Recipe Ingredients", comment: ""))
                                             .font(.title2)
                                             .fontWeight(.bold)
                                             .padding(.horizontal)
@@ -147,8 +137,8 @@ struct RecipeDetailView: View {
                                             )
                                             .padding(.horizontal)
                                         }
-                                    } else if selectedTab == "Instructions" {
-                                        Text("Preparation Steps")
+                                    } else if selectedTab == NSLocalizedString("Instructions", comment: "") {
+                                        Text(NSLocalizedString("Preparation Steps", comment: ""))
                                             .font(.title2)
                                             .fontWeight(.bold)
                                             .padding(.horizontal)
@@ -156,7 +146,7 @@ struct RecipeDetailView: View {
                                         ForEach(Array(recipe.instructions.components(separatedBy: "\n").enumerated()), id: \.element) { index, step in
                                             if !step.isEmpty {
                                                 VStack(alignment: .leading) {
-                                                    Text("Step \(index + 1)")
+                                                    Text(String(format: NSLocalizedString("Step %d", comment: ""), index + 1))
                                                         .font(.headline)
                                                         .foregroundColor(.orange)
                                                     Text(step)
@@ -175,13 +165,13 @@ struct RecipeDetailView: View {
                                                 .padding(.horizontal)
                                             }
                                         }
-                                    } else if selectedTab == "Allergens" {
-                                        Text("Allergen Information")
+                                    } else if selectedTab == NSLocalizedString("Allergens", comment: "") {
+                                        Text(NSLocalizedString("Allergen Information", comment: ""))
                                             .font(.title2)
                                             .fontWeight(.bold)
                                             .padding(.horizontal)
                                         
-                                        ForEach(recipe.allergens.isEmpty ? ["No allergens found."] : recipe.allergens, id: \.self) { allergen in
+                                        ForEach(recipe.allergens.isEmpty ? [NSLocalizedString("No allergens found.", comment: "")] : recipe.allergens, id: \.self) { allergen in
                                             HStack {
                                                 Text(allergen)
                                                     .font(.headline)
@@ -250,9 +240,3 @@ struct RecipeDetailView_Previews: PreviewProvider {
         return RecipeDetailView(recipe: sampleRecipe)
     }
 }
-
-
-
-
-
-

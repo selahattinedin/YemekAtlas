@@ -2,6 +2,8 @@ import SwiftUI
 import GoogleGenerativeAI
 import Lottie
 
+import SwiftUI
+
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewViewModel()
     @StateObject private var searchManager = RecentSearchesManager()
@@ -44,12 +46,12 @@ struct SearchView: View {
                                     .offset(y: scrollUpOffset)
                                 
                                 VStack {
-                                    Text("yemek atlas")
+                                    Text(LocalizedStringKey("food_atlas"))
                                         .font(.system(size: 40, weight: .heavy))
                                         .foregroundColor(.white)
                                         .shadow(radius: 2)
                                     
-                                    Text("What do you want to eat today?")
+                                    Text(LocalizedStringKey("What_do_you_want_to_eat_today?"))
                                         .font(.title3)
                                         .foregroundColor(.white.opacity(0.9))
                                 }
@@ -68,7 +70,7 @@ struct SearchView: View {
                                             .font(.system(size: 22, weight: .semibold))
                                             .foregroundColor(.gray)
                                         
-                                        TextField("What do you want to cook?", text: $viewModel.searchText)
+                                        TextField(LocalizedStringKey("What do you want to cook?"), text: $viewModel.searchText)
                                             .font(.system(size: 18, weight: .medium))
                                             .focused($isSearchFocused)
                                             .submitLabel(.search)
@@ -88,14 +90,14 @@ struct SearchView: View {
                                     HStack(spacing: 15) {
                                         GradientButtonView(
                                             icon: "square.grid.2x2",
-                                            title: "Ingredients"
+                                            title: LocalizedStringKey("Ingredients")
                                         ) {
                                             showIngredientSelector = true
                                         }
                                         
                                         GradientButtonView(
                                             icon: "arrow.right",
-                                            title: "Search",
+                                            title: LocalizedStringKey("Search"),
                                             startColor: Color(red: 0.5, green: 0.1, blue: 1.0),
                                             endColor: Color(red: 0.0, green: 0.5, blue: 1.0)
                                         ) {

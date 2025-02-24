@@ -15,43 +15,42 @@ struct SettingsView: View {
                         UserProfileView(viewModel: viewModel)
                     } label: {
                         SettingsCardView(
-                            title: "User Information",
+                            titleKey: "user_information", // Yerelleştirilmiş anahtar
+                            description: "", // Dinamik veri
                             icon: "person.fill",
-                            description: viewModel.user?.name ?? "Loading...",
                             color: .blue
                         )
                     }
                     
-                   
                     NavigationLink {
                         PreferencesView()
                     } label: {
                         SettingsCardView(
-                            title: "Preferences",
+                            titleKey: "preferences",
+                            description: "theme_language_notifications", // Yerelleştirilmiş anahtar
                             icon: "gear",
-                            description: "Theme, Language, Notifications",
                             color: .purple
                         )
                     }
                     
                     SettingsCardView(
-                        title: "Security",
+                        titleKey: "security",
+                        description: "password_security_settings", // Yerelleştirilmiş anahtar
                         icon: "lock.fill",
-                        description: "Password, Security Settings",
                         color: .green
                     )
                     
                     SettingsCardView(
-                        title: "Help",
+                        titleKey: "help",
+                        description: "faq_contact", // Yerelleştirilmiş anahtar
                         icon: "questionmark.circle.fill",
-                        description: "FAQ, Contact",
                         color: .orange
                     )
                     
                     SettingsCardView(
-                        title: "About",
+                        titleKey: "about",
+                        description: "app_information", // Yerelleştirilmiş anahtar
                         icon: "info.circle.fill",
-                        description: "App Information",
                         color: .gray
                     )
                     
@@ -61,7 +60,7 @@ struct SettingsView: View {
                     } label: {
                         HStack {
                             Image(systemName: "rectangle.portrait.and.arrow.right")
-                            Text("Log Out")
+                            Text("log_out") // Yerelleştirilmiş metin
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -72,16 +71,17 @@ struct SettingsView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Settings")
+            .navigationTitle(LocalizedStringKey("settings"))
+  // Yerelleştirilmiş metin
             .navigationDestination(isPresented: $isLoggedOut) {
                 LoginView()
             }
             .overlay(
                 CustomAlertView(
-                    title: "Log Out",
-                    message: "Are you sure you want to log out of your account?",
-                    confirmButtonTitle: "Log Out",
-                    cancelButtonTitle: "Cancel",
+                    title: "log_out",  // Yerelleştirilmiş metin
+                    message: "log_out_confirmation",  // Yerelleştirilmiş metin
+                    confirmButtonTitle: "log_out",  // Yerelleştirilmiş metin
+                    cancelButtonTitle: "cancel",  // Yerelleştirilmiş metin
                     confirmAction: {
                         viewModel.logout { success in
                             if success {
@@ -98,7 +98,6 @@ struct SettingsView: View {
         }
     }
 }
-
 
 #Preview {
     NavigationStack {

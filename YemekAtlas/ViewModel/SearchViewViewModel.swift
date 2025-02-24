@@ -30,34 +30,8 @@ class SearchViewViewModel: ObservableObject {
         errorMessage = nil
         recipe = nil
 
-        let prompt = """
-        Provide the recipe for '\(searchText)' in the format below for only one recipe. Be sure to check and mention important allergens:
+        let prompt = String(format: NSLocalizedString("recipe_prompt", comment: "Recipe prompt"), searchText)
 
-        Name: [Recipe name]
-
-        Ingredients:
-        (List the ingredients for a single recipe with a - before each item)
-        - [Ingredient and quantity]
-
-        Calories: Provide a suitable calorie count for the recipe. [Only number] kcal
-
-        Nutritional Values:
-        Protein: [Only number] g
-        Carbohydrates: [Only number] g
-        Fat: [Only number] g
-
-        Preparation Time: [Only number] minutes
-
-        Allergens:
-        [CHECK EACH INGREDIENT AND LIST BELOW:
-        - If the ingredients contain gluten, shellfish, eggs, dairy, fish, mustard, peanuts, black pepper, or soy, list them under the "Allergen:" heading.
-        - Only mention allergenic ingredients under the Allergen heading, and if none are found, write "Not available."]
-        
-        Instructions:
-        [Detailed recipe]
-
-        ImageURL: [URL for dish image]
-        """
 
 
         do {

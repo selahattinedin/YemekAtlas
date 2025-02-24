@@ -59,9 +59,9 @@ struct RecentSearchesView: View {
         .overlay(
             CustomAlertView(
                 title: "Clear History",
-                message: "Are you sure you want to clear all recent searches?",
-                confirmButtonTitle: "Clear",
-                cancelButtonTitle: "Cancel",
+                message:"Are you sure you want to clear all recent searches?",
+                confirmButtonTitle:  "Clear",
+                cancelButtonTitle:  "Cancel",
                 confirmAction: {
                     searchManager.clearSearches()
                 },

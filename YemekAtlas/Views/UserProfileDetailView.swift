@@ -12,23 +12,23 @@ struct UserProfileView: View {
                     ProgressView()
                 } else if let user = viewModel.user {
                     Form {
-                        Section("Personal Information") {
+                        Section(LocalizedStringKey("personal_information")) {
                             HStack {
-                                Text("Full Name")
+                                Text(LocalizedStringKey("full_name"))
                                 Spacer()
                                 Text(user.name)
                                     .foregroundColor(.gray)
                             }
                             
                             HStack {
-                                Text("Email")
+                                Text(LocalizedStringKey("email"))
                                 Spacer()
                                 Text(user.email)
                                     .foregroundColor(.gray)
                             }
                             
                             HStack {
-                                Text("Join Date")
+                                Text(LocalizedStringKey("join_date"))
                                 Spacer()
                                 Text(Date(timeIntervalSince1970: user.joined)
                                     .formatted(date: .abbreviated, time: .omitted))
@@ -37,7 +37,7 @@ struct UserProfileView: View {
                             
                             if let lastLogin = user.lastLogin {
                                 HStack {
-                                    Text("Last Login")
+                                    Text(LocalizedStringKey("last_login"))
                                     Spacer()
                                     Text(Date(timeIntervalSince1970: lastLogin)
                                         .formatted(date: .abbreviated, time: .omitted))
@@ -47,7 +47,7 @@ struct UserProfileView: View {
                         }
                         
                         Section {
-                            Button("Delete My Account") {
+                            Button(LocalizedStringKey("delete_my_account")) {
                                 showingAlert = true
                             }
                             .foregroundColor(.white)
@@ -56,25 +56,24 @@ struct UserProfileView: View {
                             .cornerRadius(8)
                         }
                     }
-                    .alert("You Are About to Delete Your Account", isPresented: $showingAlert) {
-                        Button("Cancel", role: .cancel) { }
-                        Button("Delete", role: .destructive) {
+                    .alert(LocalizedStringKey("delete_account_alert"), isPresented: $showingAlert) {
+                        Button(LocalizedStringKey("cancel"), role: .cancel) { }
+                        Button(LocalizedStringKey("delete"), role: .destructive) {
                             viewModel.deleteUser { success in
                                 if success {
-                                    // Return to LoginView when user is deleted
                                     dismiss()
                                 }
                             }
                         }
                     } message: {
-                        Text("This action cannot be undone. Are you sure?")
+                        Text(LocalizedStringKey("delete_account_warning"))
                     }
                 } else if let error = viewModel.errorMessage {
                     Text(error)
                         .foregroundColor(.red)
                 }
             }
-            .navigationTitle("Profile Information")
+            .navigationTitle(LocalizedStringKey("profile_information"))
         }
         .onChange(of: viewModel.isLoggedOut) { newValue in
             if newValue {
@@ -82,9 +81,4 @@ struct UserProfileView: View {
             }
         }
     }
-}
-
-#Preview {
-    let viewModel = ProfileViewViewModel()
-    return UserProfileView(viewModel: viewModel)
 }

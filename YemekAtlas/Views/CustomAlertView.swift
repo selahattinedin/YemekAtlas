@@ -1,17 +1,10 @@
-//
-//  CustomAlertView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 4.01.2025.
-//
-
 import SwiftUI
 
 struct CustomAlertView: View {
-    let title: String
-    let message: String
-    let confirmButtonTitle: String
-    let cancelButtonTitle: String
+    let title: LocalizedStringKey
+    let message: LocalizedStringKey
+    let confirmButtonTitle: LocalizedStringKey
+    let cancelButtonTitle: LocalizedStringKey
     let confirmAction: () -> Void
     let cancelAction: () -> Void
     
@@ -80,10 +73,10 @@ struct CustomAlertView: View {
 #Preview {
     @State var isPresented = true
     return CustomAlertView(
-        title: "Çıkış Yap",
-        message: "Hesabınızdan çıkış yapmak istediğinize emin misiniz?",
-        confirmButtonTitle: "Çıkış Yap",
-        cancelButtonTitle: "İptal",
+        title: "Çıkış Yap",  // Yerelleştirilmiş metin
+        message: "Hesabınızdan çıkış yapmak istediğinize emin misiniz?",  // Yerelleştirilmiş metin
+        confirmButtonTitle: "Çıkış Yap",  // Yerelleştirilmiş metin
+        cancelButtonTitle: "İptal",  // Yerelleştirilmiş metin
         confirmAction: {
             print("Çıkış yapıldı.")
         },

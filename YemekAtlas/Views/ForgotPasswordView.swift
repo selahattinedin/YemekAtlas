@@ -6,8 +6,8 @@ struct ForgotPasswordView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var isAlertPresented = false
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
+    @State private var alertTitle: LocalizedStringKey = ""
+    @State private var alertMessage: LocalizedStringKey = ""
     @State private var isConfirmationAlert = true // Controls which alert is shown
     
     var body: some View {
