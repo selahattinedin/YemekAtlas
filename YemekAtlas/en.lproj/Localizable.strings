@@ -57,6 +57,21 @@
 "Search" = "Search";
 "What_do_you_want_to_eat_today?" = "What do you want to eat today?";
 
+"Ingredients" = "Ingredients";
+"Instructions" = "Instructions";
+"Allergens" = "Allergens";
+"Recipe Ingredients" = "Recipe Ingredients";
+"Preparation Steps" = "Preparation Steps";
+"Allergen Information" = "Allergen Information";
+"Western" = "Western";
+"Min" = "Min";
+"Cal" = "Cal";
+"Protein" = "Protein";
+"Fat" = "Fat";
+"Carb" = "Carb";
+"Step %d" = "Step %d";
+"No allergens found." = "No allergens found.";
+
 
 
 

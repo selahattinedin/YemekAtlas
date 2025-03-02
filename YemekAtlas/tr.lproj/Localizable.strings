@@ -57,4 +57,19 @@
 "Search" = "Ara";
 "What_do_you_want_to_eat_today?" = "Bugün ne pişirmek istersin?";
 
+"Ingredients" = "Malzemeler";
+"Instructions" = "Talimatlar";
+"Allergens" = "Alerjenler";
+"Recipe Ingredients" = "Tarif Malzemeleri";
+"Preparation Steps" = "Hazırlık Adımları";
+"Allergen Information" = "Alerjen Bilgisi";
+"Western" = "Batı";
+"Min" = "Dk";
+"Cal" = "Kal";
+"Protein" = "Protein";
+"Fat" = "Yağ";
+"Carb" = "Karb";
+"Step %d" = "Adım %d";
+"No allergens found." = "Hiç alerjen bulunamadı.";
+
 
