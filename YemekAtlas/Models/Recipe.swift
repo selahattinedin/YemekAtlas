@@ -1,12 +1,11 @@
-// Recipe.swift
 import Foundation
 import FirebaseFirestore
+import SwiftUI
 
 struct Recipe: Codable, Identifiable, Equatable, Hashable {
-    // id artık let değil var olmalı ve Firestore'dan geldiğinde değişebilmeli
     var id: String
     var firestoreDocumentId: String?
-    let name: String
+    let name: String // Burada String olarak kalmalı
     let ingredients: [String]
     let calories: Int
     let protein: Int
@@ -17,7 +16,24 @@ struct Recipe: Codable, Identifiable, Equatable, Hashable {
     let imageURL: String
     let clock: Int
     
-    init(id: String = UUID().uuidString, // id parametresi ekledik
+    // Computed properties for localized access
+    var localizedName: LocalizedStringKey {
+        LocalizedStringKey(name)
+    }
+    
+    var localizedIngredients: [LocalizedStringKey] {
+        ingredients.map { LocalizedStringKey($0) }
+    }
+    
+    var localizedAllergens: [LocalizedStringKey] {
+        allergens.map { LocalizedStringKey($0) }
+    }
+    
+    var localizedInstructions: LocalizedStringKey {
+        LocalizedStringKey(instructions)
+    }
+    
+    init(id: String = UUID().uuidString,
          name: String,
          ingredients: [String],
          calories: Int,

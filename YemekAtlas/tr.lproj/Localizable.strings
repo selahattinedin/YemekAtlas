@@ -57,19 +57,99 @@
 "Search" = "Ara";
 "What_do_you_want_to_eat_today?" = "Bugün ne pişirmek istersin?";
 
+"recipe_prompt_tr" = "'%@' için tarifi aşağıdaki formatta tek bir tarif olarak sağlayın. Önemli alerjenleri kontrol edip belirttiğinizden emin olun:\n\nAd: [Tarif adı]\n\nMalzemeler:\n(Tek bir tarif için malzemeleri her bir öğeden önce - işareti ile listeleyin)\n- [Malzeme ve miktar]\n\nKalori: Tarif için uygun bir kalori sayısı sağlayın. [Sadece sayı] kcal\n\nBesin Değerleri:\nProtein: [Sadece sayı] g\nKarbonhidrat: [Sadece sayı] g\nYağ: [Sadece sayı] g\n\nHazırlama Süresi: [Sadece sayı] dakika\n\nAlerjenler:\n[HER MALZEMEYİ KONTROL EDİN VE AŞAĞIDA LİSTELEYİN:\n- Malzemelerde glüten, kabuklu deniz ürünleri, yumurta, süt ürünleri, balık, hardal, yer fıstığı, karabiber veya soya varsa, bunları \"Alerjen:\" başlığı altında listeleyin.\n- Alerjenik malzemeleri sadece Alerjen başlığı altında belirtin ve hiçbiri bulunamazsa \"Bulunamadı\" yazın.]\n\nTalimatlar:\n[Detaylı tarif]\n\nResimURL: [Yemek resmi için URL]";
+
 "Ingredients" = "Malzemeler";
 "Instructions" = "Talimatlar";
 "Allergens" = "Alerjenler";
 "Recipe Ingredients" = "Tarif Malzemeleri";
-"Preparation Steps" = "Hazırlık Adımları";
+"Preparation Steps" = "Hazırlama Adımları";
 "Allergen Information" = "Alerjen Bilgisi";
-"Western" = "Batı";
+"Step" = "Adım";
 "Min" = "Dk";
 "Cal" = "Kal";
 "Protein" = "Protein";
-"Fat" = "Yağ";
 "Carb" = "Karb";
-"Step %d" = "Adım %d";
-"No allergens found." = "Hiç alerjen bulunamadı.";
+"Western" = "Batı";
+"No allergens found" = "Alerjen bulunamadı";
+"%lld Min." = "%lld Dk.";
+"%lld cal" = "%lld kal";
+
+"Recipe Of The Day" = "Günün Yemeği";
+
+/* Recipe Names */
+"margherita_pizza" = "Margherita Pizza";
+"sushi" = "Suşi";
+"hamburger" = "Hamburger";
+"tacos" = "Tako";
+"pad_thai" = "Pad Thai";
+
+/* Ingredients */
+"flour_250g" = "250 g un";
+"water_150ml" = "150 ml su";
+"yeast_5g" = "5 g maya";
+"salt_pinch" = "Bir tutam tuz";
+"mozzarella_200g" = "200 g mozzarella peyniri";
+"tomato_sauce_100g" = "100 g domates sosu";
+"fresh_basil" = "Taze fesleğen yaprakları";
+
+"sushi_rice_200g" = "200 g suşi pirinci";
+"rice_vinegar_50ml" = "50 ml pirinç sirkesi";
+"sugar_1tsp" = "1 çay kaşığı şeker";
+"salt_1tsp" = "1 çay kaşığı tuz";
+"nori_seaweed" = "Nori yosunu";
+"salmon_200g" = "200 g somon";
+"avocado_slices" = "Avokado dilimleri";
+
+"hamburger_bun" = "1 hamburger ekmeği";
+"ground_beef_150g" = "150 g kıyma";
+"cheddar_slice" = "1 dilim cheddar peyniri";
+"tomato_slices" = "2 dilim domates";
+"lettuce_leaf" = "1 yaprak marul";
+"condiments" = "Ketçap ve mayonez";
+
+"tortillas_2" = "2 tortilla";
+"chicken_breast_150g" = "150 g tavuk göğsü";
+"corn_50g" = "50 g mısır";
+"tomato_50g" = "50 g domates";
+"onion_50g" = "50 g soğan";
+"taco_seasoning_1tsp" = "1 çay kaşığı tako baharatı";
+
+"rice_noodles_200g" = "200 g pirinç eriştesi";
+"shrimp_100g" = "100 g karides";
+"soy_sauce_2tbsp" = "2 yemek kaşığı soya sosu";
+"fish_sauce_1tbsp" = "1 yemek kaşığı balık sosu";
+"egg_1" = "1 yumurta";
+"peanuts_50g" = "50 g fıstık";
+
+/* Allergens */
+"gluten" = "Gluten";
+"dairy" = "Süt Ürünleri";
+"fish" = "Balık";
+"soy" = "Soya";
+"egg" = "Yumurta";
+"peanuts" = "Fıstık";
+
+/* Instructions */
+"margherita_pizza_instructions" = "1. Un, su, maya ve tuzu karıştırarak pürüzsüz bir hamur hazırlayın.\n2. Hamuru 30 dakika dinlendirin.\n3. Hamuru açın ve üzerine domates sosu sürün.\n4. Mozzarella peyniri ekleyin ve 220°C'de 10-12 dakika pişirin.\n5. Taze fesleğen yapraklarıyla süsleyip servis yapın.";
+
+"sushi_instructions" = "1. Pirinci durulayın ve kaynatarak pişirin.\n2. Pirinç sirkesi, şeker ve tuzu karıştırın, ardından sıcak pirince ekleyin.\n3. Pirinci nori yosununun üzerine ince bir tabaka halinde yayın.\n4. Somon ve avokado dilimlerini ekleyip rulo yapın.\n5. Dilimleyip servis yapın.";
+
+"hamburger_instructions" = "1. Kıymayı köfte şekline getirin ve tavada pişirin.\n2. Hamburger ekmeğini ortadan ikiye kesin ve kızartın.\n3. Alt ekmeğin üzerine marul, domates dilimleri, pişmiş köfte ve cheddar peynirini yerleştirin.\n4. Ketçap ve mayonez ekleyip üst ekmekle kapatın.";
+
+"tacos_instructions" = "1. Tavuk göğsünü küçük parçalar halinde kesin ve tako baharatıyla marine edin.\n2. Tavuğu tavada pişirin.\n3. Tortillaları tavuk, mısır, domates ve soğanla doldurun.\n4. İsterseniz sos ekleyip servis yapın.";
+
+"pad_thai_instructions" = "1. Pirinç eriştelerini haşlayıp süzün.\n2. Yumurtayı tavada çırpın.\n3. Karides, soya sosu ve balık sosu ekleyip iyice karıştırın.\n4. Haşlanmış erişteler tavaya ekleyin.\n5. Üzerine fıstık serpin ve servis yapın.";
+
+/* UI Elements */
+"chefs_specials" = "Şef Özel Tarifleri";
+"calories" = "Kalori";
+"protein" = "Protein";
+"carbohydrates" = "Karbonhidrat";
+"fat" = "Yağ";
+"allergens" = "Alerjenler";
+"ingredients" = "Malzemeler";
+"instructions" = "Hazırlanışı";
+"minutes" = "dakika";
 
 

@@ -22,7 +22,7 @@ struct DailyRecipeCardView: View {
                     .cornerRadius(12)
                     
                 VStack(alignment: .leading, spacing: 12) {
-                    Text(recipe.name)
+                    Text(LocalizedStringKey(recipe.name))
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundColor(.black)
@@ -32,7 +32,7 @@ struct DailyRecipeCardView: View {
                         HStack(spacing: 6) {
                             Image(systemName: "clock")
                                 .foregroundColor(.gray)
-                            Text("\(recipe.clock) Min.")
+                            Text(LocalizedStringKey("\(recipe.clock) Min."))
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
@@ -43,7 +43,7 @@ struct DailyRecipeCardView: View {
                         HStack(spacing: 6) {
                             Image(systemName: "flame")
                                 .foregroundColor(.gray)
-                            Text("\(recipe.calories) cal")
+                            Text(LocalizedStringKey("\(recipe.calories) cal"))
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
@@ -67,5 +67,5 @@ struct DailyRecipeCardView: View {
 }
 
 #Preview {
-    DailyRecipeCardView(recipe: Recipe(name: "", ingredients: [""], calories: 0, protein: 0, carbohydrates: 0, fat: 0, allergens: [""], instructions: "", imageURL: "", clock: 0))
+    DailyRecipeCardView(recipe: Recipe(name: "test_recipe", ingredients: [""], calories: 0, protein: 0, carbohydrates: 0, fat: 0, allergens: [""], instructions: "", imageURL: "", clock: 0))
 }

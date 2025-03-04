@@ -1,10 +1,3 @@
-//
-//  RecipesCardView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 25.01.2025.
-//
-
 import SwiftUI
 
 struct RecipesCardView: View {
@@ -66,44 +59,30 @@ struct RecipesCardView: View {
 }
 
 #Preview {
-    
-        HStack(spacing: 16) {
-            RecipesCardView(recipe: Recipe(
-                name: "Chicken Salad",
-                ingredients: ["Chicken", "Lettuce", "Tomatoes"],
-                calories: 350,
-                protein: 25,
-                carbohydrates: 15,
-                fat: 12,
-                allergens: ["Nuts"],
-                instructions: "Mix and serve",
-                imageURL: "",
-                clock: 20
-            ))
-            RecipesCardView(recipe: Recipe(
-                name: "Margherita Pizza",
-                ingredients: ["Dough", "Tomato Sauce", "Mozzarella"],
-                calories: 270,
-                protein: 12,
-                carbohydrates: 30,
-                fat: 10,
-                allergens: [],
-                instructions: "Bake and serve",
-                imageURL: "",
-                clock: 30
-            ))
-            RecipesCardView(recipe: Recipe(
-                name: "Margherita Pizza",
-                ingredients: ["Dough", "Tomato Sauce", "Mozzarella"],
-                calories: 270,
-                protein: 12,
-                carbohydrates: 30,
-                fat: 10,
-                allergens: [],
-                instructions: "Bake and serve",
-                imageURL: "",
-                clock: 30
-            ))
-        }
+    HStack(spacing: 16) {
+        RecipesCardView(recipe: Recipe(
+            name: "Chicken Salad", // `nameKey` yerine `name` kullanılıyor
+            ingredients: ["chicken_breast", "lettuce", "tomatoes"],
+            calories: 350,
+            protein: 25,
+            carbohydrates: 15,
+            fat: 12,
+            allergens: ["nuts"],
+            instructions: "1. Cook the chicken. 2. Mix with lettuce and tomatoes.", // `instructionsKey` yerine `instructions` kullanılıyor
+            imageURL: "placeholder1",
+            clock: 20
+        ))
+        RecipesCardView(recipe: Recipe(
+            name: "Margherita Pizza", // `nameKey` yerine `name` kullanılıyor
+            ingredients: ["flour_250g", "tomato_sauce_100g", "mozzarella_200g"],
+            calories: 270,
+            protein: 12,
+            carbohydrates: 30,
+            fat: 10,
+            allergens: [],
+            instructions: "1. Prepare the dough. 2. Add toppings. 3. Bake in the oven.", // `instructionsKey` yerine `instructions` kullanılıyor
+            imageURL: "placeholder2",
+            clock: 30
+        ))
     }
-
+}

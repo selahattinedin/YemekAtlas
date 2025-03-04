@@ -15,7 +15,6 @@ struct RecipeDetailView: View {
             ZStack {
                 ScrollView {
                     VStack(spacing: 0) {
-
                         headerSection(geometry)
                         contentSection
                     }
@@ -106,11 +105,11 @@ struct RecipeDetailView: View {
     @ViewBuilder
     var recipeHeader: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(LocalizedStringKey(recipe.name))
+            Text(recipe.name)
                 .font(.title)
                 .fontWeight(.bold)
             
-            Text(LocalizedStringKey("Western"))
+            Text("Western")
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
@@ -146,7 +145,7 @@ struct RecipeDetailView: View {
                     .foregroundColor(.black)
                     .font(.title2)
                 
-                Text(LocalizedStringKey(value))
+                Text(value)
                     .fontWeight(.bold)
                     .font(.footnote)
                 
@@ -212,7 +211,7 @@ struct RecipeDetailView: View {
                 Image(systemName: "fork.knife.circle")
                     .foregroundColor(.primary)
                 
-                Text(LocalizedStringKey(ingredient))
+                Text(ingredient)
                     .font(.headline)
                 
                 Spacer()
@@ -250,7 +249,7 @@ struct RecipeDetailView: View {
                     .font(.headline)
                     .foregroundColor(.orange)
                 
-                Text(LocalizedStringKey(step))
+                Text(step)
                     .font(.body)
             }
             .padding()
@@ -280,7 +279,7 @@ struct RecipeDetailView: View {
     @ViewBuilder
     var noAllergensView: some View {
         HStack {
-            Text(LocalizedStringKey("No allergens found."))
+            Text("No allergens found.")
                 .font(.headline)
                 .foregroundColor(.gray)
             Spacer()
@@ -296,7 +295,7 @@ struct RecipeDetailView: View {
     @ViewBuilder
         func allergenRow(_ allergen: String) -> some View {
             HStack {
-                Text(LocalizedStringKey(allergen))
+                Text(allergen)
                     .font(.headline)
                 Spacer()
                 Image(systemName: "exclamationmark.triangle.fill")
@@ -313,7 +312,7 @@ struct RecipeDetailView: View {
     
     @ViewBuilder
     func sectionTitle(_ title: String) -> some View {
-        Text(LocalizedStringKey(title))
+        Text(title)
             .font(.title2)
             .fontWeight(.bold)
             .padding(.bottom, 8)

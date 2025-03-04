@@ -8,155 +8,147 @@
 import SwiftUI
 
 struct ChefSpecialsView: View {
-    let specialRecipes: [Recipe] = [
-        Recipe(
-            name: "Margherita Pizza",
-            ingredients: [
-                "250 g flour",
-                "150 ml water",
-                "5 g yeast",
-                "A pinch of salt",
-                "200 g mozzarella cheese",
-                "100 g tomato sauce",
-                "Fresh basil leaves"
-            ],
-            calories: 270,
-            protein: 12,
-            carbohydrates: 33,
-            fat: 10,
-            allergens: ["Gluten", "Dairy"],
-            instructions: """
-            1. Mix flour, water, yeast, and salt to prepare a smooth dough.
-            2. Let the dough rest for 30 minutes.
-            3. Roll out the dough and spread tomato sauce on top.
-            4. Add mozzarella cheese and bake at 220°C for 10-12 minutes.
-            5. Garnish with fresh basil leaves and serve.
-            """,
-            imageURL: "Pizza",
-            clock: 20
-        ),
-        Recipe(
-            name: "Sushi",
-            ingredients: [
-                "200 g sushi rice",
-                "50 ml rice vinegar",
-                "1 teaspoon sugar",
-                "1 teaspoon salt",
-                "Nori seaweed",
-                "200 g salmon",
-                "Avocado slices"
-            ],
-            calories: 180,
-            protein: 15,
-            carbohydrates: 30,
-            fat: 5,
-            allergens: ["Fish"],
-            instructions: """
-            1. Rinse the rice and cook it by boiling.
-            2. Mix rice vinegar, sugar, and salt, then add to the hot rice.
-            3. Spread the rice thinly over the nori seaweed.
-            4. Add salmon and avocado slices, then roll.
-            5. Slice and serve.
-            """,
-            imageURL: "Sushi",
-            clock: 30
-        ),
-        Recipe(
-            name: "Hamburger",
-            ingredients: [
-                "1 hamburger bun",
-                "150 g ground beef",
-                "1 slice cheddar cheese",
-                "2 slices tomato",
-                "1 lettuce leaf",
-                "Ketchup and mayonnaise"
-            ],
-            calories: 450,
-            protein: 25,
-            carbohydrates: 40,
-            fat: 20,
-            allergens: ["Gluten", "Dairy"],
-            instructions: """
-            1. Shape the ground beef into a patty and cook in a pan.
-            2. Slice the hamburger bun in half and toast it.
-            3. Place lettuce, tomato slices, the cooked patty, and cheddar cheese on the bottom bun.
-            4. Add ketchup and mayonnaise, then close with the top bun.
-            """,
-            imageURL: "Hamburger",
-            clock: 20
-        ),
-        Recipe(
-            name: "Tacos",
-            ingredients: [
-                "2 tortillas",
-                "150 g chicken breast",
-                "50 g corn",
-                "50 g tomato",
-                "50 g onion",
-                "1 teaspoon taco seasoning"
-            ],
-            calories: 250,
-            protein: 20,
-            carbohydrates: 30,
-            fat: 8,
-            allergens: ["Gluten"],
-            instructions: """
-            1. Cut the chicken breast into small pieces and marinate with taco seasoning.
-            2. Cook the chicken in a pan.
-            3. Fill the tortillas with chicken, corn, tomato, and onion.
-            4. Add sauce if desired and serve.
-            """,
-            imageURL: "Tacos",
-            clock: 15
-        ),
-        Recipe(
-            name: "Pad Thai",
-            ingredients: [
-                "200 g rice noodles",
-                "100 g shrimp",
-                "2 tablespoons soy sauce",
-                "1 tablespoon fish sauce",
-                "1 egg",
-                "50 g peanuts"
-            ],
-            calories: 380,
-            protein: 22,
-            carbohydrates: 50,
-            fat: 12,
-            allergens: ["Soy", "Fish", "Egg", "Peanuts"],
-            instructions: """
-            1. Boil and drain the rice noodles.
-            2. Scramble the egg in a pan.
-            3. Add shrimp, soy sauce, and fish sauce, then mix well.
-            4. Add the boiled noodles to the pan.
-            5. Sprinkle peanuts on top and serve.
-            """,
-            imageURL: "PadThai",
-            clock: 25
-        )
-    ]
+    @ObservedObject private var localeManager = LocaleManager.shared
+
+    var specialRecipes: [Recipe] {
+        [
+            Recipe(
+                name: localeManager.localizedString(forKey: "margherita_pizza"),
+                ingredients: [
+                    localeManager.localizedString(forKey: "flour_250g"),
+                    localeManager.localizedString(forKey: "water_150ml"),
+                    localeManager.localizedString(forKey: "yeast_5g"),
+                    localeManager.localizedString(forKey: "salt_pinch"),
+                    localeManager.localizedString(forKey: "mozzarella_200g"),
+                    localeManager.localizedString(forKey: "tomato_sauce_100g"),
+                    localeManager.localizedString(forKey: "fresh_basil")
+                ],
+                calories: 270,
+                protein: 12,
+                carbohydrates: 33,
+                fat: 10,
+                allergens: [
+                    localeManager.localizedString(forKey: "gluten"),
+                    localeManager.localizedString(forKey: "dairy")
+                ],
+                instructions: localeManager.localizedString(forKey: "margherita_pizza_instructions"),
+                imageURL: "Pizza",
+                clock: 20
+            ),
+            Recipe(
+                name: localeManager.localizedString(forKey: "sushi"),
+                ingredients: [
+                    localeManager.localizedString(forKey: "sushi_rice_200g"),
+                    localeManager.localizedString(forKey: "rice_vinegar_50ml"),
+                    localeManager.localizedString(forKey: "sugar_1tsp"),
+                    localeManager.localizedString(forKey: "salt_1tsp"),
+                    localeManager.localizedString(forKey: "nori_seaweed"),
+                    localeManager.localizedString(forKey: "salmon_200g"),
+                    localeManager.localizedString(forKey: "avocado_slices")
+                ],
+                calories: 180,
+                protein: 15,
+                carbohydrates: 30,
+                fat: 5,
+                allergens: [
+                    localeManager.localizedString(forKey: "fish")
+                ],
+                instructions: localeManager.localizedString(forKey: "sushi_instructions"),
+                imageURL: "Sushi",
+                clock: 30
+            ),
+            Recipe(
+                name: localeManager.localizedString(forKey: "hamburger"),
+                ingredients: [
+                    localeManager.localizedString(forKey: "hamburger_bun"),
+                    localeManager.localizedString(forKey: "ground_beef_150g"),
+                    localeManager.localizedString(forKey: "cheddar_slice"),
+                    localeManager.localizedString(forKey: "tomato_slices"),
+                    localeManager.localizedString(forKey: "lettuce_leaf"),
+                    localeManager.localizedString(forKey: "condiments")
+                ],
+                calories: 450,
+                protein: 25,
+                carbohydrates: 40,
+                fat: 20,
+                allergens: [
+                    localeManager.localizedString(forKey: "gluten"),
+                    localeManager.localizedString(forKey: "dairy")
+                ],
+                instructions: localeManager.localizedString(forKey: "hamburger_instructions"),
+                imageURL: "Hamburger",
+                clock: 20
+            ),
+            Recipe(
+                name: localeManager.localizedString(forKey: "tacos"),
+                ingredients: [
+                    localeManager.localizedString(forKey: "tortillas_2"),
+                    localeManager.localizedString(forKey: "chicken_breast_150g"),
+                    localeManager.localizedString(forKey: "corn_50g"),
+                    localeManager.localizedString(forKey: "tomato_50g"),
+                    localeManager.localizedString(forKey: "onion_50g"),
+                    localeManager.localizedString(forKey: "taco_seasoning_1tsp")
+                ],
+                calories: 250,
+                protein: 20,
+                carbohydrates: 30,
+                fat: 8,
+                allergens: [
+                    localeManager.localizedString(forKey: "gluten")
+                ],
+                instructions: localeManager.localizedString(forKey: "tacos_instructions"),
+                imageURL: "Tacos",
+                clock: 15
+            ),
+            Recipe(
+                name: localeManager.localizedString(forKey: "pad_thai"),
+                ingredients: [
+                    localeManager.localizedString(forKey: "rice_noodles_200g"),
+                    localeManager.localizedString(forKey: "shrimp_100g"),
+                    localeManager.localizedString(forKey: "soy_sauce_2tbsp"),
+                    localeManager.localizedString(forKey: "fish_sauce_1tbsp"),
+                    localeManager.localizedString(forKey: "egg_1"),
+                    localeManager.localizedString(forKey: "peanuts_50g")
+                ],
+                calories: 380,
+                protein: 22,
+                carbohydrates: 50,
+                fat: 12,
+                allergens: [
+                    localeManager.localizedString(forKey: "soy"),
+                    localeManager.localizedString(forKey: "fish"),
+                    localeManager.localizedString(forKey: "egg"),
+                    localeManager.localizedString(forKey: "peanuts")
+                ],
+                instructions: localeManager.localizedString(forKey: "pad_thai_instructions"),
+                imageURL: "PadThai",
+                clock: 25
+            )
+        ]
+    }
 
     var body: some View {
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Chef's Specials")
-                    .font(.title2.bold())
-                    .foregroundColor(.orange)
-                    .padding(.horizontal)
+        VStack(alignment: .leading, spacing: 12) {
+            Text(localeManager.localizedString(forKey: "chefs_specials"))
+                .font(.title2.bold())
+                .foregroundColor(.orange)
+                .padding(.horizontal)
 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(specialRecipes) { recipe in
-                            NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-                                RecipesCardView(recipe: recipe)
-                            }
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 16) {
+                    ForEach(specialRecipes) { recipe in
+                        NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
+                            RecipesCardView(recipe: recipe)
                         }
                     }
-                    .padding(.horizontal)
                 }
+                .padding(.horizontal)
             }
-            .padding(.top, 16)
         }
+        .padding(.top, 16)
+        .environment(\.locale, localeManager.locale) 
     }
+}
 
 #Preview {
     ChefSpecialsView()

@@ -57,20 +57,101 @@
 "Search" = "Search";
 "What_do_you_want_to_eat_today?" = "What do you want to eat today?";
 
+"recipe_prompt_en" = " Provide the recipe for '%@' in the format below for only one recipe. Be sure to check and mention important allergens:\n\nName: [Recipe name]\n\nIngredients:\n(List the ingredients for a single recipe with a - before each item)\n- [Ingredient and quantity]\n\nCalories: Provide a suitable calorie count for the recipe. [Only number] kcal\n\nNutritional Values:\nProtein: [Only number] g\nCarbohydrates: [Only number] g\nFat: [Only number] g\n\nPreparation Time: [Only number] minutes\n\nAllergens:\n[CHECK EACH INGREDIENT AND LIST BELOW:\n- If the ingredients contain gluten, shellfish, eggs, dairy, fish, mustard, peanuts, black pepper, or soy, list them under the \"Allergen:\" heading.\n- Only mention allergenic ingredients under the Allergen heading, and if none are found, write \"Not available.\"]\n\nInstructions:\n[Detailed recipe]\n\nImageURL: [URL for dish image]";
+
 "Ingredients" = "Ingredients";
 "Instructions" = "Instructions";
 "Allergens" = "Allergens";
 "Recipe Ingredients" = "Recipe Ingredients";
 "Preparation Steps" = "Preparation Steps";
 "Allergen Information" = "Allergen Information";
-"Western" = "Western";
+"Step" = "Step";
 "Min" = "Min";
 "Cal" = "Cal";
 "Protein" = "Protein";
-"Fat" = "Fat";
 "Carb" = "Carb";
-"Step %d" = "Step %d";
-"No allergens found." = "No allergens found.";
+"Western" = "Western";
+"No allergens found" = "No allergens found";
+"%lld Min." = "%lld Min.";
+"%lld cal" = "%lld cal";
+
+"Recipe Of The Day" = "Recipe Of The Day";
+
+/* Recipe Names */
+"margherita_pizza" = "Margherita Pizza";
+"sushi" = "Sushi";
+"hamburger" = "Hamburger";
+"tacos" = "Tacos";
+"pad_thai" = "Pad Thai";
+
+/* Ingredients */
+"flour_250g" = "250 g flour";
+"water_150ml" = "150 ml water";
+"yeast_5g" = "5 g yeast";
+"salt_pinch" = "A pinch of salt";
+"mozzarella_200g" = "200 g mozzarella cheese";
+"tomato_sauce_100g" = "100 g tomato sauce";
+"fresh_basil" = "Fresh basil leaves";
+
+"sushi_rice_200g" = "200 g sushi rice";
+"rice_vinegar_50ml" = "50 ml rice vinegar";
+"sugar_1tsp" = "1 teaspoon sugar";
+"salt_1tsp" = "1 teaspoon salt";
+"nori_seaweed" = "Nori seaweed";
+"salmon_200g" = "200 g salmon";
+"avocado_slices" = "Avocado slices";
+
+"hamburger_bun" = "1 hamburger bun";
+"ground_beef_150g" = "150 g ground beef";
+"cheddar_slice" = "1 slice cheddar cheese";
+"tomato_slices" = "2 slices tomato";
+"lettuce_leaf" = "1 lettuce leaf";
+"condiments" = "Ketchup and mayonnaise";
+
+"tortillas_2" = "2 tortillas";
+"chicken_breast_150g" = "150 g chicken breast";
+"corn_50g" = "50 g corn";
+"tomato_50g" = "50 g tomato";
+"onion_50g" = "50 g onion";
+"taco_seasoning_1tsp" = "1 teaspoon taco seasoning";
+
+"rice_noodles_200g" = "200 g rice noodles";
+"shrimp_100g" = "100 g shrimp";
+"soy_sauce_2tbsp" = "2 tablespoons soy sauce";
+"fish_sauce_1tbsp" = "1 tablespoon fish sauce";
+"egg_1" = "1 egg";
+"peanuts_50g" = "50 g peanuts";
+
+/* Allergens */
+"gluten" = "Gluten";
+"dairy" = "Dairy";
+"fish" = "Fish";
+"soy" = "Soy";
+"egg" = "Egg";
+"peanuts" = "Peanuts";
+
+/* Instructions */
+"margherita_pizza_instructions" = "1. Mix flour, water, yeast, and salt to prepare a smooth dough.\n2. Let the dough rest for 30 minutes.\n3. Roll out the dough and spread tomato sauce on top.\n4. Add mozzarella cheese and bake at 220°C for 10-12 minutes.\n5. Garnish with fresh basil leaves and serve.";
+
+"sushi_instructions" = "1. Rinse the rice and cook it by boiling.\n2. Mix rice vinegar, sugar, and salt, then add to the hot rice.\n3. Spread the rice thinly over the nori seaweed.\n4. Add salmon and avocado slices, then roll.\n5. Slice and serve.";
+
+"hamburger_instructions" = "1. Shape the ground beef into a patty and cook in a pan.\n2. Slice the hamburger bun in half and toast it.\n3. Place lettuce, tomato slices, the cooked patty, and cheddar cheese on the bottom bun.\n4. Add ketchup and mayonnaise, then close with the top bun.";
+
+"tacos_instructions" = "1. Cut the chicken breast into small pieces and marinate with taco seasoning.\n2. Cook the chicken in a pan.\n3. Fill the tortillas with chicken, corn, tomato, and onion.\n4. Add sauce if desired and serve.";
+
+"pad_thai_instructions" = "1. Boil and drain the rice noodles.\n2. Scramble the egg in a pan.\n3. Add shrimp, soy sauce, and fish sauce, then mix well.\n4. Add the boiled noodles to the pan.\n5. Sprinkle peanuts on top and serve.";
+
+/* UI Elements */
+"chefs_specials" = "Chef's Specials";
+"calories" = "Calories";
+"protein" = "Protein";
+"carbohydrates" = "Carbohydrates";
+"fat" = "Fat";
+"allergens" = "Allergens";
+"ingredients" = "Ingredients";
+"instructions" = "Instructions";
+"minutes" = "minutes";
+
 
 
 
