@@ -7,7 +7,7 @@ struct RecentSearchesView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Recent Searches")
+                Text(LocalizedStringKey("recent_searches"))
                     .font(.title2.bold())
                     .foregroundColor(.orange)
                 
@@ -20,7 +20,7 @@ struct RecentSearchesView: View {
                         HStack(spacing: 8) {
                             Image(systemName: "trash")
                                 .font(.system(size: 14, weight: .bold))
-                            Text("Clear")
+                            Text(LocalizedStringKey("clear"))
                                 .font(.system(size: 14, weight: .semibold))
                         }
                         .foregroundColor(.white)
@@ -37,7 +37,7 @@ struct RecentSearchesView: View {
             .padding(.horizontal)
             
             if searchManager.recentSearches.isEmpty {
-                Text("No recent searches found.")
+                Text(LocalizedStringKey("no_recent_searches_found"))
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .padding(.horizontal)
@@ -56,19 +56,19 @@ struct RecentSearchesView: View {
             }
         }
         .padding(.top, 16)
-        .overlay(
+        .overlay {
             CustomAlertView(
-                title: "Clear History",
-                message:"Are you sure you want to clear all recent searches?",
-                confirmButtonTitle:  "Clear",
-                cancelButtonTitle:  "Cancel",
+                title: LocalizedStringKey("clear_history"),
+                message: LocalizedStringKey("are_you_sure_you_want_to_clear_all_recent_searches"),
+                confirmButtonTitle: LocalizedStringKey("clear"),
+                cancelButtonTitle: LocalizedStringKey("cancel"),
                 confirmAction: {
                     searchManager.clearSearches()
                 },
                 cancelAction: {},
                 isPresented: $showCustomAlert
             )
-        )
+        }
     }
 }
 

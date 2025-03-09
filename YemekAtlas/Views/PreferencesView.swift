@@ -1,56 +1,55 @@
 import SwiftUI
 
 struct PreferencesView: View {
-    @AppStorage("colorScheme") private var colorScheme: String = "system"
     @ObservedObject private var localeManager = LocaleManager.shared
-
+    @State private var selectedLanguage: String = LocaleManager.shared.locale.identifier
+    
     var body: some View {
-        Form {
-            Section {
-                Text(LocalizedStringKey("theme_selection"))
-                    .font(.headline)
-                    .textCase(.none)
-
-                ToggleRow(title: LocalizedStringKey("system_default"), selected: $colorScheme, value: "system")
-                ToggleRow(title: LocalizedStringKey("light_mode"), selected: $colorScheme, value: "light")
-                ToggleRow(title: LocalizedStringKey("dark_mode"), selected: $colorScheme, value: "dark")
+        VStack(spacing: 20) {
+            Text(LocalizedStringKey("Language"))
+                .font(.headline)
+                .textCase(.none)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
+            
+            // Language tab selection using GradientButtonView
+            HStack(spacing: 12) {
+                // English Tab
+                GradientButtonView(
+                    icon: "globe",
+                    title: LocalizedStringKey("English"),
+                    startColor: selectedLanguage == "en" ? .orange : .indigo.opacity(0.6),
+                    endColor: selectedLanguage == "en" ? .red : .purple.opacity(0.4),
+                    action: {
+                        selectedLanguage = "en"
+                        localeManager.setLocale(identifier: "en")
+                    }
+                )
+                
+                // Turkish Tab
+                GradientButtonView(
+                    icon: "globe",
+                    title: LocalizedStringKey("Turkish"),
+                    startColor: selectedLanguage == "tr" ? .orange : .indigo.opacity(0.6),
+                    endColor: selectedLanguage == "tr" ? .red : .purple.opacity(0.4),
+                    action: {
+                        selectedLanguage = "tr"
+                        localeManager.setLocale(identifier: "tr")
+                    }
+                )
             }
-
-            Section {
-                Text(LocalizedStringKey("language"))
-                    .font(.headline)
-                    .textCase(.none)
-
-                Picker(LocalizedStringKey("select_language"), selection: Binding(
-                    get: { localeManager.locale.identifier },
-                    set: { localeManager.setLocale(identifier: $0) }
-                )) {
-                    Text(LocalizedStringKey("english")).tag("en")
-                    Text(LocalizedStringKey("turkish")).tag("tr")
-                }
-                .pickerStyle(.menu)
-            }
+            .padding(.horizontal)
+            
+            Spacer()
         }
-        .navigationTitle(LocalizedStringKey("preferences"))
+        .padding(.top)
+        .navigationTitle(localeManager.localizedString(forKey: "Preferences"))
         .environment(\.locale, localeManager.locale) // Apply language change
     }
 }
 
-// Toggle için özel satır bileşeni
-struct ToggleRow: View {
-    let title: LocalizedStringKey
-    @Binding var selected: String
-    let value: String
 
-    var body: some View {
-        HStack {
-            Text(title)
-            Spacer()
-            Toggle("", isOn: Binding(
-                get: { selected == value },
-                set: { if $0 { selected = value } }
-            ))
-            .labelsHidden() // Toggle etiketini gizle
-        }
-    }
+
+#Preview {
+    PreferencesView()
 }

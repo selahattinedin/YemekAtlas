@@ -12,60 +12,91 @@ struct DailyRecipeCardView: View {
     
     var body: some View {
         NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-            HStack(spacing: 0) {
-               
-                Image("Hamburger")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 140, height: 140)
-                    .clipped()
-                    .cornerRadius(12)
+            VStack(spacing: 0) {
+                // Image section with overlay
+                ZStack(alignment: .topTrailing) {
+                    // Hamburger image
+                    Image("Hamburger")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: 180)
+                        .clipped()
                     
-                VStack(alignment: .leading, spacing: 12) {
-                    Text(LocalizedStringKey(recipe.name))
-                        .font(.title3)
+                    // Time badge
+                    HStack(spacing: 4) {
+                        Image(systemName: "clock.fill")
+                            .font(.caption)
+                            .foregroundColor(.white)
+                        Text(LocalizedStringKey("\(recipe.clock) Min"))
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(Color.black.opacity(0.7))
+                    .cornerRadius(20)
+                    .padding(12)
+                }
+                
+                // Content section
+                VStack(alignment: .leading, spacing: 10) {
+                    // Title row - beğenme butonu kaldırıldı
+                    Text(recipe.name)
+                        .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
                     
+                    // Nutrition info - only calories
                     HStack(spacing: 12) {
+                        // Calories
+                        HStack(spacing: 4) {
+                            Image(systemName: "flame.fill")
+                                .foregroundColor(.orange)
+                                .font(.caption)
+                            Text(LocalizedStringKey("\(recipe.calories) kcal"))
+                                .font(.caption)
+                                .fontWeight(.medium)
+                        }
                         
-                        HStack(spacing: 6) {
+                        // Time info
+                        HStack(spacing: 4) {
                             Image(systemName: "clock")
                                 .foregroundColor(.gray)
-                            Text(LocalizedStringKey("\(recipe.clock) Min."))
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
+                                .font(.caption)
+                            Text(LocalizedStringKey("\(recipe.clock) Min"))
+                                .font(.caption)
+                                .fontWeight(.medium)
                         }
-                        .padding(8)
-                        .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray, lineWidth: 1))
-                        
-                        
-                        HStack(spacing: 6) {
-                            Image(systemName: "flame")
-                                .foregroundColor(.gray)
-                            Text(LocalizedStringKey("\(recipe.calories) cal"))
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
-                        .padding(8)
-                        .background(RoundedRectangle(cornerRadius: 16).stroke(Color.gray, lineWidth: 1))
                     }
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.white)
+                .padding(12)
             }
-            .frame(height: 140)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color("foodbackcolor"), lineWidth: 2)
-            )
+            .background(Color.white)
+            .cornerRadius(16)
+            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
             .padding(.horizontal)
+            .padding(.vertical, 6)
         }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
 #Preview {
-    DailyRecipeCardView(recipe: Recipe(name: "test_recipe", ingredients: [""], calories: 0, protein: 0, carbohydrates: 0, fat: 0, allergens: [""], instructions: "", imageURL: "", clock: 0))
+    DailyRecipeCardView(recipe: Recipe(
+        name: "Ev Yapımı Hamburger",
+        ingredients: ["Dana kıyma", "Soğan", "Sarımsak", "Mayonez", "Domates", "Marul"],
+        calories: 450,
+        protein: 25,
+        carbohydrates: 35,
+        fat: 20,
+        allergens: ["Gluten", "Süt Ürünü", "Yumurta"],
+        instructions: "Kıymayı soğan ve sarımsakla karıştırıp...",
+        imageURL: "",
+        clock: 30
+    ))
+    .previewLayout(.sizeThatFits)
+    .padding()
+    .background(Color.gray.opacity(0.1))
 }

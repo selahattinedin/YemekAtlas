@@ -6,15 +6,11 @@
   
 */
 
-"theme_selection" = "Tema Seçin";
-"system_default" = "sistemde ";
-"light_mode" = "açık Mod";
-"dark_mode" = "koyu Mod";
-"language" = "diller";
-"select_language" = "dil seçimi";
-"English" = "ingilizce";
-"Turkish" = "türkçe";
-"preferences" = "Tercihler";
+
+"Language" = "Diller";
+"English" = "İngilizce";
+"Turkish" = "Türkçe";
+"Preferences" = "Tercihler";
 
 "user_information" = "Kullanıcı Bilgisi";
 "preferences" = "Tercihler";
@@ -26,7 +22,7 @@
 "about" = "Hakkında";
 "app_information" = "Uygulama Bilgisi";
 "log_out" = "Çıkış Yap";
-"settings" = "Ayarlar";
+"Settings" = "Ayarlar";
 "log_out_confirmation" = "Hesabınızdan çıkmak istediğinizden emin misiniz?";
 "cancel" = "İptal";
 
@@ -73,7 +69,9 @@
 "Western" = "Batı";
 "No allergens found" = "Alerjen bulunamadı";
 "%lld Min." = "%lld Dk.";
-"%lld cal" = "%lld kal";
+"%lld kcal" = "%lld kal";
+"%lld Min" = "%lld Dak";
+
 
 "Recipe Of The Day" = "Günün Yemeği";
 
@@ -151,5 +149,14 @@
 "ingredients" = "Malzemeler";
 "instructions" = "Hazırlanışı";
 "minutes" = "dakika";
+
+"recent_searches" = "Son Aramalar";
+"clear" = "Temizle";
+"no_recent_searches_found" = "Son arama bulunamadı.";
+"clear_history" = "Geçmişi Temizle";
+"are_you_sure_you_want_to_clear_all_recent_searches" = "Tüm son aramaları temizlemek istediğinizden emin misiniz?";
+"cancel" = "İptal";
+
+"%d Min" = "%d Dak";
 
 

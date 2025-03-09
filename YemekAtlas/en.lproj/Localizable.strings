@@ -6,15 +6,11 @@
   
 */
 
-"theme_selection" = "Theme Selection";
-"system_default" = "System Default";
-"light_mode" = "Light Mode";
-"dark_mode" = "Dark Mode";
-"language" = "Language";
-"select_language" = "Select Language";
+
+"Language" = "Language";
 "English" = "English";
 "Turkish" = "Turkish";
-"preferences" = "preferences";
+"Preferences" = "Preferences";
 
 "user_information" = "User Information";
 "preferences" = "Preferences";
@@ -29,6 +25,7 @@
 "settings" = "Settings";
 "log_out_confirmation" = "Are you sure you want to log out of your account?";
 "cancel" = "Cancel";
+"Settings" = "Settings";
 
 "personal_information" = "Personal Information";
 "full_name" = "Full Name";
@@ -73,7 +70,9 @@
 "Western" = "Western";
 "No allergens found" = "No allergens found";
 "%lld Min." = "%lld Min.";
-"%lld cal" = "%lld cal";
+"%lld kcal" = "%lld kcal";
+"%lld Min" = "%lld Min";
+
 
 "Recipe Of The Day" = "Recipe Of The Day";
 
@@ -154,5 +153,12 @@
 
 
 
+"recent_searches" = "Recent Searches";
+"clear" = "Clear";
+"no_recent_searches_found" = "No recent searches found.";
+"clear_history" = "Clear History";
+"are_you_sure_you_want_to_clear_all_recent_searches" = "Are you sure you want to clear all recent searches?";
+"cancel" = "Cancel";
 
+"%d Min" = "%d Min";
 

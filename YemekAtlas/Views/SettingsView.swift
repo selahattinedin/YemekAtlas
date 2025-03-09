@@ -2,6 +2,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct SettingsView: View {
+    @ObservedObject private var localeManager = LocaleManager.shared
     @StateObject private var viewModel = ProfileViewViewModel()
     @State private var showLogoutAlert = false
     @State private var isLoggedOut = false
@@ -71,7 +72,7 @@ struct SettingsView: View {
                 }
                 .padding()
             }
-            .navigationTitle(LocalizedStringKey("settings"))
+            .navigationTitle(localeManager.localizedString(forKey: "Settings"))
   // Yerelleştirilmiş metin
             .navigationDestination(isPresented: $isLoggedOut) {
                 LoginView()
