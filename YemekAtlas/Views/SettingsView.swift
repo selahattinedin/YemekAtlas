@@ -17,7 +17,7 @@ struct SettingsView: View {
                     } label: {
                         SettingsCardView(
                             titleKey: "user_information", // Yerelleştirilmiş anahtar
-                            description: "", // Dinamik veri
+                            description: "personal_information", // Dinamik veri
                             icon: "person.fill",
                             color: .blue
                         )

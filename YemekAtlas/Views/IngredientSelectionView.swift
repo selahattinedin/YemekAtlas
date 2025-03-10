@@ -17,13 +17,12 @@ struct IngredientSelectionView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // Enhanced Search Bar
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(mainColor)
                     .font(.system(size: 20))
                 
-                TextField("Search Ingredient...", text: $viewModel.searchQuery)
+                TextField(LocalizedStringKey("search_ingredient_placeholder"), text: $viewModel.searchQuery)
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.system(size: 16))
                     .tint(mainColor)
@@ -52,7 +51,6 @@ struct IngredientSelectionView: View {
             .padding(.horizontal)
             .padding(.top)
             
-            // Categories ScrollView
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
                     ForEach(viewModel.categories) { category in
@@ -66,7 +64,6 @@ struct IngredientSelectionView: View {
                 .padding()
             }
             
-            // Ingredients Grid
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 15) {
                     ForEach(viewModel.filteredIngredients) { ingredient in
@@ -85,13 +82,12 @@ struct IngredientSelectionView: View {
                 .padding()
             }
             
-            // Enhanced Add Button
             Button(action: {
                 searchText = Array(viewModel.selectedIngredients).joined(separator: ", ")
                 dismiss()
             }) {
                 HStack(spacing: 12) {
-                    Text("Add Ingredients")
+                    Text(LocalizedStringKey("add_ingredients_button"))
                         .font(.headline)
                         .fontWeight(.semibold)
                     
@@ -145,7 +141,7 @@ struct CategoryButton: View {
     
     var body: some View {
         Button(action: action) {
-            Text(name)
+            Text(LocalizedStringKey(name))
                 .padding(.horizontal, 20)
                 .padding(.vertical, 8)
                 .background(isSelected ? mainColor : Color.white)
@@ -158,6 +154,7 @@ struct CategoryButton: View {
         }
     }
 }
+
 #Preview {
     IngredientSelectionView(searchText: .constant(""))
 }

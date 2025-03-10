@@ -1,46 +1,35 @@
-//
-//  IngredientsCardView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 4.02.2025.
-//
-
 import SwiftUI
 
 struct IngredientCard: View {
     let ingredient: Ingredient
     let isSelected: Bool
     let action: () -> Void
-    private let mainColor = Color("foodbackcolor")
     
     var body: some View {
         Button(action: action) {
             VStack {
-                ZStack(alignment: .topTrailing) {
-                    Image(ingredient.imageUrl)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 80)
-                    
-                    Image(systemName: isSelected ? "checkmark.circle.fill" : "plus.circle")
-                        .foregroundColor(isSelected ? mainColor : .black)
-                        .background(Color.white)
-                        .clipShape(Circle())
-                        .offset(x: 5, y: -5)
-                }
+                Image(ingredient.imageUrl)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 80, height: 80)
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle()
+                            .stroke(isSelected ? Color("foodbackcolor") : Color.clear, lineWidth: 3)
+                    )
+                    .padding(5)
                 
-                Text(ingredient.name)
-                    .font(.caption)
-                    .foregroundColor(.black)
+                Text(LocalizedStringKey(ingredient.name))
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(isSelected ? Color("foodbackcolor") : .primary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .padding(8)
-            .background(Color(.systemGray6).opacity(0.7))
-            .cornerRadius(10)
+            .background(isSelected ? Color("foodbackcolor").opacity(0.1) : Color.white)
+            .cornerRadius(12)
+            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
         }
     }
-}
-
-
-#Preview {
-    IngredientCard(ingredient: Ingredient(name: "", imageUrl:"", category: ""), isSelected: true, action: {})
 }

@@ -13,13 +13,10 @@ class RecentSearchesManager: ObservableObject {
     private let maxSearches = 10
     
     func addSearch(_ recipe: Recipe) {
-        // Remove if already exists to avoid duplicates
         recentSearches.removeAll { $0.id == recipe.id }
         
-        // Add new recipe at the beginning
         recentSearches.insert(recipe, at: 0)
         
-        // Keep only the last 10 searches
         if recentSearches.count > maxSearches {
             recentSearches = Array(recentSearches.prefix(maxSearches))
         }

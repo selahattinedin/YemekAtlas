@@ -9,7 +9,7 @@ class IngredientsViewModel: ObservableObject {
     let categories = [
         FoodCategory(name: "Vegetables", image: "leaf"),
         FoodCategory(name: "Fish", image: "fish"),
-        FoodCategory(name: "Meat & Dairy", image: "meat"),
+        FoodCategory(name: "Meat_And_Dairy", image: "meat"),
         FoodCategory(name: "Legumes", image: "grain"),
         FoodCategory(name: "Spices", image: "spice")
     ]
@@ -22,20 +22,20 @@ class IngredientsViewModel: ObservableObject {
         Ingredient(name: "Cucumber", imageUrl: "salatalik", category: "Vegetables"),
         Ingredient(name: "Carrot", imageUrl: "havuc", category: "Vegetables"),
         Ingredient(name: "Zucchini", imageUrl: "kabak", category: "Vegetables"),
-        Ingredient(name: "Red Bell Pepper", imageUrl: "kirmizi_kapya_biber", category: "Vegetables"),
+        Ingredient(name: "Red_Bell_Pepper", imageUrl: "kirmizi_kapya_biber", category: "Vegetables"),
         Ingredient(name: "Purslane", imageUrl: "semiz_otu", category: "Vegetables"),
         Ingredient(name: "Onion", imageUrl: "sogan", category: "Vegetables"),
         Ingredient(name: "Lemon", imageUrl: "limon", category: "Vegetables"),
         Ingredient(name: "Cauliflower", imageUrl: "karnabahar", category: "Vegetables"),
-        Ingredient(name: "Green Beans", imageUrl: "yesil_fasulye", category: "Vegetables"),
+        Ingredient(name: "Green_Beans", imageUrl: "yesil_fasulye", category: "Vegetables"),
         Ingredient(name: "Spinach", imageUrl: "ispanak", category: "Vegetables"),
         Ingredient(name: "Mushrooms", imageUrl: "mantar", category: "Vegetables"),
 
         // Meat & Dairy
-        Ingredient(name: "Beef Liver", imageUrl: "dana_ciger", category: "Meat & Dairy"),
-        Ingredient(name: "Cubed Meat", imageUrl: "kusbasi", category: "Meat & Dairy"),
-        Ingredient(name: "Ground Meat", imageUrl: "kiyma", category: "Meat & Dairy"),
-        Ingredient(name: "Steak", imageUrl: "biftek", category: "Meat & Dairy"),
+        Ingredient(name: "Beef_Liver", imageUrl: "dana_ciger", category: "Meat_And_Dairy"),
+        Ingredient(name: "Cubed_Meat", imageUrl: "kusbasi", category: "Meat_And_Dairy"),
+        Ingredient(name: "Ground_Meat", imageUrl: "kiyma", category: "Meat_And_Dairy"),
+        Ingredient(name: "Steak", imageUrl: "biftek", category: "Meat_And_Dairy"),
 
         // Legumes
         Ingredient(name: "Chickpeas", imageUrl: "nohut", category: "Legumes"),
@@ -52,7 +52,8 @@ class IngredientsViewModel: ObservableObject {
         }
         
         return categoryFiltered.filter { ingredient in
-            ingredient.name.lowercased().contains(searchQuery.lowercased())
+            // LocalizedStringKey kullanırken arama için en basit yaklaşım
+            return ingredient.name.lowercased().contains(searchQuery.lowercased())
         }
     }
 }

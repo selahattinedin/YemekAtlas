@@ -64,6 +64,7 @@
 "Step" = "Adım";
 "Min" = "Dk";
 "Cal" = "Kal";
+"Fat" = "Yağ";
 "Protein" = "Protein";
 "Carb" = "Karb";
 "Western" = "Batı";
@@ -160,3 +161,40 @@
 "%d Min" = "%d Dak";
 
 
+
+
+"search_ingredient_placeholder" = "Malzeme Ara";
+"add_ingredients_button" = "Malzemeleri Ekle";
+
+
+"Vegetables" = "Sebzeler";
+"Fish" = "Balık";
+"Meat_And_Dairy" = "Et ve Süt Ürünleri";
+"Legumes" = "Baklagiller";
+"Spices" = "Baharatlar";
+
+"Lettuce" = "Marul";
+"Broccoli" = "Brokoli";
+"Tomato" = "Domates";
+"Cucumber" = "Salatalık";
+"Carrot" = "Havuç";
+"Zucchini" = "Kabak";
+"Red_Bell_Pepper" = "Kırmızı Kapya Biber";
+"Purslane" = "Semizotu";
+"Onion" = "Soğan";
+"Lemon" = "Limon";
+"Cauliflower" = "Karnabahar";
+"Green_Beans" = "Yeşil Fasulye";
+"Spinach" = "Ispanak";
+"Mushrooms" = "Mantar";
+
+
+"Beef_Liver" = "Dana Ciğer";
+"Cubed_Meat" = "Kuşbaşı Et";
+"Ground_Meat" = "Kıyma";
+"Steak" = "Biftek";
+
+"Chickpeas" = "Nohut";
+"Peas" = "Bezelye";
+"Rice" = "Pirinç";
+"Sausage" = "Sosis";
