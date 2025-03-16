@@ -16,7 +16,6 @@ class DailyRecipesViewViewModel: ObservableObject {
     init() {
         generativeModel = GenerativeModel(name: "gemini-1.5-flash", apiKey: APIKey.default)
         
-        // Subscribe to locale changes
         localeManager.$locale
             .sink { [weak self] newLocale in
                 print("Locale changed to: \(newLocale.identifier)")

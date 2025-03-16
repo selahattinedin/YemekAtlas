@@ -3,7 +3,7 @@ import FirebaseCore
 
 @main
 struct YemekAtlasApp: App {
-    @State var showPreviewPage = true
+    @State var showFirstView = true
     @StateObject private var localeManager = LocaleManager.shared
 
     init() {
@@ -12,16 +12,10 @@ struct YemekAtlasApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if showPreviewPage {
-                FirstView()
-                    .environment(\.locale, localeManager.locale)
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            showPreviewPage = false
-                        }
-                    }
+            if showFirstView {
+                FirstView(showFirstView: $showFirstView)
             } else {
-                MainView()
+                MainTabView(selectedTab: .search)
                     .environment(\.locale, localeManager.locale)
             }
         }

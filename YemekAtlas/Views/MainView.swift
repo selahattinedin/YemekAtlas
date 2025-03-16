@@ -1,22 +1,25 @@
+// MainView.swift
 import SwiftUI
-import FirebaseAuth
 
 struct MainView: View {
-    @StateObject var viewModel = MainViewViewModel()
-    @ObservedObject private var localeManager = LocaleManager.shared
-
+    @StateObject var viewModel = AuthViewViewModel()
+    
     var body: some View {
-        if viewModel.isSignIn, !viewModel.currentUserId.isEmpty {
-            if viewModel.isEmailVerified {
-                MainTabView(selectedTab: .search)
-                    .environment(\.locale, localeManager.locale)
-            } else {
-                VerificationView()
-                    .environment(\.locale, localeManager.locale)
-            }
+        if viewModel.isSignedIn, !viewModel.currentUserId.isEmpty {
+            MainTabView(selectedTab: .search)
         } else {
-            WelcomeView()
-                .environment(\.locale, localeManager.locale)
+            VStack {
+                Text("Welcome to YemekAtlas")
+                    .font(.largeTitle)
+                    .padding()
+                Button("Continue") {
+                    viewModel.signInAnonymously()
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
         }
     }
 }
