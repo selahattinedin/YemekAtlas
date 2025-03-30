@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SettingsCardView: View {
     let titleKey: LocalizedStringKey
-    let description: LocalizedStringKey  // Dinamik veri sadece String olarak tutulur
+    let description: LocalizedStringKey
     let icon: String
     let color: Color
     
@@ -14,9 +14,9 @@ struct SettingsCardView: View {
                 .frame(width: 30)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(titleKey)  // Yerelleştirilmiş başlık
+                Text(titleKey)
                     .font(.headline)
-                Text(description)  // Yerelleştirilmiş açıklama
+                Text(description)  
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }

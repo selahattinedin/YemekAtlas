@@ -2,106 +2,89 @@ import SwiftUI
 import FirebaseAuth
 
 struct SettingsView: View {
-    @ObservedObject private var localeManager = LocaleManager.shared
-    @StateObject private var viewModel = ProfileViewViewModel()
-    @State private var showLogoutAlert = false
-    @State private var isLoggedOut = false
+    @EnvironmentObject private var localeManager: LocaleManager
+    @EnvironmentObject private var authViewModel: AuthViewViewModel
+    @EnvironmentObject private var appState: AppState
+    @State private var showDeleteAccountAlert = false
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
-                    // User Information Card
-                    NavigationLink {
-                        UserProfileView(viewModel: viewModel)
-                    } label: {
-                        SettingsCardView(
-                            titleKey: "user_information", // Yerelleştirilmiş anahtar
-                            description: "personal_information", // Dinamik veri
-                            icon: "person.fill",
-                            color: .blue
-                        )
-                    }
                     
                     NavigationLink {
                         PreferencesView()
                     } label: {
                         SettingsCardView(
                             titleKey: "preferences",
-                            description: "theme_language_notifications", // Yerelleştirilmiş anahtar
+                            description: "theme_language_notifications",
                             icon: "gear",
                             color: .purple
                         )
                     }
                     
-                    SettingsCardView(
-                        titleKey: "security",
-                        description: "password_security_settings", // Yerelleştirilmiş anahtar
-                        icon: "lock.fill",
-                        color: .green
-                    )
+                    // Security kartını sadece normal kullanıcılar görsün
+                    if !authViewModel.isAnonymous {
+                        SettingsCardView(
+                            titleKey: "security",
+                            description: "password_security_settings",
+                            icon: "lock.fill",
+                            color: .green
+                        )
+                    }
                     
                     SettingsCardView(
                         titleKey: "help",
-                        description: "faq_contact", // Yerelleştirilmiş anahtar
+                        description: "faq_contact",
                         icon: "questionmark.circle.fill",
                         color: .orange
                     )
                     
                     SettingsCardView(
                         titleKey: "about",
-                        description: "app_information", // Yerelleştirilmiş anahtar
+                        description: "app_information",
                         icon: "info.circle.fill",
                         color: .gray
                     )
                     
-                    // Logout Button
+                    // Hesabı Sil Butonu
                     Button {
-                        showLogoutAlert = true
+                        showDeleteAccountAlert = true
                     } label: {
                         HStack {
-                            Image(systemName: "rectangle.portrait.and.arrow.right")
-                            Text("log_out") // Yerelleştirilmiş metin
+                            Image(systemName: "trash.fill")
+                            Text("delete_account")
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color("foodbackcolor"))
+                        .background(Color.red)
                         .cornerRadius(10)
                     }
                 }
                 .padding()
             }
             .navigationTitle(localeManager.localizedString(forKey: "Settings"))
-  // Yerelleştirilmiş metin
-            .navigationDestination(isPresented: $isLoggedOut) {
-                LoginView()
-            }
             .overlay(
                 CustomAlertView(
-                    title: "log_out",  // Yerelleştirilmiş metin
-                    message: "log_out_confirmation",  // Yerelleştirilmiş metin
-                    confirmButtonTitle: "log_out",  // Yerelleştirilmiş metin
-                    cancelButtonTitle: "cancel",  // Yerelleştirilmiş metin
+                    title: "delete_account",
+                    message: "delete_account_confirmation",
+                    confirmButtonTitle: "delete",
+                    cancelButtonTitle: "cancel",
                     confirmAction: {
-                        viewModel.logout { success in
+                        authViewModel.deleteUser { success in
                             if success {
-                                isLoggedOut = true
+                                // AppState will be reset in the deleteUser method
+                                // No need for navigation code here
                             }
                         }
                     },
                     cancelAction: {
-                        showLogoutAlert = false
+                        showDeleteAccountAlert = false
                     },
-                    isPresented: $showLogoutAlert
+                    isPresented: $showDeleteAccountAlert
                 )
             )
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        SettingsView()
     }
 }

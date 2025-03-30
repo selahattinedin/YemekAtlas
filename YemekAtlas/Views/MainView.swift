@@ -1,25 +1,18 @@
-// MainView.swift
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var viewModel = AuthViewViewModel()
+    @EnvironmentObject var appState: AppState
+    @EnvironmentObject var authViewModel: AuthViewViewModel
     
     var body: some View {
-        if viewModel.isSignedIn, !viewModel.currentUserId.isEmpty {
-            MainTabView(selectedTab: .search)
-        } else {
-            VStack {
-                Text("Welcome to YemekAtlas")
-                    .font(.largeTitle)
-                    .padding()
-                Button("Continue") {
-                    viewModel.signInAnonymously()
+        if !authViewModel.isSignedIn || appState.isFirstLaunch {
+            FirstView(showFirstView: $appState.isFirstLaunch)
+                .onAppear {
+                    // Reset tab view selection when showing FirstView
+                    appState.isAuthenticated = false
                 }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
+        } else {
+            MainTabView(selectedTab: .search)
         }
     }
 }

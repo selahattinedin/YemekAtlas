@@ -3,8 +3,9 @@ import FirebaseCore
 
 @main
 struct YemekAtlasApp: App {
-    @State var showFirstView = true
+    @StateObject private var appState = AppState.shared
     @StateObject private var localeManager = LocaleManager.shared
+    @StateObject private var authViewModel = AuthViewViewModel.shared
 
     init() {
         FirebaseApp.configure()
@@ -12,12 +13,10 @@ struct YemekAtlasApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if showFirstView {
-                FirstView(showFirstView: $showFirstView)
-            } else {
-                MainTabView(selectedTab: .search)
-                    .environment(\.locale, localeManager.locale)
-            }
+            MainView()
+                .environmentObject(appState)
+                .environmentObject(localeManager)
+                .environmentObject(authViewModel)
         }
     }
 }
