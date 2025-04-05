@@ -38,6 +38,7 @@
 "profile_information" = "Profile Information";
 "cancel" = "Cancel";
 "delete" = "Delete";
+"delete_account" = "Delete Account";
 
 "my_favorite_recipes" = "My Favorite Recipes";
 "no_favorite_recipes_found" = "No Favorite Recipes Found";
@@ -204,3 +205,5 @@
 
 "api_no_text_en" = "The API response did not contain any text.";
 "api_error_en" = "An error occurred while fetching recipes: %@";
+
+"Discover delicious cuisines from around the world" = "Discover delicious cuisines from around the world";

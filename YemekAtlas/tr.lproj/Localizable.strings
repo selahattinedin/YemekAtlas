@@ -37,6 +37,7 @@
 "profile_information" = "Profil Bilgileri";
 "cancel" = "İptal";
 "delete" = "Sil";
+"delete_account" = "Hesabı Sil";
 
 "my_favorite_recipes" = "Favori Tariflerim";
 "no_favorite_recipes_found" = "Favori Tarif Bulunamadı";
@@ -203,3 +204,5 @@
 
 "api_no_text_tr" = "API yanıtı herhangi bir metin içermiyordu.";
 "api_error_tr" = "Tarifler alınırken bir hata oluştu: %@";
+
+"Discover delicious cuisines from around the world" = "Dünyanın dört bir yanından lezzetli mutfakları keşfedin";

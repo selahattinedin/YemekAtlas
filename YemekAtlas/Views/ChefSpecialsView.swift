@@ -1,14 +1,8 @@
-//
-//  ChefSpecialsView.swift
-//  FoodAtlas
-//
-//  Created by Selahattin EDİN on 25.01.2025.
-//
-
 import SwiftUI
 
 struct ChefSpecialsView: View {
     @ObservedObject private var localeManager = LocaleManager.shared
+    @State private var showScrollIndicator = true
 
     var specialRecipes: [Recipe] {
         [
@@ -129,24 +123,69 @@ struct ChefSpecialsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(localeManager.localizedString(forKey: "chefs_specials"))
-                .font(.title2.bold())
-                .foregroundColor(.orange)
-                .padding(.horizontal)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(specialRecipes) { recipe in
-                        NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-                            RecipesCardView(recipe: recipe)
+            HStack {
+                Text(localeManager.localizedString(forKey: "chefs_specials"))
+                    .font(.title2.bold())
+                    .foregroundColor(.orange)
+                
+                Spacer()
+                
+                // Kaydırma göstergesi ikonları
+                Image(systemName: "chevron.left")
+                    .foregroundColor(.gray)
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.orange)
+                    .padding(.trailing, 4)
+                
+                // Alternatif olarak metin şeklinde ipucu
+                // Text(localeManager.localizedString(forKey: "scroll_for_more"))
+                //     .font(.caption)
+                //     .foregroundColor(.gray)
+            }
+            .padding(.horizontal)
+            
+            ZStack(alignment: .trailing) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        ForEach(specialRecipes) { recipe in
+                            NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
+                                RecipesCardView(recipe: recipe)
+                            }
                         }
                     }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
+                
+                // Sağ kenar gradyanı - daha fazla içerik olduğunu göstermek için
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.clear, Color.white.opacity(0.8)]),
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+                .frame(width: 30)
+                .allowsHitTesting(false) // Kullanıcı etkileşimini engelleme
+                
+                // Animasyonlu sağa kaydırma oku (opsiyonel)
+                if showScrollIndicator {
+                    Image(systemName: "hand.point.left.fill")
+                        .foregroundColor(.orange)
+                        .padding(8)
+                        .background(Circle().fill(Color.white.opacity(0.8)))
+                        .shadow(radius: 2)
+                        .padding(.trailing, 8)
+                        .onAppear {
+                            // 3 saniye sonra göstergeyi kaldır
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                withAnimation {
+                                    showScrollIndicator = false
+                                }
+                            }
+                        }
+                }
             }
         }
         .padding(.top, 16)
-        .environment(\.locale, localeManager.locale) 
+        .environment(\.locale, localeManager.locale)
     }
 }
 
