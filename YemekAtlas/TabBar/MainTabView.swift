@@ -20,12 +20,21 @@ struct MainTabView: View {
                 }
                 .tag(TabSelection.favorite)
             
+            FoodMatchingView()
+                .tabItem {
+                    Image(systemName: "gamecontroller")
+                    Text(LocalizedStringKey("funny"))
+                }
+                .tag(TabSelection.funny)
+            
             SettingsView()
                 .tabItem {
                     Image(systemName: "gear")
                     Text(LocalizedStringKey("Setting"))
                 }
                 .tag(TabSelection.profile)
+            
+           
         }
         .accentColor(.orange)
         .environment(\.locale, localeManager.locale)
@@ -36,6 +45,7 @@ enum TabSelection {
     case search
     case profile
     case favorite
+    case funny
 }
 
 #Preview {

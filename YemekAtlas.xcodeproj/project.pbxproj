@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3023E8C12DADA17900E59E17 /* FoodMatchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023E8C02DADA17900E59E17 /* FoodMatchingView.swift */; };
+		3023E8C32DADA54600E59E17 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023E8C22DADA54600E59E17 /* Food.swift */; };
+		3023E8C52DADA59B00E59E17 /* FoodGameViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023E8C42DADA59B00E59E17 /* FoodGameViewViewModel.swift */; };
 		30271B652CEB492900FA43D5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B642CEB492900FA43D5 /* MainTabView.swift */; };
 		30271B672CEB4B2300FA43D5 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */; };
 		30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */; };
@@ -91,6 +94,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3023E8C02DADA17900E59E17 /* FoodMatchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMatchingView.swift; sourceTree = "<group>"; };
+		3023E8C22DADA54600E59E17 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		3023E8C42DADA59B00E59E17 /* FoodGameViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodGameViewViewModel.swift; sourceTree = "<group>"; };
 		30271B642CEB492900FA43D5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		30271B662CEB4B2300FA43D5 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		30271B6C2CEB5A0A00FA43D5 /* SearchViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewViewModel.swift; sourceTree = "<group>"; };
@@ -267,6 +273,7 @@
 				3029B2C42D3EF9BC00D310A7 /* LoadingView.swift */,
 				3029B2C62D3F8C4100D310A7 /* FavoriteView.swift */,
 				30A453512D5A1ED4003665B6 /* GradientButtonView.swift */,
+				3023E8C02DADA17900E59E17 /* FoodMatchingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -298,6 +305,7 @@
 				30DA82192D6CCF7E0060032C /* LocaleManager.swift */,
 				30DA821F2D7464B90060032C /* RecipeDetailViewModel.swift */,
 				30B4A8652D97EA0B0033D8EA /* AppState.swift */,
+				3023E8C42DADA59B00E59E17 /* FoodGameViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -309,6 +317,7 @@
 				30271B702CEB5D6000FA43D5 /* Recipe.swift */,
 				305CE90D2D529A0E005FD629 /* FoodCategory.swift */,
 				305CE90F2D529A56005FD629 /* Ingredients.swift */,
+				3023E8C22DADA54600E59E17 /* Food.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -430,6 +439,7 @@
 				305CE8A72D455A14005FD629 /* RecipesCardView.swift in Sources */,
 				306AA5932D1CA2F10071C740 /* DailyRecipesView.swift in Sources */,
 				30BDD5642CC45A63006F8EFA /* LoginView.swift in Sources */,
+				3023E8C32DADA54600E59E17 /* Food.swift in Sources */,
 				305CE90A2D4971EA005FD629 /* RecentSearchesManager.swift in Sources */,
 				30DA821A2D6CCF7E0060032C /* LocaleManager.swift in Sources */,
 				30D234812CD0FEF900CFBA7F /* AuthViewViewModel.swift in Sources */,
@@ -442,11 +452,13 @@
 				306391982CEE16170096F047 /* RecipeService.swift in Sources */,
 				3029B2C32D3E73FA00D310A7 /* VerificationViewViewModel.swift in Sources */,
 				30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */,
+				3023E8C12DADA17900E59E17 /* FoodMatchingView.swift in Sources */,
 				30BDD56B2CC709F8006F8EFA /* LoginViewViewModel.swift in Sources */,
 				30BDD5192CC3D6EA006F8EFA /* MainView.swift in Sources */,
 				30A453522D5A1ED4003665B6 /* GradientButtonView.swift in Sources */,
 				30A4B1092D1F0741009BF054 /* Lottie.swift in Sources */,
 				3029B2C52D3EF9BC00D310A7 /* LoadingView.swift in Sources */,
+				3023E8C52DADA59B00E59E17 /* FoodGameViewViewModel.swift in Sources */,
 				30BDD5622CC42FBA006F8EFA /* RegisterView.swift in Sources */,
 				30BDD5172CC3D6EA006F8EFA /* YemekAtlasApp.swift in Sources */,
 				309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */,
