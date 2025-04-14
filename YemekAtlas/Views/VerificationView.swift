@@ -102,7 +102,7 @@ struct VerificationView: View {
         }
         .fullScreenCover(isPresented: $viewModel.shouldNavigateToLogin) {
             NavigationStack {
-                WelcomeView()
+                LoginView()
             }
         }
     }

@@ -25,8 +25,7 @@ struct FirstView: View {
                     .foregroundColor(.white)
                     .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 2)
                 
-                // Tagline
-                Text("Discover delicious cuisines from around the world")
+                Text("Discover tasty global cuisines")
                     .font(.system(size: 17, weight: .medium))
                     .multilineTextAlignment(.center)
                     .foregroundColor(.white)
@@ -46,7 +45,7 @@ struct FirstView: View {
                     appState.isFirstLaunch = false
                     appState.isAuthenticated = true
                 }
-                .frame(width: 220) // Sabit genişlik için
+                .frame(width: 220) 
                 .padding(.bottom, 50)
             }
             .padding()

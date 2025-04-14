@@ -13,16 +13,16 @@ struct DailyRecipeCardView: View {
     var body: some View {
         NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
             VStack(spacing: 0) {
-                // Image section with overlay
+                
                 ZStack(alignment: .topTrailing) {
-                    // Hamburger image
+                  
                     Image("Hamburger")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(height: 180)
                         .clipped()
                     
-                    // Time badge
+                  
                     HStack(spacing: 4) {
                         Image(systemName: "clock.fill")
                             .font(.caption)
@@ -39,18 +39,18 @@ struct DailyRecipeCardView: View {
                     .padding(12)
                 }
                 
-                // Content section
+                
                 VStack(alignment: .leading, spacing: 10) {
-                    // Title row - beğenme butonu kaldırıldı
+                   
                     Text(recipe.name)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
                         .lineLimit(1)
                     
-                    // Nutrition info - only calories
+                   
                     HStack(spacing: 12) {
-                        // Calories
+                      
                         HStack(spacing: 4) {
                             Image(systemName: "flame.fill")
                                 .foregroundColor(.orange)
@@ -60,7 +60,7 @@ struct DailyRecipeCardView: View {
                                 .fontWeight(.medium)
                         }
                         
-                        // Time info
+                    
                         HStack(spacing: 4) {
                             Image(systemName: "clock")
                                 .foregroundColor(.gray)

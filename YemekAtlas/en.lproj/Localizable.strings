@@ -155,6 +155,7 @@
 
 
 
+
 "recent_searches" = "Recent Searches";
 "clear" = "Clear";
 "no_recent_searches_found" = "No recent searches found.";
@@ -206,4 +207,13 @@
 "api_no_text_en" = "The API response did not contain any text.";
 "api_error_en" = "An error occurred while fetching recipes: %@";
 
-"Discover delicious cuisines from around the world" = "Discover delicious cuisines from around the world";
+"Discover tasty global cuisines" = "Discover tasty global cuisines";
+"delete_account_confirmation"  = "delete account confirmation";
+
+"Search" = "Search";
+"Favorite" = "Favorite";
+"Setting" = "Settings";
+
+"Get Started" = "Get Started";
+
+"Preparing for..." = "Preparing for...";

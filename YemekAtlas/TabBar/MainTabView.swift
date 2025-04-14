@@ -1,47 +1,38 @@
-//
-//  MainTabView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 18.11.2024.
-//
-
 import SwiftUI
 
 struct MainTabView: View {
     @State var selectedTab: TabSelection = .search
+    @EnvironmentObject private var localeManager: LocaleManager
     
     var body: some View {
         TabView(selection: $selectedTab) {
-    
             SearchView(user: User(id: "1", name: "", email: "", joined: Date().timeIntervalSince1970))
                 .tabItem {
                     Image(systemName: "magnifyingglass")
-                    Text("Search")
+                    Text(LocalizedStringKey("Search"))
                 }
                 .tag(TabSelection.search)
             
             FavoriteView()
                 .tabItem {
                     Image(systemName: "heart")
-                    Text("Favorite")
+                    Text(LocalizedStringKey("Favorite"))
                 }
                 .tag(TabSelection.favorite)
-            
-            
             
             SettingsView()
                 .tabItem {
                     Image(systemName: "gear")
-                    Text("Setting")
+                    Text(LocalizedStringKey("Setting"))
                 }
                 .tag(TabSelection.profile)
         }
         .accentColor(.orange)
+        .environment(\.locale, localeManager.locale)
     }
 }
-  
+
 enum TabSelection {
-    
     case search
     case profile
     case favorite
@@ -49,4 +40,5 @@ enum TabSelection {
 
 #Preview {
     MainTabView()
+        .environmentObject(LocaleManager.shared)
 }

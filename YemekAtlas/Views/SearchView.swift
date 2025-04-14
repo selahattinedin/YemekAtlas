@@ -9,6 +9,7 @@ struct SearchView: View {
     @StateObject private var searchManager = RecentSearchesManager()
     @FocusState private var isSearchFocused: Bool
     @State private var showIngredientSelector = false
+    @ObservedObject private var localeManager = LocaleManager.shared
     @State private var isExpanded = false
     @State private var searchOffset: CGFloat = 0
     @State private var showInputs = true

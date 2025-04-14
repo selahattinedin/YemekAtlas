@@ -40,17 +40,17 @@ class DailyRecipesViewViewModel: ObservableObject {
         errorMessage = nil
         dailyRecipes = []
         
-        // Get the language code from LocaleManager
+       
         let languageCode = localeManager.locale.identifier.prefix(2) == "tr" ? "tr" : "en"
         
-        // Log for debugging
+       
         print("Current language from LocaleManager: \(languageCode)")
         print("Current locale identifier: \(localeManager.locale.identifier)")
         
-        // Get the correct prompt key based on language
+        
         let promptKey = languageCode == "tr" ? "daily_recipe_prompt_tr" : "daily_recipe_prompt_en"
         
-        // Use LocaleManager to get localized string
+       
         let prompt = localeManager.localizedString(forKey: promptKey)
         print("Generated Prompt: \(prompt)")
         
@@ -166,7 +166,7 @@ class DailyRecipesViewViewModel: ObservableObject {
         var recipeData = RecipeData()
         var currentSection = ""
         
-        // Define keys based on language
+     
         let nameKeys = language == "tr" ? ["İsim:", "Ad:", "Adı:", "Name:"] : ["Name:"]
         let ingredientsKeys = language == "tr" ? ["Malzemeler:", "Ingredients:"] : ["Ingredients:"]
         let nutritionKeys = language == "tr" ? ["Besin", "Beslenme", "Nutritional"] : ["Nutritional"]
@@ -184,15 +184,14 @@ class DailyRecipesViewViewModel: ObservableObject {
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
         
-        // Log first 10 lines to debug
         print("--- First lines of response ---")
         for i in 0..<min(10, lines.count) {
             print("Line \(i): \(lines[i])")
         }
         
-        // FIRST PASS: Find critical items directly
+      
         for line in lines {
-            // Extract name - handle many variations
+           
             if line.contains("**Name:**") || line.contains("**İsim:**") || line.contains("**Adı:**") {
                 let cleanedLine = line.replacingOccurrences(of: "**Name:**", with: "")
                                      .replacingOccurrences(of: "**İsim:**", with: "")
@@ -202,7 +201,7 @@ class DailyRecipesViewViewModel: ObservableObject {
                 recipeData.name = cleanedLine
             }
             
-            // Extract image URL
+           
             if line.contains("**ImageURL:**") || line.contains("**ResimURL:**") {
                 let urlLine = line.replacingOccurrences(of: "**ImageURL:**", with: "")
                                  .replacingOccurrences(of: "**ResimURL:**", with: "")
@@ -212,9 +211,9 @@ class DailyRecipesViewViewModel: ObservableObject {
             }
         }
         
-        // Continue with normal parsing for each line
+      
         for line in lines {
-            // Check for preparation time in different formats
+          
             if line.contains("**Preparation Time:**") || line.contains("**Hazırlama Süresi:**") {
                 recipeData.clock = extractNumber(from: line)
             } else if line.contains("Preparation Time:") || line.contains("Hazırlama Süresi:") {
@@ -223,19 +222,19 @@ class DailyRecipesViewViewModel: ObservableObject {
                 recipeData.clock = extractNumber(from: line)
             }
             
-            // Check for section headers and content
+        
             if containsAnyPrefix(line, prefixes: nameKeys) {
                 let extractedName = removeAnyPrefix(line, prefixes: nameKeys).trim()
                 print("Found name with prefix: \(extractedName)")
                 recipeData.name = extractedName
             } else if containsAnyPrefix(line, prefixes: ingredientsKeys) || line.contains("**Ingredients:**") || line.contains("**Malzemeler:**") {
                 currentSection = "ingredients"
-                continue // Skip to next line after section header
+                continue
             } else if containsAny(line, substrings: nutritionKeys) {
                 currentSection = "nutrition"
             } else if containsAnyPrefix(line, prefixes: allergensKeys) || line.contains("**Allergens:**") || line.contains("**Alerjenler:**") {
                 currentSection = "allergens"
-                continue // Skip to next line after section header
+                continue
             } else if containsAnyPrefix(line, prefixes: instructionsKeys) || line.contains("**Instructions:**") || line.contains("**Talimatlar:**") || line.contains("**Hazırlanışı:**") {
                 currentSection = "instructions"
                 let extractedInstructions = removeAnyPrefix(line, prefixes: instructionsKeys).trim()
@@ -267,7 +266,7 @@ class DailyRecipesViewViewModel: ObservableObject {
                     }
                 }
             } else if (line.first?.isNumber ?? false) && currentSection == "ingredients" {
-                // Handle numbered ingredients
+               
                 var ingredientText = line
                 if let dotIndex = line.firstIndex(of: "."), dotIndex < line.endIndex {
                     let startIndex = line.index(after: dotIndex)
@@ -299,7 +298,7 @@ class DailyRecipesViewViewModel: ObservableObject {
             }
         }
         
-        // Handle special case: Find instructions block by markers
+        
         let instructionsStartMarker = language == "tr" ? "**Hazırlanışı:**" : "**Instructions:**"
         let instructionsEndMarker = language == "tr" ? "**Servis Önerileri:**" : "**Serving Suggestions:**"
         
@@ -316,9 +315,9 @@ class DailyRecipesViewViewModel: ObservableObject {
             }
         }
         
-        // Parse ingredients from the format in the AI response
+       
         if recipeData.ingredients.isEmpty {
-            // Look for lines with ingredient patterns in the entire text
+           
             for line in lines {
                 if (line.contains(":") && line.contains("g")) ||
                    (line.contains(":") && line.contains("tablespoon")) ||
@@ -338,11 +337,11 @@ class DailyRecipesViewViewModel: ObservableObject {
             recipeData.allergens = [noAllergensText]
         }
         
-        // If name is still empty, try to find it in a different format
+       
         if recipeData.name.isEmpty {
-            // Look for first few non-empty lines
+           
             for line in lines.prefix(5) where !line.isEmpty {
-                // Check if it looks like a recipe name (not containing common section markers)
+                
                 if !line.contains(":") &&
                    !line.contains("**") &&
                    !line.contains("Recipe") &&
@@ -353,13 +352,13 @@ class DailyRecipesViewViewModel: ObservableObject {
                 }
             }
             
-            // If still empty, use default
+
             if recipeData.name.isEmpty {
                 recipeData.name = language == "tr" ? "Günün Tarifi" : "Recipe of the Day"
             }
         }
         
-        // Summary of what we found
+     
         print("--- Parsed Recipe Data ---")
         print("Name: \(recipeData.name)")
         print("Ingredients count: \(recipeData.ingredients.count)")
@@ -389,7 +388,6 @@ class DailyRecipesViewViewModel: ObservableObject {
     private func extractNumber(from text: String) -> Int {
         print("Extracting number from: \(text)")
         
-        // First, try to find patterns like "45 minutes" or "45 min" or "45 dakika"
         if let regex = try? NSRegularExpression(pattern: "(\\d+)\\s*(?:minutes|mins|min|dakika|dk)", options: [.caseInsensitive]) {
             let nsString = text as NSString
             let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: nsString.length))
@@ -406,7 +404,7 @@ class DailyRecipesViewViewModel: ObservableObject {
             }
         }
         
-        // Try to extract just the raw numbers
+       
         if let regex = try? NSRegularExpression(pattern: "(\\d+)", options: []) {
             let nsString = text as NSString
             let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: nsString.length))
@@ -423,7 +421,7 @@ class DailyRecipesViewViewModel: ObservableObject {
             }
         }
         
-        // Fallback to any numeric value
+    
         let digits = CharacterSet.decimalDigits
         var number = ""
         

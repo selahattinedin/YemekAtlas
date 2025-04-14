@@ -12,7 +12,7 @@ struct LoadingView: View {
                     LottieView(animationName: "Food", loopMode: .loop)
                     .frame(width: 200)
                     
-                Text("Preparing for...")
+                Text(LocalizedStringKey("Preparing for..."))
                     .font(.title)
                     .foregroundColor(.primary)
                     .padding(.bottom, 120)

@@ -205,4 +205,14 @@
 "api_no_text_tr" = "API yanıtı herhangi bir metin içermiyordu.";
 "api_error_tr" = "Tarifler alınırken bir hata oluştu: %@";
 
-"Discover delicious cuisines from around the world" = "Dünyanın dört bir yanından lezzetli mutfakları keşfedin";
+"Discover tasty global cuisines" = "Dünyanın lezzetli mutfaklarını keşfedin.";
+"delete_account_confirmation"  = "Hesabı silmek istediğine emin misin?";
+
+"Search" = "Ara";
+"Favorite" = "Favoriler";
+"Setting" = "Ayarlar";
+
+"Get Started" = "Başlayalım";
+
+"Preparing for..." = "Hazırlanıyor...";
+

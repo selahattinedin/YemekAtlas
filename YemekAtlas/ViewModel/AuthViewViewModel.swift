@@ -89,7 +89,7 @@ class AuthViewViewModel: ObservableObject {
                 if success {
                     DispatchQueue.main.async {
                         self.isLoggedOut = true
-                        // Let AppState know account was deleted
+                       
                         AppState.shared.signOut()
                         completion(true)
                     }

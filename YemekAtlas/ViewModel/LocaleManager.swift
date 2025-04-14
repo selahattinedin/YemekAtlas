@@ -6,6 +6,10 @@
 //
 import Foundation
 
+import Foundation
+import SwiftUI
+import Combine
+
 class LocaleManager: ObservableObject {
     static let shared = LocaleManager()
     @Published var locale: Locale
@@ -20,7 +24,7 @@ class LocaleManager: ObservableObject {
             self.locale = Locale(identifier: savedLanguage)
         } else {
             // Otherwise use the system language (limited to supported languages)
-            let languageCode = preferredLanguage.prefix(2)
+            let languageCode = String(preferredLanguage.prefix(2))
             // Check if the language is supported, otherwise default to English
             let supportedLanguage = (languageCode == "tr") ? "tr" : "en"
             self.locale = Locale(identifier: supportedLanguage)
@@ -31,11 +35,19 @@ class LocaleManager: ObservableObject {
     }
     
     func setLocale(identifier: String) {
-        objectWillChange.send() // SwiftUI'yi değişiklik hakkında bilgilendir
         locale = Locale(identifier: identifier)
         UserDefaults.standard.set(identifier, forKey: "selectedLanguage")
-        UserDefaults.standard.synchronize() // Eski iOS sürümleri için gerekebilir
+        UserDefaults.standard.synchronize()
+        
+        // Değişikliği bildir
+        objectWillChange.send()
+        
+        // Dil değişikliğini bildir
+        NotificationCenter.default.post(name: Notification.Name("LanguageChanged"), object: nil)
     }
+    
+  
+
     
     // Get localized string respecting the app's language setting
     func localizedString(forKey key: String, comment: String = "") -> String {

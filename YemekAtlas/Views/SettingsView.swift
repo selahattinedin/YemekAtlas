@@ -23,7 +23,7 @@ struct SettingsView: View {
                         )
                     }
                     
-                    // Security kartını sadece normal kullanıcılar görsün
+                  
                     if !authViewModel.isAnonymous {
                         SettingsCardView(
                             titleKey: "security",
@@ -47,7 +47,7 @@ struct SettingsView: View {
                         color: .gray
                     )
                     
-                    // Hesabı Sil Butonu
+                   
                     Button {
                         showDeleteAccountAlert = true
                     } label: {
@@ -74,8 +74,7 @@ struct SettingsView: View {
                     confirmAction: {
                         authViewModel.deleteUser { success in
                             if success {
-                                // AppState will be reset in the deleteUser method
-                                // No need for navigation code here
+                                
                             }
                         }
                     },

@@ -17,7 +17,6 @@ class SearchViewViewModel: ObservableObject {
     init() {
         generativeModel = GenerativeModel(name: "gemini-1.5-flash", apiKey: APIKey.default)
         
-        // Subscribe to locale changes
         localeManager.$locale
             .sink { [weak self] newLocale in
                 print("Locale changed to: \(newLocale.identifier)")
@@ -37,17 +36,16 @@ class SearchViewViewModel: ObservableObject {
         errorMessage = nil
         recipe = nil
 
-        // Get the language code from LocaleManager
+        
         let languageCode = localeManager.locale.identifier.prefix(2) == "tr" ? "tr" : "en"
         
-        // Log for debugging
+       
         print("Current language from LocaleManager: \(languageCode)")
         print("Current locale identifier: \(localeManager.locale.identifier)")
         
-        // Get the correct prompt key based on language
         let promptKey = languageCode == "tr" ? "recipe_prompt_tr" : "recipe_prompt_en"
         
-        // Use LocaleManager to get localized string with correct language
+        
         let prompt = localeManager.localizedStringWithFormat(forKey: promptKey, searchText)
         print("Generated Prompt: \(prompt)")
 
@@ -73,7 +71,7 @@ class SearchViewViewModel: ObservableObject {
     }
 
     private func parseRecipeText(_ text: String, language: String) -> Recipe {
-        // The rest of the parsing method stays the same
+        
         var name = ""
         var ingredients: [String] = []
         var calories = 0
@@ -86,7 +84,7 @@ class SearchViewViewModel: ObservableObject {
         var clock = 0
         var currentSection = ""
 
-        // Dile göre anahtar kelimeleri belirle
+        
         let nameKeys = language == "tr" ? ["Ad:"] : ["Name:"]
         let ingredientKeys = language == "tr" ? ["Malzemeler:"] : ["Ingredients:"]
         let allergenKeys = language == "tr" ? ["Alerjenler:"] : ["Allergens:"]
@@ -104,7 +102,7 @@ class SearchViewViewModel: ObservableObject {
         for line in lines {
             let trimmedLine = line.trimmingCharacters(in: .whitespaces)
             
-            // İlgili dile göre anahtar kelimeleri kontrol et
+           
             if nameKeys.contains(where: { trimmedLine.hasPrefix($0) }) {
                 let key = nameKeys.first(where: { trimmedLine.hasPrefix($0) })!
                 name = trimmedLine.replacingOccurrences(of: key, with: "").trim()
@@ -152,12 +150,12 @@ class SearchViewViewModel: ObservableObject {
             }
         }
 
-        // Tarif adı boşsa arama metnini kullan
+      
         if name.isEmpty {
             name = searchText
         }
         
-        // Alerjen yoksa uygun mesajı ayarla
+       
         let noAllergensText = language == "tr" ? "Alerjen bulunamadı" : "No allergens found"
         if allergens.isEmpty {
             allergens = [noAllergensText]
