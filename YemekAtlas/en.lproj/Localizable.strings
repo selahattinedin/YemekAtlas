@@ -217,3 +217,39 @@
 "Get Started" = "Get Started";
 
 "Preparing for..." = "Preparing for...";
+
+/* Navigation and Titles */
+"Food Matching Title" = "🍽️ Food Matching";
+"Cuisine Title Format" = "%@ %@ Cuisine";
+
+/* Country Selection */
+"Select Country Title" = "Select a Country";
+"Select Country Subtitle" = "Choose a country to discover its cuisine";
+
+/* Loading View */
+"Generating Foods Format" = "Generating foods from %@...";
+
+/* Error View */
+"Error Title" = "Oops! Something went wrong";
+"Back Button" = "Back";
+"Try Again Button" = "Try Again";
+
+/* Intro View */
+"Favorite Dish Title" = "Find Your Favorite Dish!";
+"Favorite Country Dish Format" = "Find Your Favorite %@ Dish!";
+"Intro Description" = "In each matchup, pick the dish you prefer.\nThe winner advances to face a new challenger.";
+"Start Button" = "Start";
+
+/* Matchup View */
+"Which Prefer" = "Which one do you prefer?";
+"Remaining Dishes Format" = "Remaining dishes: %d";
+"Versus" = "🆚";
+
+/* Final Result View */
+"Congratulations" = "🎉 Congratulations!";
+"Favorite Dish" = "Your favorite dish:";
+"Play Again" = "Play Again";
+"New Country" = "New Country";
+
+/* AI Prompt */
+"AI Prompt Format" = "%@ country's 8 popular and authentic dishes.\nFor each dish:\n1. Dish name\n2. Very short description (maximum 4-5 words)\nReturn the results in the following JSON format:\n[\n  {\"name\": \"Dish Name\", \"description\": \"Brief description\"},\n  ...\n]\nPlease return only JSON data, don't add anything else.";

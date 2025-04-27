@@ -23,9 +23,9 @@ struct MainTabView: View {
             FoodMatchingView()
                 .tabItem {
                     Image(systemName: "gamecontroller")
-                    Text(LocalizedStringKey("funny"))
+                    Text(LocalizedStringKey("Game"))
                 }
-                .tag(TabSelection.funny)
+                .tag(TabSelection.game)
             
             SettingsView()
                 .tabItem {
@@ -45,7 +45,7 @@ enum TabSelection {
     case search
     case profile
     case favorite
-    case funny
+    case game
 }
 
 #Preview {

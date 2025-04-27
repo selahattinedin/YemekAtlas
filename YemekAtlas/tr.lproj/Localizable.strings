@@ -216,3 +216,40 @@
 
 "Preparing for..." = "Hazırlanıyor...";
 
+
+/* Navigation and Titles */
+"Food Matching Title" = "🍽️ Yemek Eşleştirme";
+"Cuisine Title Format" = "%@ %@ Mutfağı";
+
+/* Country Selection */
+"Select Country Title" = "Ülke Seçin";
+"Select Country Subtitle" = "Mutfağını keşfetmek için bir ülke seçin";
+
+/* Loading View */
+"Generating Foods Format" = "%@ yemekleri oluşturuluyor...";
+
+/* Error View */
+"Error Title" = "Ups! Bir şeyler yanlış gitti";
+"Back Button" = "Geri";
+"Try Again Button" = "Tekrar Dene";
+
+/* Intro View */
+"Favorite Dish Title" = "Favori Yemeğini Bul!";
+"Favorite Country Dish Format" = "Favori %@ Yemeğini Bul!";
+"Intro Description" = "Her eşleşmede, tercih ettiğiniz yemeği seçin.\nKazanan, yeni bir rakiple karşılaşmak için ilerler.";
+"Start Button" = "Başla";
+
+/* Matchup View */
+"Which Prefer" = "Hangisini tercih edersiniz?";
+"Remaining Dishes Format" = "Kalan yemekler: %d";
+"Versus" = "🆚";
+
+/* Final Result View */
+"Congratulations" = "🎉 Tebrikler!";
+"Favorite Dish" = "Favori yemeğiniz:";
+"Play Again" = "Tekrar Oyna";
+"New Country" = "Yeni Ülke";
+
+/* AI Prompt */
+"AI Prompt Format" = "%@ ülkesine ait 8 popüler ve otantik yemek üret.\nHer yemek için:\n1. Yemek adı\n2. Çok kısa açıklama (en fazla 4-5 kelime)\nSonuçları aşağıdaki JSON formatında döndür:\n[\n  {\"name\": \"Yemek Adı\", \"description\": \"Kısa açıklama\"},\n  ...\n]\nLütfen sadece JSON verisi döndür, başka bir şey ekleme.";
+

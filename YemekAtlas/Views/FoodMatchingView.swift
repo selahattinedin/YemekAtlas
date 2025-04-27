@@ -12,48 +12,78 @@ struct FoodMatchingView: View {
             
             NavigationView {
                 VStack {
-                    if viewModel.matchingComplete {
-                        finalResultView
+                    if viewModel.showCountryPicker {
+                        CountrySelectionView(viewModel: viewModel)
+                    } else if viewModel.isLoading {
+                        loadingView
+                    } else if let errorMessage = viewModel.errorMessage {
+                        errorView(message: errorMessage)
+                    } else if viewModel.matchingComplete {
+                        FinalResultView(viewModel: viewModel)
                     } else if let champion = viewModel.currentChampion, let challenger = viewModel.currentChallenger {
                         matchupView(champion: champion, challenger: challenger)
                     } else {
-                        introView
+                        IntroView(viewModel: viewModel)
                     }
                 }
                 .padding()
-                .navigationTitle("🍽️ Yemek Eşleştirme")
+                .navigationTitle(viewModel.selectedCountry == nil ?
+                                LocalizedStringKey("Food Matching Title") :
+                                LocalizedStringKey(String(format: String(localized: "Cuisine Title Format"), viewModel.selectedCountry!.flag, viewModel.selectedCountry!.name)))
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
-
-    var introView: some View {
-        VStack(spacing: 30) {
-            Text("Favori Yemeğini Bul!")
-                .font(.largeTitle.bold())
-                .foregroundColor(.primary)
-                .multilineTextAlignment(.center)
+    
+    
+    
+    var loadingView: some View {
+        VStack(spacing: 20) {
+            ProgressView()
+                .scaleEffect(1.5)
+                .padding()
             
-            Image(systemName: "sparkles")
+            if let country = viewModel.selectedCountry {
+                Text(LocalizedStringKey(String(format: String(localized: "Generating Foods Format"), country.name)))
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+    
+    func errorView(message: String) -> some View {
+        VStack(spacing: 24) {
+            Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 60))
                 .foregroundColor(.orange)
             
-            Text("Her seçimde kazanan yemek kalacak,\nyeni rakiple tekrar eşleşecek.")
-                .multilineTextAlignment(.center)
+            Text(LocalizedStringKey("Error Title"))
+                .font(.title2.bold())
+                .foregroundColor(.primary)
+            
+            Text(message)
                 .font(.body)
                 .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
                 .padding(.horizontal)
-
-            GradientButtonView(icon: "play.fill", title: "Başla") {
-                viewModel.startGame()
+            
+            HStack(spacing: 16) {
+                GradientButtonView(icon: "arrow.backward", title:  "Back Button") {
+                    viewModel.resetGame()
+                }
+                
+                GradientButtonView(icon: "arrow.clockwise", title: "Try Again Button") {
+                    viewModel.tryAgainWithSameCountry()
+                }
             }
         }
     }
 
+    
 
     func matchupView(champion: Food, challenger: Food) -> some View {
         VStack(spacing: 16) {
-            Text("Hangisini tercih edersin?")
+            Text(LocalizedStringKey("Which Prefer"))
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(.primary)
@@ -62,7 +92,7 @@ struct FoodMatchingView: View {
                 FoodCardView(food: champion) {
                     viewModel.selectWinner(champion)
                 }
-                Text("🆚")
+                Text(LocalizedStringKey("Versus"))
                     .font(.largeTitle)
                 FoodCardView(food: challenger) {
                     viewModel.selectWinner(challenger)
@@ -70,100 +100,9 @@ struct FoodMatchingView: View {
             }
             .padding(.top)
 
-            Text("Kalan yemek sayısı: \(viewModel.foodList.count + 1)")
+            Text(LocalizedStringKey(String(format: String(localized: "Remaining Dishes Format"), viewModel.foodList.count + 1)))
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-        }
-    }
-
-   var finalResultView: some View {
-        VStack(spacing: 24) {
-            Text("🎉 Tebrikler!")
-                .font(.largeTitle.bold())
-                .foregroundColor(.green)
-
-            Text("Favori yemeğin:")
-                .font(.title2)
-                .foregroundColor(.primary)
-
-            if let winner = viewModel.finalWinner {
-                ZStack {
-                    Image(winner.image)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 260)
-                        .clipped()
-                        .cornerRadius(20)
-                        .overlay(
-                            Rectangle()
-                                .fill(.ultraThinMaterial)
-                                .cornerRadius(20)
-                        )
-                        .shadow(radius: 8)
-
-                    Text(winner.name)
-                        .font(.title.bold())
-                        .foregroundColor(.white)
-                        .shadow(radius: 4)
-                }
-                .frame(height: 260)
-                .padding(.horizontal)
-            }
-
-            GradientButtonView(icon: "arrow.counterclockwise", title: "Tekrar Oyna") {
-                viewModel.resetGame()
-            }
-        }
-        .padding()
-    }
-
-}
-
-
-
-struct FoodCardView: View {
-    let food: Food
-    let action: () -> Void
-
-    var body: some View {
-        ZStack {
-            Image(food.image)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 160, height: 220)
-                .clipped()
-                .overlay(Color.black.opacity(0.3))
-
-            VStack(spacing: 8) {
-                Text(food.name)
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .shadow(radius: 4)
-
-                Text(food.description)
-                    .font(.caption)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.white.opacity(0.9))
-                    .padding(.horizontal, 8)
-                    .shadow(radius: 2)
-            }
-            .padding(.horizontal, 6)
-            .padding(.vertical, 10)
-            .background(Color.black.opacity(0.25))
-            .cornerRadius(12)
-            .padding(.bottom, 10)
-            .frame(maxHeight: .infinity, alignment: .bottom)
-        }
-        .background(
-            Image("default_food_bg")
-                .resizable()
-                .scaledToFill()
-        )
-        .cornerRadius(16)
-        .frame(width: 160, height: 220)
-        .shadow(color: .gray.opacity(0.4), radius: 6, x: 0, y: 4)
-        .onTapGesture {
-            action()
         }
     }
 }
