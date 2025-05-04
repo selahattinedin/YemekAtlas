@@ -1,10 +1,3 @@
-//
-//  FinalResultView.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 27.04.2025.
-//
-
 import SwiftUI
 
 struct FinalResultView: View {
@@ -61,16 +54,14 @@ struct FinalResultView: View {
 
             HStack(spacing: 16) {
                 GradientButtonView(icon: "arrow.counterclockwise", title: "Play Again") {
-                    viewModel.resetGame()
+                    viewModel.restartGameWithSameCountry() // Changed to use the new function
                 }
                 
                 GradientButtonView(icon: "flag", title: "New Country") {
-                    viewModel.resetGame()
+                    viewModel.resetGame() // This remains unchanged - goes back to country selection
                 }
             }
         }
         .padding()
     }
 }
-
-
