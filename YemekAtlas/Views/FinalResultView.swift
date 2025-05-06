@@ -15,7 +15,7 @@ struct FinalResultView: View {
 
             if let winner = viewModel.finalWinner, let country = viewModel.selectedCountry {
                 ZStack {
-                    Image("welcomeImage2") // Using default image
+                    Image("welcomeImage2")
                         .resizable()
                         .scaledToFill()
                         .frame(height: 260)
@@ -54,11 +54,11 @@ struct FinalResultView: View {
 
             HStack(spacing: 16) {
                 GradientButtonView(icon: "arrow.counterclockwise", title: "Play Again") {
-                    viewModel.restartGameWithSameCountry() // Changed to use the new function
+                    viewModel.restartGameWithSameCountry() 
                 }
                 
                 GradientButtonView(icon: "flag", title: "New Country") {
-                    viewModel.resetGame() // This remains unchanged - goes back to country selection
+                    viewModel.resetGame()
                 }
             }
         }

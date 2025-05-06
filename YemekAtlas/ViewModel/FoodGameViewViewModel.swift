@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import GoogleGenerativeAI
+import Combine
 
 class FoodGameViewViewModel: ObservableObject {
     
@@ -15,8 +16,18 @@ class FoodGameViewViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init() {
         self.generativeModel = GenerativeModel(name: "gemini-1.5-flash", apiKey: APIKey.default)
+        
+     
+        NotificationCenter.default.publisher(for: NSNotification.Name("LanguageChanged"))
+            .sink { [weak self] _ in
+               
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
     }
     
     func selectCountry(_ country: Country) {
@@ -30,45 +41,62 @@ class FoodGameViewViewModel: ObservableObject {
         }
     }
     
-    
     @MainActor
     func generateFoodsForCountry(_ countryName: String) async {
         do {
-            let promptFormat = String(localized: "AI Prompt Format")
+         
+            let promptFormat = NSLocalizedString("AI Prompt Format", comment: "")
             let prompt = String(format: promptFormat, countryName)
             
             let response = try await generativeModel.generateContent(prompt)
             
             if let responseText = response.text {
-                print("AI Response: \(responseText)") // For debugging
+                print("AI Response: \(responseText)")
                 
                 let cleanedResponse = cleanJsonResponse(responseText)
-                
+              
                 if let jsonData = cleanedResponse.data(using: .utf8),
+                   let foodArray = try? JSONDecoder().decode([FoodDTOLocalized].self, from: jsonData) {
+                    
+                    self.foodList = foodArray.map { dto in
+                        Food(name: dto.name,
+                             image: "default_food_bg",
+                             descriptionEN: dto.descriptionEN,
+                             descriptionTR: dto.descriptionTR)
+                    }
+                    
+                    if !self.foodList.isEmpty {
+                        self.startGame()
+                    } else {
+                        self.errorMessage = LocaleManager.shared.localizedString(forKey: "No Dishes Generated Error")
+                    }
+                }
+              
+                else if let jsonData = cleanedResponse.data(using: .utf8),
                    let foodArray = try? JSONDecoder().decode([FoodDTO].self, from: jsonData) {
                     
                     self.foodList = foodArray.map { dto in
                         Food(name: dto.name,
-                             image: "default_food_bg", // Default image for now
+                             image: "default_food_bg",
                              description: dto.description)
                     }
                     
                     if !self.foodList.isEmpty {
                         self.startGame()
                     } else {
-                        self.errorMessage = "No dishes could be generated. Please try again."
+                        self.errorMessage = LocaleManager.shared.localizedString(forKey: "No Dishes Generated Error")
                     }
                 } else {
-                    self.errorMessage = "Could not parse AI response. Please try again."
+                    self.errorMessage = LocaleManager.shared.localizedString(forKey: "Parse Error")
                 }
             } else {
-                self.errorMessage = "No response received from AI. Please try again."
+                self.errorMessage = LocaleManager.shared.localizedString(forKey: "No Response Error")
             }
             
             self.isLoading = false
             
         } catch {
-            self.errorMessage = "Error: \(error.localizedDescription)"
+            self.errorMessage = String(format: LocaleManager.shared.localizedString(forKey: "API Error Format"), error.localizedDescription)
             self.isLoading = false
         }
     }
@@ -96,6 +124,13 @@ class FoodGameViewViewModel: ObservableObject {
     struct FoodDTO: Codable {
         let name: String
         let description: String
+    }
+    
+    // İki dilde açıklamaları destekleyen yeni DTO
+    struct FoodDTOLocalized: Codable {
+        let name: String
+        let descriptionEN: String
+        let descriptionTR: String
     }
     
     func startGame() {
@@ -132,7 +167,6 @@ class FoodGameViewViewModel: ObservableObject {
         matchingComplete = false
         isLoading = true
         errorMessage = nil
-        
         
         if let country = selectedCountry {
             Task {

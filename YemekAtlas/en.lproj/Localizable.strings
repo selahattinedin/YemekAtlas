@@ -245,11 +245,32 @@
 "Remaining Dishes Format" = "Remaining dishes: %d";
 "Versus" = "🆚";
 
-/* Final Result View */
-"Congratulations" = "🎉 Congratulations!";
-"Favorite Dish" = "Your favorite dish:";
+// FoodGameViewViewModel
+"AI Prompt Format" = "Generate 8 most popular traditional dishes from %@ as a JSON array. For each dish include 'name', 'descriptionEN' (description in English), and 'descriptionTR' (description in Turkish). The descriptions  main ingredients. Format as JSON array only.";
+"No Dishes Generated Error" = "No dishes could be generated. Please try again.";
+"Parse Error" = "Could not parse AI response. Please try again.";
+"No Response Error" = "No response received from AI. Please try again.";
+"API Error Format" = "Error: %@";
+
+// FoodMatchingView
+"Food Matching Title" = "Food Matching Game";
+"Cuisine Title Format" = "%@ %@ Cuisine";
+"Generating Foods Format" = "Generating dishes from %@...";
+"Error Title" = "Something went wrong";
+"Back Button" = "Back";
+"Try Again Button" = "Try Again";
+"Which Prefer" = "Which dish do you prefer?";
+"Versus" = "VS";
+"Remaining Dishes Format" = "%d dishes remaining";
+
+// FinalResultView
+"Congratulations" = "Congratulations!";
+"Favorite Dish" = "Your favorite dish is:";
 "Play Again" = "Play Again";
 "New Country" = "New Country";
 
-/* AI Prompt */
-"AI Prompt Format" = "%@ country's 8 popular and authentic dishes.\nFor each dish:\n1. Dish name\n2. Very short description (maximum 4-5 words)\nReturn the results in the following JSON format:\n[\n  {\"name\": \"Dish Name\", \"description\": \"Brief description\"},\n  ...\n]\nPlease return only JSON data, don't add anything else.";
+"Game" = "Game";
+
+
+
+

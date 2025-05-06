@@ -244,12 +244,28 @@
 "Remaining Dishes Format" = "Kalan yemekler: %d";
 "Versus" = "🆚";
 
-/* Final Result View */
-"Congratulations" = "🎉 Tebrikler!";
-"Favorite Dish" = "Favori yemeğiniz:";
+// FoodGameViewViewModel
+"AI Prompt Format" = "%@ ülkesine ait en popüler 8 geleneksel yemeği JSON dizisi olarak oluşturun. Her yemek için 'name', 'descriptionEN' (İngilizce açıklama) ve 'descriptionTR' (Türkçe açıklama) bilgilerini içerin. Açıklamalar yemeğin ana malzemeleri açıklamalıdır. Sadece JSON dizisi formatında olmalıdır.";
+"No Dishes Generated Error" = "Hiç yemek oluşturulamadı. Lütfen tekrar deneyin.";
+"Parse Error" = "AI yanıtı işlenemedi. Lütfen tekrar deneyin.";
+"No Response Error" = "AI'dan yanıt alınamadı. Lütfen tekrar deneyin.";
+"API Error Format" = "Hata: %@";
+
+// FoodMatchingView
+"Food Matching Title" = "Yemek Eşleştirme Oyunu";
+"Cuisine Title Format" = "%@ %@ Mutfağı";
+"Generating Foods Format" = "%@ yemekleri oluşturuluyor...";
+"Error Title" = "Bir şeyler yanlış gitti";
+"Back Button" = "Geri";
+"Try Again Button" = "Tekrar Dene";
+"Which Prefer" = "Hangi yemeği tercih edersiniz?";
+"Versus" = "KARŞI";
+"Remaining Dishes Format" = "%d yemek kaldı";
+
+// FinalResultView
+"Congratulations" = "Tebrikler!";
+"Favorite Dish" = "En sevdiğiniz yemek:";
 "Play Again" = "Tekrar Oyna";
 "New Country" = "Yeni Ülke";
 
-/* AI Prompt */
-"AI Prompt Format" = "%@ ülkesine ait 8 popüler ve otantik yemek üret.\nHer yemek için:\n1. Yemek adı\n2. Çok kısa açıklama (en fazla 4-5 kelime)\nSonuçları aşağıdaki JSON formatında döndür:\n[\n  {\"name\": \"Yemek Adı\", \"description\": \"Kısa açıklama\"},\n  ...\n]\nLütfen sadece JSON verisi döndür, başka bir şey ekleme.";
-
+"Game" = "Oyun";
