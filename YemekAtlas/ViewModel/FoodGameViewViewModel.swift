@@ -15,6 +15,8 @@ class FoodGameViewViewModel: ObservableObject {
     @Published var showCountryPicker = true
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var showIntroView = true
+
     
     private var cancellables = Set<AnyCancellable>()
     

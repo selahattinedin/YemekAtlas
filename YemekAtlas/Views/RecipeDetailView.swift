@@ -6,10 +6,9 @@ struct RecipeDetailView: View {
     @StateObject private var favoritesManager = FavoriteRecipesManager()
     let recipe: Recipe
     var isRecipeFavorite: Bool {
-            favoritesManager.isFavorite(recipe: recipe)
-        }
+        favoritesManager.isFavorite(recipe: recipe)
+    }
     
-    // MARK: - Body
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -23,17 +22,15 @@ struct RecipeDetailView: View {
             }
             .navigationBarHidden(true)
         }
-        
     }
     
     @ViewBuilder
     func headerSection(_ geometry: GeometryProxy) -> some View {
         ZStack(alignment: .top) {
-           
             Image("Pizza")
                 .resizable()
                 .scaledToFill()
-                .frame(height: geometry.size.height * 0.4)
+                .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
                 .clipped()
             
             VStack {
@@ -42,13 +39,13 @@ struct RecipeDetailView: View {
                     Spacer()
                     favoriteButton
                 }
-                .padding()
+                .padding(.horizontal)
                 .padding(.top, geometry.safeAreaInsets.top)
                 
                 Spacer()
             }
         }
-        .frame(height: geometry.size.height * 0.4)
+        .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
     }
     
     @ViewBuilder
@@ -77,7 +74,6 @@ struct RecipeDetailView: View {
     @ViewBuilder
     var contentSection: some View {
         VStack(spacing: 20) {
-            // Üst Çizgi
             RoundedRectangle(cornerRadius: 2.5)
                 .fill(Color.white.opacity(0.5))
                 .frame(width: 40, height: 5)
@@ -93,7 +89,7 @@ struct RecipeDetailView: View {
             
             Spacer(minLength: 20)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 12)
         .background(
             RoundedRectangle(cornerRadius: 30)
                 .fill(Color.white)
@@ -108,6 +104,8 @@ struct RecipeDetailView: View {
             Text(recipe.name)
                 .font(.title)
                 .fontWeight(.bold)
+                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
             
             Text("Western")
                 .font(.subheadline)
@@ -118,52 +116,42 @@ struct RecipeDetailView: View {
     
     @ViewBuilder
     var nutritionInfo: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 10) {
-                nutritionPill(icon: "clock", value: "\(recipe.clock)", unit: "Min")
-                nutritionPill(icon: "flame", value: "\(recipe.calories)", unit: "Cal")
-                nutritionPill(icon: "carrot.fill", value: "\(recipe.protein) g", unit: "Protein")
-                nutritionPill(icon: "drop.fill", value: "\(recipe.fat) g", unit: "Fat")
-                nutritionPill(icon: "leaf.fill", value: "\(recipe.carbohydrates) g", unit: "Carb")
+        GeometryReader { geo in
+            HStack(spacing: 0) {
+                ForEach(nutritionItems, id: \.icon) { item in
+                    InfoPill(icon: item.icon,
+                           text: LocalizedStringKey(item.value),
+                           subtext: LocalizedStringKey(item.unit))
+                    .frame(width: geo.size.width / CGFloat(nutritionItems.count))
+                }
             }
+            .frame(height: 90)
         }
+        .frame(height: 90)
+        .padding(.vertical, 4)
     }
     
-    @ViewBuilder
-    func nutritionPill(icon: String, value: String, unit: String) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 25, style: .continuous)
-                .fill(Color.orange)
-                .frame(width: 70, height: 90)
-            
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.white)
-                .frame(width: 60, height: 75)
-            
-            VStack(spacing: 4) {
-                Image(systemName: icon)
-                    .foregroundColor(.black)
-                    .font(.title2)
-                
-                Text(value)
-                    .fontWeight(.bold)
-                    .font(.footnote)
-                
-                Text(LocalizedStringKey(unit))
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-        }
+    private var nutritionItems: [(icon: String, value: String, unit: String)] {
+        [
+            ("clock", "\(recipe.clock)", "Min"),
+            ("flame", "\(recipe.calories)", "Cal"),
+            ("carrot.fill", "\(recipe.protein) g", "Protein"),
+            ("drop.fill", "\(recipe.fat) g", "Fat"),
+            ("leaf.fill", "\(recipe.carbohydrates) g", "Carb")
+        ]
     }
+    
 
     
     @ViewBuilder
     var tabSelector: some View {
-        HStack {
+        HStack(spacing: 0) {
             ForEach(viewModel.tabs, id: \.self) { tab in
                 tabButton(tab)
             }
         }
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(20)
     }
     
     @ViewBuilder
@@ -206,28 +194,30 @@ struct RecipeDetailView: View {
     }
     
     @ViewBuilder
-        func ingredientRow(_ ingredient: String) -> some View {
-            HStack {
-                Image(systemName: "fork.knife.circle")
-                    .foregroundColor(.primary)
-                
-                Text(ingredient)
-                    .font(.headline)
-                
-                Spacer()
-                
-                Button(action: { viewModel.toggleIngredient(ingredient) }) {
-                    Image(systemName: viewModel.selectedIngredients.contains(ingredient) ? "checkmark.circle.fill" : "circle")
-                        .foregroundColor(.orange)
-                }
+    func ingredientRow(_ ingredient: String) -> some View {
+        HStack {
+            Image(systemName: "fork.knife.circle")
+                .foregroundColor(.primary)
+            
+            Text(ingredient)
+                .font(.headline)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+            
+            Spacer()
+            
+            Button(action: { viewModel.toggleIngredient(ingredient) }) {
+                Image(systemName: viewModel.selectedIngredients.contains(ingredient) ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(.orange)
             }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.orange, lineWidth: 2)
-                    .background(Color.white)
-            )
         }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.orange, lineWidth: 2)
+                .background(Color.white)
+        )
+    }
     
     @ViewBuilder
     var instructionsTab: some View {
@@ -243,23 +233,23 @@ struct RecipeDetailView: View {
     }
     
     @ViewBuilder
-        func instructionStepRow(_ number: Int, step: String) -> some View {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Step \(number)")
-                    .font(.headline)
-                    .foregroundColor(.orange)
-                
-                Text(step)
-                    .font(.body)
-            }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.orange, lineWidth: 2)
-                    .background(Color.white)
-            )
+    func instructionStepRow(_ number: Int, step: String) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Step \(number)")
+                .font(.headline)
+                .foregroundColor(.orange)
+            
+            Text(step)
+                .font(.body)
         }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.orange, lineWidth: 2)
+                .background(Color.white)
+        )
+    }
     
     @ViewBuilder
     var allergensTab: some View {
@@ -293,21 +283,21 @@ struct RecipeDetailView: View {
     }
     
     @ViewBuilder
-        func allergenRow(_ allergen: String) -> some View {
-            HStack {
-                Text(allergen)
-                    .font(.headline)
-                Spacer()
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(.red)
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.orange, lineWidth: 2)
-                    .background(Color.white)
-            )
+    func allergenRow(_ allergen: String) -> some View {
+        HStack {
+            Text(allergen)
+                .font(.headline)
+            Spacer()
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundColor(.red)
         }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.orange, lineWidth: 2)
+                .background(Color.white)
+        )
+    }
 
     
     @ViewBuilder
@@ -342,6 +332,10 @@ struct RecipeDetailView_Previews: PreviewProvider {
             clock: 43
         )
         
+        // Tek bir önizleme ile tüm cihazlar için ortak görünüm
         RecipeDetailView(recipe: sampleRecipe)
+            .environmentObject(FavoriteRecipesManager())
+            .environmentObject(RecipeDetailViewModel())
+            .previewLayout(.sizeThatFits)
     }
 }

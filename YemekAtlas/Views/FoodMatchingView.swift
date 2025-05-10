@@ -11,21 +11,21 @@ struct FoodMatchingView: View {
                 .ignoresSafeArea()
             
             NavigationView {
-                VStack {
-                    if viewModel.showCountryPicker {
-                        CountrySelectionView(viewModel: viewModel)
-                    } else if viewModel.isLoading {
-                        loadingView
-                    } else if let errorMessage = viewModel.errorMessage {
-                        errorView(message: errorMessage)
-                    } else if viewModel.matchingComplete {
-                        FinalResultView(viewModel: viewModel)
-                    } else if let champion = viewModel.currentChampion, let challenger = viewModel.currentChallenger {
-                        matchupView(champion: champion, challenger: challenger)
-                    } else {
-                        IntroView(viewModel: viewModel)
-                    }
-                }
+                            VStack {
+                                if viewModel.showIntroView {
+                                    IntroView(viewModel: viewModel)
+                                } else if viewModel.showCountryPicker {
+                                    CountrySelectionView(viewModel: viewModel)
+                                } else if viewModel.isLoading {
+                                    loadingView
+                                } else if let errorMessage = viewModel.errorMessage {
+                                    errorView(message: errorMessage)
+                                } else if viewModel.matchingComplete {
+                                    FinalResultView(viewModel: viewModel)
+                                } else if let champion = viewModel.currentChampion, let challenger = viewModel.currentChallenger {
+                                    matchupView(champion: champion, challenger: challenger)
+                                }
+                            }
                 .padding()
                 .navigationTitle(viewModel.selectedCountry == nil ?
                                 LocalizedStringKey("Food Matching Title") :
@@ -33,9 +33,11 @@ struct FoodMatchingView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
+        .onAppear {
+            // Debug print to help identify the view state
+            print("View appeared. showCountryPicker: \(viewModel.showCountryPicker), isLoading: \(viewModel.isLoading), errorMessage: \(String(describing: viewModel.errorMessage)), matchingComplete: \(viewModel.matchingComplete), champion: \(String(describing: viewModel.currentChampion)), challenger: \(String(describing: viewModel.currentChallenger))")
+        }
     }
-    
-    
     
     var loadingView: some View {
         VStack(spacing: 20) {
@@ -78,8 +80,6 @@ struct FoodMatchingView: View {
             }
         }
     }
-
-    
 
     func matchupView(champion: Food, challenger: Food) -> some View {
         VStack(spacing: 16) {

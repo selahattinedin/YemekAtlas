@@ -1,11 +1,5 @@
-//
-//  InfoPill.swift
-//  YemekAtlas
-//
-//  Created by Selahattin EDİN on 23.12.2024.
-//
-
 import SwiftUI
+
 struct InfoPill: View {
     let icon: String
     let text: LocalizedStringKey

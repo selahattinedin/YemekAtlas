@@ -35,8 +35,10 @@ struct IntroView: View {
                 .padding(.horizontal)
 
             GradientButtonView(icon: "play.fill", title: "Start Button") {
-                viewModel.startGame()
+                viewModel.showIntroView = false
+                viewModel.showCountryPicker = true
             }
+
         }
     }
 }
