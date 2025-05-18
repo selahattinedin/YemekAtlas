@@ -80,13 +80,9 @@ struct RecipeDetailView: View {
                 .padding(.top, 15)
             
             recipeHeader
-            
             nutritionInfo
-            
             tabSelector
-            
             tabContent
-            
             Spacer(minLength: 20)
         }
         .padding(.horizontal, 12)
@@ -120,8 +116,8 @@ struct RecipeDetailView: View {
             HStack(spacing: 0) {
                 ForEach(nutritionItems, id: \.icon) { item in
                     InfoPill(icon: item.icon,
-                           text: LocalizedStringKey(item.value),
-                           subtext: LocalizedStringKey(item.unit))
+                             text: LocalizedStringKey(item.value),
+                             subtext: LocalizedStringKey(item.unit))
                     .frame(width: geo.size.width / CGFloat(nutritionItems.count))
                 }
             }
@@ -140,8 +136,6 @@ struct RecipeDetailView: View {
             ("leaf.fill", "\(recipe.carbohydrates) g", "Carb")
         ]
     }
-    
-
     
     @ViewBuilder
     var tabSelector: some View {
@@ -299,10 +293,9 @@ struct RecipeDetailView: View {
         )
     }
 
-    
     @ViewBuilder
     func sectionTitle(_ title: String) -> some View {
-        Text(title)
+        Text(LocalizedStringKey(title))
             .font(.title2)
             .fontWeight(.bold)
             .padding(.bottom, 8)
@@ -332,7 +325,6 @@ struct RecipeDetailView_Previews: PreviewProvider {
             clock: 43
         )
         
-        // Tek bir önizleme ile tüm cihazlar için ortak görünüm
         RecipeDetailView(recipe: sampleRecipe)
             .environmentObject(FavoriteRecipesManager())
             .environmentObject(RecipeDetailViewModel())

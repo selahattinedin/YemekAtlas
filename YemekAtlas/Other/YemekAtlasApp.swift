@@ -18,7 +18,7 @@ struct YemekAtlasApp: App {
                 .environmentObject(localeManager)
                 .environmentObject(authViewModel)
                 .environment(\.locale, localeManager.locale)
-                // Global yenileme kodunu kaldırıyoruz
+                
         }
     }
 }

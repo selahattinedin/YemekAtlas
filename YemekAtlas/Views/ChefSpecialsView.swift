@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ChefSpecialsView: View {
     @ObservedObject private var localeManager = LocaleManager.shared
-    @State private var showScrollIndicator = true
 
     var specialRecipes: [Recipe] {
         [
@@ -127,62 +126,37 @@ struct ChefSpecialsView: View {
                 Text(localeManager.localizedString(forKey: "chefs_specials"))
                     .font(.title2.bold())
                     .foregroundColor(.orange)
-                
+
                 Spacer()
-                
-                // Kaydırma göstergesi ikonları
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.gray)
-                Image(systemName: "chevron.right")
+
+                // Sürekli olarak ok simgesini göster
+                Image(systemName: "arrow.right")
                     .foregroundColor(.orange)
-                    .padding(.trailing, 4)
-                
-                // Alternatif olarak metin şeklinde ipucu
-                // Text(localeManager.localizedString(forKey: "scroll_for_more"))
-                //     .font(.caption)
-                //     .foregroundColor(.gray)
+                    .transition(.opacity)
             }
             .padding(.horizontal)
-            
-            ZStack(alignment: .trailing) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(specialRecipes) { recipe in
-                            NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
-                                RecipesCardView(recipe: recipe)
-                            }
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 16) {
+                    ForEach(specialRecipes) { recipe in
+                        NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
+                            RecipesCardView(recipe: recipe)
                         }
                     }
-                    .padding(.horizontal)
                 }
-                
-                // Sağ kenar gradyanı - daha fazla içerik olduğunu göstermek için
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.clear, Color.white.opacity(0.8)]),
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-                .frame(width: 30)
-                .allowsHitTesting(false) // Kullanıcı etkileşimini engelleme
-                
-                // Animasyonlu sağa kaydırma oku (opsiyonel)
-                if showScrollIndicator {
-                    Image(systemName: "hand.point.left.fill")
-                        .foregroundColor(.orange)
-                        .padding(8)
-                        .background(Circle().fill(Color.white.opacity(0.8)))
-                        .shadow(radius: 2)
-                        .padding(.trailing, 8)
-                        .onAppear {
-                            // 3 saniye sonra göstergeyi kaldır
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                withAnimation {
-                                    showScrollIndicator = false
-                                }
-                            }
-                        }
+                .padding(.horizontal)
+            }
+
+            HStack(spacing: 4) {
+                Spacer()
+                ForEach(0..<3) { i in
+                    Circle()
+                        .fill(i == 0 ? Color.orange : Color.gray.opacity(0.5))
+                        .frame(width: 6, height: 6)
                 }
             }
+            .padding(.horizontal)
+            .padding(.top, 4)
         }
         .padding(.top, 16)
         .environment(\.locale, localeManager.locale)

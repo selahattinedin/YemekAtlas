@@ -40,17 +40,13 @@ class DailyRecipesViewViewModel: ObservableObject {
         errorMessage = nil
         dailyRecipes = []
         
-       
         let languageCode = localeManager.locale.identifier.prefix(2) == "tr" ? "tr" : "en"
         
-       
         print("Current language from LocaleManager: \(languageCode)")
         print("Current locale identifier: \(localeManager.locale.identifier)")
         
-        
         let promptKey = languageCode == "tr" ? "daily_recipe_prompt_tr" : "daily_recipe_prompt_en"
         
-       
         let prompt = localeManager.localizedString(forKey: promptKey)
         print("Generated Prompt: \(prompt)")
         
@@ -166,12 +162,11 @@ class DailyRecipesViewViewModel: ObservableObject {
         var recipeData = RecipeData()
         var currentSection = ""
         
-     
         let nameKeys = language == "tr" ? ["İsim:", "Ad:", "Adı:", "Name:"] : ["Name:"]
         let ingredientsKeys = language == "tr" ? ["Malzemeler:", "Ingredients:"] : ["Ingredients:"]
         let nutritionKeys = language == "tr" ? ["Besin", "Beslenme", "Nutritional"] : ["Nutritional"]
         let allergensKeys = language == "tr" ? ["Alerjenler:", "Allergens:"] : ["Allergens:"]
-        let instructionsKeys = language == "tr" ? ["Hazırlanışı:", "Yapılışı:", "Talimatlar:", "Instructions:"] : ["Instructions:"]
+        let instructionsKeys = language == "tr" ? ["Talimatlar:", "Hazırlanışı:", "Yapılışı:"] : ["Instructions:"]
         let timeKeys = language == "tr" ? ["Süre:", "Hazırlama Süresi:", "Time:", "Preparation Time:"] : ["Time:", "Preparation Time:"]
         let caloriesKeys = language == "tr" ? ["Kalori:", "Calories:"] : ["Calories:"]
         let proteinKeys = language == "tr" ? ["Protein:"] : ["Protein:"]
@@ -189,71 +184,122 @@ class DailyRecipesViewViewModel: ObservableObject {
             print("Line \(i): \(lines[i])")
         }
         
-      
         for line in lines {
-           
             if line.contains("**Name:**") || line.contains("**İsim:**") || line.contains("**Adı:**") {
                 let cleanedLine = line.replacingOccurrences(of: "**Name:**", with: "")
-                                     .replacingOccurrences(of: "**İsim:**", with: "")
-                                     .replacingOccurrences(of: "**Adı:**", with: "")
-                                     .trim()
+                                    .replacingOccurrences(of: "**İsim:**", with: "")
+                                    .replacingOccurrences(of: "**Adı:**", with: "")
+                                    .trim()
                 print("Found name in bold format: \(cleanedLine)")
                 recipeData.name = cleanedLine
             }
             
-           
             if line.contains("**ImageURL:**") || line.contains("**ResimURL:**") {
                 let urlLine = line.replacingOccurrences(of: "**ImageURL:**", with: "")
-                                 .replacingOccurrences(of: "**ResimURL:**", with: "")
-                                 .trim()
+                                .replacingOccurrences(of: "**ResimURL:**", with: "")
+                                .trim()
                 print("Found image URL in bold format: \(urlLine)")
                 recipeData.imageURL = urlLine
             }
-        }
-        
-      
-        for line in lines {
-          
-            if line.contains("**Preparation Time:**") || line.contains("**Hazırlama Süresi:**") {
-                recipeData.clock = extractNumber(from: line)
-            } else if line.contains("Preparation Time:") || line.contains("Hazırlama Süresi:") {
-                recipeData.clock = extractNumber(from: line)
-            } else if (line.contains("Time:") || line.contains("Süre:")) && !line.contains("Serving") && !line.contains("Porsiyon") {
-                recipeData.clock = extractNumber(from: line)
-            }
             
         
+            if line.contains("**Allergens:**") || line.contains("**Alerjenler:**") {
+                currentSection = "allergens"
+                print("Found allergens section in bold format")
+                continue
+            }
+        }
+
+        var instructionsStarted = false
+        var instructionsLines = [String]()
+        var currentInstructionNumber = 1
+        
+        var allergensFound = false
+        
+        for line in lines {
+            
+            if line.contains("Instructions:") || line.contains("Talimatlar:") ||
+                line.contains("Hazırlanışı:") || line.contains("Yapılışı:") {
+                instructionsStarted = true
+                continue
+            }
+        
+            if instructionsStarted {
+              
+                if let firstChar = line.first, firstChar.isNumber {
+                    var numStr = ""
+                    var i = line.startIndex
+                    while i < line.endIndex && line[i].isNumber {
+                        numStr += String(line[i])
+                        i = line.index(after: i)
+                    }
+                    
+                    if let num = Int(numStr), num == currentInstructionNumber,
+                        i < line.endIndex && line[i] == "." {
+                        let startIndex = line.index(after: i)
+                        if startIndex < line.endIndex {
+                            let instructionText = String(line[startIndex...]).trim()
+                            instructionsLines.append(instructionText)
+                            currentInstructionNumber += 1
+                        }
+                    } else if line.contains("**Serving Suggestions:**") ||
+                            line.contains("**Servis Önerileri:**") {
+                        instructionsStarted = false
+                    } else {
+                        if !line.contains("**") && !line.contains(":") {
+                            instructionsLines.append(line)
+                        } else {
+                            instructionsStarted = false
+                        }
+                    }
+                } else if line.contains("**Serving Suggestions:**") ||
+                        line.contains("**Servis Önerileri:**") {
+                    instructionsStarted = false
+                } else if !line.contains("**") && !line.contains(":") {
+                    instructionsLines.append(line)
+                } else {
+                    instructionsStarted = false
+                }
+            }
+            
             if containsAnyPrefix(line, prefixes: nameKeys) {
                 let extractedName = removeAnyPrefix(line, prefixes: nameKeys).trim()
                 print("Found name with prefix: \(extractedName)")
                 recipeData.name = extractedName
-            } else if containsAnyPrefix(line, prefixes: ingredientsKeys) || line.contains("**Ingredients:**") || line.contains("**Malzemeler:**") {
+            } else if containsAnyPrefix(line, prefixes: ingredientsKeys) ||
+                    line.contains("**Ingredients:**") ||
+                    line.contains("**Malzemeler:**") {
                 currentSection = "ingredients"
                 continue
             } else if containsAny(line, substrings: nutritionKeys) {
                 currentSection = "nutrition"
-            } else if containsAnyPrefix(line, prefixes: allergensKeys) || line.contains("**Allergens:**") || line.contains("**Alerjenler:**") {
+            } else if containsAnyPrefix(line, prefixes: allergensKeys) ||
+                    line.contains("**Allergens:**") ||
+                    line.contains("**Alerjenler:**") {
                 currentSection = "allergens"
+                print("Switching to allergens section")
                 continue
-            } else if containsAnyPrefix(line, prefixes: instructionsKeys) || line.contains("**Instructions:**") || line.contains("**Talimatlar:**") || line.contains("**Hazırlanışı:**") {
-                currentSection = "instructions"
-                let extractedInstructions = removeAnyPrefix(line, prefixes: instructionsKeys).trim()
-                if !extractedInstructions.isEmpty {
-                    recipeData.instructions = extractedInstructions
-                }
-            } else if containsAny(line, substrings: caloriesKeys) || line.contains("**Calories:**") || line.contains("**Kalori:**") {
+            } else if containsAny(line, substrings: caloriesKeys) ||
+                    line.contains("**Calories:**") ||
+                    line.contains("**Kalori:**") {
                 recipeData.calories = extractNumber(from: line)
             } else if line.contains("**Protein:**") {
                 recipeData.protein = extractNumber(from: line)
-            } else if line.contains("**Carbohydrates:**") || line.contains("**Karbonhidrat:**") {
+            } else if line.contains("**Carbohydrates:**") ||
+                    line.contains("**Karbonhidrat:**") {
                 recipeData.carbohydrates = extractNumber(from: line)
-            } else if line.contains("**Fat:**") || line.contains("**Yağ:**") {
+            } else if line.contains("**Fat:**") ||
+                    line.contains("**Yağ:**") {
                 recipeData.fat = extractNumber(from: line)
+            } else if containsAnyPrefix(line, prefixes: timeKeys) ||
+                    line.contains("**Preparation Time:**") ||
+                    line.contains("**Hazırlama Süresi:**") {
+                recipeData.clock = extractNumber(from: line)
             } else if containsAnyPrefix(line, prefixes: imageKeys) {
                 let url = removeAnyPrefix(line, prefixes: imageKeys).trim()
                 print("Found image URL with prefix: \(url)")
                 recipeData.imageURL = !url.isEmpty ? url : "https://example.com/yemek-resmi.jpg"
-            } else if line.hasPrefix("-") || line.hasPrefix("•") || (line.contains(":") && currentSection == "ingredients") {
+            } else if line.hasPrefix("-") || line.hasPrefix("•") {
                 let item = line.replacingOccurrences(of: "- ", with: "")
                                 .replacingOccurrences(of: "• ", with: "")
                                 .trim()
@@ -262,11 +308,16 @@ class DailyRecipesViewViewModel: ObservableObject {
                     recipeData.ingredients.append(item)
                 } else if currentSection == "allergens" {
                     if !containsAny(item.lowercased(), substrings: notAvailableText) {
+                        print("Found allergen item: \(item)")
                         recipeData.allergens.append(item)
+                        allergensFound = true
+                    } else if item.contains("Yaygın alerjen içermez") || item.contains("No common allergens") {
+                        print("Found 'no allergens' statement: \(item)")
+                        recipeData.allergens = [item]
+                        allergensFound = true
                     }
                 }
             } else if (line.first?.isNumber ?? false) && currentSection == "ingredients" {
-               
                 var ingredientText = line
                 if let dotIndex = line.firstIndex(of: "."), dotIndex < line.endIndex {
                     let startIndex = line.index(after: dotIndex)
@@ -275,94 +326,147 @@ class DailyRecipesViewViewModel: ObservableObject {
                 } else {
                     recipeData.ingredients.append(line)
                 }
-            } else if line.first?.isNumber ?? false && line.contains(".") && currentSection == "instructions" {
-                var instructionText = line
-                if let dotIndex = line.firstIndex(of: "."), dotIndex < line.endIndex {
-                    let startIndex = line.index(after: dotIndex)
-                    instructionText = String(line[startIndex...]).trim()
+            }
+            
+            if (line.contains("Yaygın alerjen içermez") || line.contains("No common allergens")) && currentSection == "allergens" {
+                print("Found 'no allergens' statement in line: \(line)")
+                if !allergensFound {
+                    recipeData.allergens = [line.trim()]
+                    allergensFound = true
                 }
-                
-                if recipeData.instructions.isEmpty {
-                    recipeData.instructions = instructionText
-                } else {
-                    recipeData.instructions += "\n" + instructionText
-                }
-            } else {
-                if currentSection == "instructions" && !line.isEmpty {
-                    if recipeData.instructions.isEmpty {
-                        recipeData.instructions = line
-                    } else {
-                        recipeData.instructions += "\n" + line
+            }
+        }
+        
+        if !instructionsLines.isEmpty {
+            var formattedInstructions = ""
+            var currentStep = 1
+            
+            for instruction in instructionsLines {
+                formattedInstructions += "\(currentStep). \(instruction)\n"
+                currentStep += 1
+            }
+            
+            recipeData.instructions = formattedInstructions.trim()
+        }
+        
+    
+        if recipeData.instructions.isEmpty {
+            for (index, line) in lines.enumerated() {
+                if line == "Instructions:" || line == "Talimatlar:" ||
+                line == "Hazırlanışı:" || line == "Yapılışı:" {
+                   
+                    var instructions = ""
+                    var currentIndex = index + 1
+                    var currentNumber = 1
+                    
+                    while currentIndex < lines.count {
+                        let currentLine = lines[currentIndex]
+                        
+                        if let firstChar = currentLine.first, firstChar.isNumeric,
+                        currentLine.contains(".") {
+                            let components = currentLine.components(separatedBy: ".")
+                            if components.count > 1 {
+                                let instructionText = components[1...].joined(separator: ".").trim()
+                                instructions += "\(currentNumber). \(instructionText)\n"
+                                currentNumber += 1
+                            }
+                        } else if currentLine.hasPrefix("**") ||
+                                currentLine.contains("Suggestions") ||
+                                currentLine.contains("Önerileri") {
+                            break
+                        } else if !currentLine.isEmpty {
+                            instructions += currentLine + "\n"
+                        }
+                        
+                        currentIndex += 1
+                    }
+                    
+                    if !instructions.isEmpty {
+                        recipeData.instructions = instructions.trim()
+                        break
                     }
                 }
             }
         }
-        
-        
-        let instructionsStartMarker = language == "tr" ? "**Hazırlanışı:**" : "**Instructions:**"
-        let instructionsEndMarker = language == "tr" ? "**Servis Önerileri:**" : "**Serving Suggestions:**"
-        
-        let fullText = lines.joined(separator: "\n")
-        if let startRange = fullText.range(of: instructionsStartMarker),
-           let endRange = fullText.range(of: instructionsEndMarker, options: [], range: startRange.upperBound..<fullText.endIndex) {
-           
-            let instructionsBlockRange = startRange.upperBound..<endRange.lowerBound
-            let instructionsBlock = fullText[instructionsBlockRange].trimmingCharacters(in: .whitespacesAndNewlines)
-            
-            if !instructionsBlock.isEmpty && (recipeData.instructions.isEmpty || instructionsBlock.count > recipeData.instructions.count) {
-                print("Found instructions block: \(instructionsBlock.prefix(30))...")
-                recipeData.instructions = instructionsBlock
-            }
-        }
-        
-       
+   
         if recipeData.ingredients.isEmpty {
-           
             for line in lines {
                 if (line.contains(":") && line.contains("g")) ||
-                   (line.contains(":") && line.contains("tablespoon")) ||
-                   (line.contains(":") && line.contains("teaspoon")) ||
-                   (line.contains(":") && line.contains("cup")) ||
-                   (line.contains(":") && line.contains("yemek kaşığı")) ||
-                   (line.contains(":") && line.contains("çay kaşığı")) ||
-                   (line.contains(":") && line.contains("su bardağı")) {
+                (line.contains(":") && line.contains("tablespoon")) ||
+                (line.contains(":") && line.contains("teaspoon")) ||
+                (line.contains(":") && line.contains("cup")) ||
+                (line.contains(":") && line.contains("yemek kaşığı")) ||
+                (line.contains(":") && line.contains("çay kaşığı")) ||
+                (line.contains(":") && line.contains("su bardağı")) {
                     let ingredient = line.trim()
                     recipeData.ingredients.append(ingredient)
                 }
             }
         }
         
+        if !allergensFound {
+            print("No allergens found using standard methods, attempting deeper search...")
+            
+            var inAllergensSection = false
+            
+            for line in lines {
+                if line.contains("**Allergens:**") || line.contains("**Alerjenler:**") {
+                    inAllergensSection = true
+                    continue
+                } else if inAllergensSection && line.contains("**") {
+                    inAllergensSection = false
+                } else if inAllergensSection {
+                    let cleanLine = line.trim()
+                    
+                    if cleanLine.hasPrefix("-") || cleanLine.hasPrefix("•") {
+                        let allergen = cleanLine.replacingOccurrences(of: "- ", with: "")
+                                            .replacingOccurrences(of: "• ", with: "")
+                                            .trim()
+                        
+                        if !allergen.isEmpty && !containsAny(allergen.lowercased(), substrings: notAvailableText) {
+                            print("Found allergen in secondary search: \(allergen)")
+                            recipeData.allergens.append(allergen)
+                            allergensFound = true
+                        }
+                    } else if cleanLine.contains("Yaygın alerjen içermez") ||
+                             cleanLine.contains("No common allergens") {
+                        print("Found 'no allergens' statement in secondary search: \(cleanLine)")
+                        recipeData.allergens = [cleanLine]
+                        allergensFound = true
+                        break
+                    }
+                }
+            }
+        }
+        
         if recipeData.allergens.isEmpty {
-            let noAllergensText = language == "tr" ? "Alerjen bilgisi mevcut değil" : "No allergens information available"
+            let noAllergensText = language == "tr" ? "Yaygın alerjen içermez" : "No common allergens"
+            print("Setting default allergen text: \(noAllergensText)")
             recipeData.allergens = [noAllergensText]
         }
         
-       
         if recipeData.name.isEmpty {
-           
             for line in lines.prefix(5) where !line.isEmpty {
-                
                 if !line.contains(":") &&
-                   !line.contains("**") &&
-                   !line.contains("Recipe") &&
-                   !line.contains("Tarif") {
+                !line.contains("**") &&
+                !line.contains("Recipe") &&
+                !line.contains("Tarif") {
                     print("Using first line as name: \(line)")
                     recipeData.name = line
                     break
                 }
             }
             
-
             if recipeData.name.isEmpty {
                 recipeData.name = language == "tr" ? "Günün Tarifi" : "Recipe of the Day"
             }
         }
         
-     
         print("--- Parsed Recipe Data ---")
         print("Name: \(recipeData.name)")
         print("Ingredients count: \(recipeData.ingredients.count)")
         print("Instructions length: \(recipeData.instructions.count) chars")
+        print("Allergens: \(recipeData.allergens.joined(separator: ", "))")
         print("Image URL: \(recipeData.imageURL)")
         
         return [recipeData]
@@ -404,7 +508,6 @@ class DailyRecipesViewViewModel: ObservableObject {
             }
         }
         
-       
         if let regex = try? NSRegularExpression(pattern: "(\\d+)", options: []) {
             let nsString = text as NSString
             let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: nsString.length))
@@ -421,7 +524,6 @@ class DailyRecipesViewViewModel: ObservableObject {
             }
         }
         
-    
         let digits = CharacterSet.decimalDigits
         var number = ""
         
@@ -436,6 +538,13 @@ class DailyRecipesViewViewModel: ObservableObject {
         let result = Int(number) ?? 0
         print("Fallback number extraction result: \(result)")
         return result
+    }
+}
+
+
+extension Character {
+    var isNumeric: Bool {
+        return self.isNumber
     }
 }
 
