@@ -39,6 +39,7 @@
 		306AA5932D1CA2F10071C740 /* DailyRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */; };
 		306F8E612D3C1FB200E308B1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */; };
 		306F8E632D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */; };
+		3093920F2DDBCD0600A34250 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093920E2DDBCD0600A34250 /* SplashScreenView.swift */; };
 		309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */; };
 		309F4E842D29D09C008A3936 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E832D29D09C008A3936 /* CustomAlertView.swift */; };
 		30A453522D5A1ED4003665B6 /* GradientButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A453512D5A1ED4003665B6 /* GradientButtonView.swift */; };
@@ -131,6 +132,7 @@
 		306AA5922D1CA2F10071C740 /* DailyRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecipesView.swift; sourceTree = "<group>"; };
 		306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewViewModel.swift; sourceTree = "<group>"; };
+		3093920E2DDBCD0600A34250 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButtonView.swift; sourceTree = "<group>"; };
 		309F4E832D29D09C008A3936 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		30A453512D5A1ED4003665B6 /* GradientButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButtonView.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				302A51CC2DBEB98900AFF5EA /* CountrySelectionView.swift */,
 				302A51CE2DBEB9B900AFF5EA /* IntroView.swift */,
 				302A51D02DBEB9E500AFF5EA /* FinalResultView.swift */,
+				3093920E2DDBCD0600A34250 /* SplashScreenView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				305CE90A2D4971EA005FD629 /* RecentSearchesManager.swift in Sources */,
 				30DA821A2D6CCF7E0060032C /* LocaleManager.swift in Sources */,
 				30D234812CD0FEF900CFBA7F /* AuthViewViewModel.swift in Sources */,
+				3093920F2DDBCD0600A34250 /* SplashScreenView.swift in Sources */,
 				30271B672CEB4B2300FA43D5 /* RecipeDetailView.swift in Sources */,
 				305CE9102D529A56005FD629 /* Ingredients.swift in Sources */,
 				305CE9142D529DC2005FD629 /* IngredientsCardView.swift in Sources */,
