@@ -2,16 +2,46 @@ import SwiftUI
 
 struct RecipesCardView: View {
     let recipe: Recipe
+    @StateObject private var viewModel = RecipeDetailViewModel()
 
     var body: some View {
         ZStack(alignment: .bottom) {
             // Full bleed image
-            Image(recipe.imageURL)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 160, height: 170)
-                .clipped()
+            if let imageURL = viewModel.generatedImageURL {
+                AsyncImage(url: URL(string: imageURL)) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .frame(width: 160, height: 170)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 160, height: 170)
+                            .clipped()
+                    case .failure:
+                        Image(recipe.imageURL)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 160, height: 170)
+                            .clipped()
+                    @unknown default:
+                        Image(recipe.imageURL)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 160, height: 170)
+                            .clipped()
+                    }
+                }
                 .cornerRadius(16)
+            } else {
+                Image(recipe.imageURL)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 160, height: 170)
+                    .clipped()
+                    .cornerRadius(16)
+            }
 
             // Dark gradient overlay
             LinearGradient(
@@ -55,32 +85,35 @@ struct RecipesCardView: View {
         }
         .frame(width: 160, height: 170)
         .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+        .onAppear {
+            viewModel.setRecipe(recipe)
+        }
     }
 }
 
 #Preview {
     HStack(spacing: 16) {
         RecipesCardView(recipe: Recipe(
-            name: "Chicken Salad", // `nameKey` yerine `name` kullanılıyor
+            name: "Chicken Salad",
             ingredients: ["chicken_breast", "lettuce", "tomatoes"],
             calories: 350,
             protein: 25,
             carbohydrates: 15,
             fat: 12,
             allergens: ["nuts"],
-            instructions: "1. Cook the chicken. 2. Mix with lettuce and tomatoes.", // `instructionsKey` yerine `instructions` kullanılıyor
+            instructions: "1. Cook the chicken. 2. Mix with lettuce and tomatoes.",
             imageURL: "placeholder1",
             clock: 20
         ))
         RecipesCardView(recipe: Recipe(
-            name: "Margherita Pizza", // `nameKey` yerine `name` kullanılıyor
+            name: "Margherita Pizza",
             ingredients: ["flour_250g", "tomato_sauce_100g", "mozzarella_200g"],
             calories: 270,
             protein: 12,
             carbohydrates: 30,
             fat: 10,
             allergens: [],
-            instructions: "1. Prepare the dough. 2. Add toppings. 3. Bake in the oven.", // `instructionsKey` yerine `instructions` kullanılıyor
+            instructions: "1. Prepare the dough. 2. Add toppings. 3. Bake in the oven.",
             imageURL: "placeholder2",
             clock: 30
         ))

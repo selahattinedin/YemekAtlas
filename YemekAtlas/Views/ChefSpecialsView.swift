@@ -1,4 +1,7 @@
 import SwiftUI
+import Foundation
+
+
 
 struct ChefSpecialsView: View {
     @ObservedObject private var localeManager = LocaleManager.shared
@@ -129,7 +132,6 @@ struct ChefSpecialsView: View {
 
                 Spacer()
 
-                // Sürekli olarak ok simgesini göster
                 Image(systemName: "arrow.right")
                     .foregroundColor(.orange)
                     .transition(.opacity)

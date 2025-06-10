@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   LeonardoAI-Info.plist
-   YemekAtlas
-
-   Created by Selahattin EDİN on 21.05.2025.
-   Copyright (c) 2025 ___ORGANIZATIONNAME___. All rights reserved.
--->
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>Image_Api_Key</key>
+	<string>900a98ba-81b6-4e18-a72c-12804c9cc3b6</string>
+</dict>
 </plist>

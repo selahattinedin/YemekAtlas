@@ -1,6 +1,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
+import SwiftUI
 
 class FavoriteRecipesManager: ObservableObject {
     @Published var favoriteRecipes: [Recipe] = []
@@ -9,6 +10,9 @@ class FavoriteRecipesManager: ObservableObject {
     
     private let db = Firestore.firestore()
     private var listenerRegistration: ListenerRegistration?
+    private let userDefaults = UserDefaults.standard
+    private let favoritesKey = "favoriteRecipes"
+    private let imageCacheKey = "favoriteRecipeImages"
     
     init() {
         Auth.auth().addStateDidChangeListener { [weak self] _, user in
@@ -23,6 +27,7 @@ class FavoriteRecipesManager: ObservableObject {
                 }
             }
         }
+        loadFavorites()
     }
 
     func loadFavoriteRecipes() {
@@ -71,55 +76,76 @@ class FavoriteRecipesManager: ObservableObject {
             }
     }
 
-    func toggleFavorite(recipe: Recipe) {
+    func toggleFavorite(_ recipe: Recipe) {
         guard let user = Auth.auth().currentUser else {
-            self.error = "Favori eklemek için giriş yapmalısınız."
+            self.error = "Kullanıcı giriş yapmamış"
             return
         }
-        
-        let recipeRef = db.collection("users")
-            .document(user.uid)
-            .collection("favorites")
-            .document(recipe.id)
-        
-        // Önce tarifin favorilerde olup olmadığını kontrol et
-        recipeRef.getDocument { [weak self] (document, error) in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print("❌ Favori kontrol hatası: \(error.localizedDescription)")
-                self.error = "Favori kontrol edilirken hata oluştu."
-                return
-            }
-            
-            if let document = document, document.exists {
-                // Tarif zaten favorilerdeyse, kaldır
-                print("🗑️ Tarif favorilerde bulundu, siliniyor...")
-                recipeRef.delete { error in
+
+        if isFavorite(recipe) {
+            // Favorilerden kaldır
+            if let documentId = recipe.firestoreDocumentId {
+                let recipeRef = db.collection("users")
+                    .document(user.uid)
+                    .collection("favorites")
+                    .document(documentId)
+
+                recipeRef.delete { [weak self] error in
                     if let error = error {
                         print("❌ Silme hatası: \(error.localizedDescription)")
-                        self.error = "Favori silinirken hata oluştu."
+                        self?.error = "Tarif silinirken hata oluştu."
                     } else {
-                        print("✅ Tarif favorilerden kaldırıldı: \(recipe.name)")
+                        print("✅ Tarif başarıyla favorilerden kaldırıldı")
                         DispatchQueue.main.async {
-                            self.favoriteRecipes.removeAll { $0.id == recipe.id }
+                            self?.favoriteRecipes.removeAll { $0.firestoreDocumentId == documentId }
                         }
                     }
                 }
-            } else {
-                // Tarif favorilerde değilse, ekle
-                print("➕ Tarif favorilerde bulunamadı, ekleniyor...")
-                var recipeToSave = recipe
-                recipeToSave.firestoreDocumentId = recipe.id
-                
-                do {
-                    try recipeRef.setData(from: recipeToSave)
-                    print("✅ Tarif başarıyla favorilere eklendi: \(recipe.name)")
-                } catch {
-                    print("❌ Ekleme hatası: \(error.localizedDescription)")
-                    self.error = "Tarif favorilere eklenirken hata oluştu."
-                }
             }
+        } else {
+            // Favorilere ekle
+            var recipeToSave = recipe
+            let docRef = db.collection("users")
+                .document(user.uid)
+                .collection("favorites")
+                .document()
+
+            recipeToSave.id = docRef.documentID
+            recipeToSave.firestoreDocumentId = docRef.documentID
+
+            do {
+                try docRef.setData(from: recipeToSave) { [weak self] error in
+                    if let error = error {
+                        print("❌ Ekleme hatası: \(error.localizedDescription)")
+                        self?.error = "Tarif eklenirken hata oluştu."
+                    } else {
+                        print("✅ Tarif başarıyla favorilere eklendi")
+                        DispatchQueue.main.async {
+                            self?.favoriteRecipes.append(recipeToSave)
+                        }
+                    }
+                }
+            } catch {
+                print("❌ Data dönüştürme hatası: \(error.localizedDescription)")
+                self.error = "Veri dönüşüm hatası"
+            }
+        }
+    }
+    
+    func isFavorite(_ recipe: Recipe) -> Bool {
+        favoriteRecipes.contains { $0.name == recipe.name }
+    }
+    
+    private func saveFavorites() {
+        if let encoded = try? JSONEncoder().encode(favoriteRecipes) {
+            userDefaults.set(encoded, forKey: favoritesKey)
+        }
+    }
+    
+    private func loadFavorites() {
+        if let data = userDefaults.data(forKey: favoritesKey),
+           let decoded = try? JSONDecoder().decode([Recipe].self, from: data) {
+            favoriteRecipes = decoded
         }
     }
     
@@ -159,10 +185,22 @@ class FavoriteRecipesManager: ObservableObject {
         }
     }
     
-    func isFavorite(recipe: Recipe) -> Bool {
-        let isFav = favoriteRecipes.contains { $0.id == recipe.id }
-        print("🔍 Favori kontrol - Tarif ID: \(recipe.id), Favori mi?: \(isFav)")
-        return isFav
+    // Görsel URL'lerini kaydet
+    func saveImageURL(for recipeName: String, imageURL: String) {
+        var imageCache = getImageCache()
+        imageCache[recipeName] = imageURL
+        userDefaults.set(imageCache, forKey: imageCacheKey)
+    }
+    
+    // Görsel URL'sini getir
+    func getImageURL(for recipeName: String) -> String? {
+        let imageCache = getImageCache()
+        return imageCache[recipeName]
+    }
+    
+    // Cache'den tüm görsel URL'lerini getir
+    private func getImageCache() -> [String: String] {
+        return userDefaults.dictionary(forKey: imageCacheKey) as? [String: String] ?? [:]
     }
     
     deinit {

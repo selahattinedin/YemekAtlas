@@ -6,7 +6,7 @@ struct RecipeDetailView: View {
     @StateObject private var favoritesManager = FavoriteRecipesManager()
     let recipe: Recipe
     var isRecipeFavorite: Bool {
-        favoritesManager.isFavorite(recipe: recipe)
+        favoritesManager.isFavorite(recipe)
     }
     
     var body: some View {
@@ -19,19 +19,79 @@ struct RecipeDetailView: View {
                     }
                 }
                 .edgesIgnoringSafeArea(.top)
+                
+                if let errorMessage = viewModel.errorMessage {
+                    VStack {
+                        Spacer()
+                        Text(errorMessage)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.red.opacity(0.8))
+                            .cornerRadius(10)
+                            .padding()
+                    }
+                }
             }
             .navigationBarHidden(true)
+        }
+        .onAppear {
+            viewModel.setRecipe(recipe)
         }
     }
     
     @ViewBuilder
     func headerSection(_ geometry: GeometryProxy) -> some View {
         ZStack(alignment: .top) {
-            Image("Pizza")
-                .resizable()
-                .scaledToFill()
+            if ["Pizza", "Sushi", "Hamburger", "Tacos", "PadThai"].contains(recipe.imageURL) {
+                Image(recipe.imageURL)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
+                    .clipped()
+            } else {
+                ZStack {
+                    Color.gray.opacity(0.2)
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
+                    
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .scaleEffect(1.5)
+                            .progressViewStyle(CircularProgressViewStyle(tint: .orange))
+                    }
+                    
+                    if let imageURL = viewModel.generatedImageURL {
+                        AsyncImage(url: URL(string: imageURL)) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView()
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                            case .failure(_):
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.gray)
+                                    .padding(50)
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                    } else {
+                        // Görsel henüz yüklenmemiş
+                        if !viewModel.isLoading {
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.gray)
+                                .padding(50)
+                        }
+                    }
+                }
                 .frame(width: geometry.size.width, height: geometry.size.height * 0.4)
                 .clipped()
+            }
             
             VStack {
                 HStack {
@@ -61,12 +121,14 @@ struct RecipeDetailView: View {
     
     @ViewBuilder
     var favoriteButton: some View {
-        Button(action: { favoritesManager.toggleFavorite(recipe: recipe) }) {
-            Image(systemName: isRecipeFavorite ? "heart.fill" : "heart")
-                .font(.title2)
-                .foregroundColor(isRecipeFavorite ? .red : .white)
+        Button(action: {
+            favoritesManager.toggleFavorite(recipe)
+            viewModel.isFavorite = favoritesManager.isFavorite(recipe)
+        }) {
+            Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                .foregroundColor(viewModel.isFavorite ? .orange : .white)
                 .padding(12)
-                .background(Color.black.opacity(0.3))
+                .background(Color.black.opacity(0.5))
                 .clipShape(Circle())
         }
     }
@@ -98,10 +160,12 @@ struct RecipeDetailView: View {
     var recipeHeader: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(recipe.name)
-                .font(.title)
+                .font(recipe.name.count > 25 ? .title2 : .title)
                 .fontWeight(.bold)
-                .lineLimit(2)
+                .lineLimit(3)
                 .fixedSize(horizontal: false, vertical: true)
+                .minimumScaleFactor(0.7)
+                .multilineTextAlignment(.leading)
             
             Text("Western")
                 .font(.subheadline)

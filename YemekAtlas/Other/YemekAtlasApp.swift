@@ -1,5 +1,6 @@
 import SwiftUI
 import FirebaseCore
+import FirebaseStorage
 
 @main
 struct YemekAtlasApp: App {
@@ -10,6 +11,10 @@ struct YemekAtlasApp: App {
     
     init() {
         FirebaseApp.configure()
+        
+        // Storage ayarlarını yapılandır
+        let storage = Storage.storage()
+        print("Firebase Storage URL: \(storage.reference().description)")
     }
     
     var body: some Scene {

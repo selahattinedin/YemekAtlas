@@ -9,20 +9,49 @@ import SwiftUI
 
 struct DailyRecipeCardView: View {
     let recipe: Recipe
+    @StateObject private var viewModel = RecipeDetailViewModel()
     
     var body: some View {
         NavigationLink(destination: RecipeDetailView(recipe: recipe)) {
             VStack(spacing: 0) {
-                
                 ZStack(alignment: .topTrailing) {
-                  
-                    Image("Hamburger")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(height: 180)
-                        .clipped()
+                    if let imageURL = viewModel.generatedImageURL {
+                        AsyncImage(url: URL(string: imageURL)) { phase in
+                            switch phase {
+                            case .empty:
+                                Image(recipe.imageURL)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 180)
+                                    .clipped()
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 180)
+                                    .clipped()
+                            case .failure:
+                                Image(recipe.imageURL)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 180)
+                                    .clipped()
+                            @unknown default:
+                                Image(recipe.imageURL)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 180)
+                                    .clipped()
+                            }
+                        }
+                    } else {
+                        Image(recipe.imageURL)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(height: 180)
+                            .clipped()
+                    }
                     
-                  
                     HStack(spacing: 4) {
                         Image(systemName: "clock.fill")
                             .font(.caption)
@@ -39,18 +68,14 @@ struct DailyRecipeCardView: View {
                     .padding(12)
                 }
                 
-                
                 VStack(alignment: .leading, spacing: 10) {
-                   
                     Text(recipe.name)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
                         .lineLimit(1)
                     
-                   
                     HStack(spacing: 12) {
-                      
                         HStack(spacing: 4) {
                             Image(systemName: "flame.fill")
                                 .foregroundColor(.orange)
@@ -60,7 +85,6 @@ struct DailyRecipeCardView: View {
                                 .fontWeight(.medium)
                         }
                         
-                    
                         HStack(spacing: 4) {
                             Image(systemName: "clock")
                                 .foregroundColor(.gray)
@@ -80,6 +104,9 @@ struct DailyRecipeCardView: View {
             .padding(.vertical, 6)
         }
         .buttonStyle(PlainButtonStyle())
+        .onAppear {
+            viewModel.setRecipe(recipe)
+        }
     }
 }
 
@@ -93,7 +120,7 @@ struct DailyRecipeCardView: View {
         fat: 20,
         allergens: ["Gluten", "Süt Ürünü", "Yumurta"],
         instructions: "Kıymayı soğan ve sarımsakla karıştırıp...",
-        imageURL: "",
+        imageURL: "Hamburger",
         clock: 30
     ))
     .previewLayout(.sizeThatFits)

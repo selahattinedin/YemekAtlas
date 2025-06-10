@@ -40,6 +40,8 @@
 		306F8E612D3C1FB200E308B1 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */; };
 		306F8E632D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */; };
 		3093920F2DDBCD0600A34250 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093920E2DDBCD0600A34250 /* SplashScreenView.swift */; };
+		309392112DDE2F2000A34250 /* LeonardoAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309392102DDE2F2000A34250 /* LeonardoAI-Info.plist */; };
+		309392132DDE309400A34250 /* LeonardoAIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309392122DDE309400A34250 /* LeonardoAIClient.swift */; };
 		309F4E6F2D21C3A5008A3936 /* TabButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */; };
 		309F4E842D29D09C008A3936 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F4E832D29D09C008A3936 /* CustomAlertView.swift */; };
 		30A453522D5A1ED4003665B6 /* GradientButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A453512D5A1ED4003665B6 /* GradientButtonView.swift */; };
@@ -133,6 +135,8 @@
 		306F8E602D3C1FB200E308B1 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		306F8E622D3C205E00E308B1 /* ForgotPasswordViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewViewModel.swift; sourceTree = "<group>"; };
 		3093920E2DDBCD0600A34250 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		309392102DDE2F2000A34250 /* LeonardoAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LeonardoAI-Info.plist"; sourceTree = "<group>"; };
+		309392122DDE309400A34250 /* LeonardoAIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeonardoAIClient.swift; sourceTree = "<group>"; };
 		309F4E6E2D21C3A5008A3936 /* TabButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButtonView.swift; sourceTree = "<group>"; };
 		309F4E832D29D09C008A3936 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		30A453512D5A1ED4003665B6 /* GradientButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButtonView.swift; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 				30A4B10A2D1F0976009BF054 /* Food.json */,
 				30A4B10C2D1F1C1A009BF054 /* Loading.json */,
 				30DA821B2D6CD1F10060032C /* Localizable.strings */,
+				309392102DDE2F2000A34250 /* LeonardoAI-Info.plist */,
 			);
 			path = YemekAtlas;
 			sourceTree = "<group>";
@@ -323,6 +328,7 @@
 				30DA821F2D7464B90060032C /* RecipeDetailViewModel.swift */,
 				30B4A8652D97EA0B0033D8EA /* AppState.swift */,
 				3023E8C42DADA59B00E59E17 /* FoodGameViewViewModel.swift */,
+				309392122DDE309400A34250 /* LeonardoAIClient.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -439,6 +445,7 @@
 				30DA821D2D6CD1F10060032C /* Localizable.strings in Resources */,
 				306391942CEDC7A50096F047 /* GenerativeAI-Info.plist in Resources */,
 				30A4B10B2D1F0976009BF054 /* Food.json in Resources */,
+				309392112DDE2F2000A34250 /* LeonardoAI-Info.plist in Resources */,
 				30BDD5592CC3ED0A006F8EFA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,6 +479,7 @@
 				306391982CEE16170096F047 /* RecipeService.swift in Sources */,
 				3029B2C32D3E73FA00D310A7 /* VerificationViewViewModel.swift in Sources */,
 				30271B6D2CEB5A0A00FA43D5 /* SearchViewViewModel.swift in Sources */,
+				309392132DDE309400A34250 /* LeonardoAIClient.swift in Sources */,
 				302A51D12DBEB9E500AFF5EA /* FinalResultView.swift in Sources */,
 				3023E8C12DADA17900E59E17 /* FoodMatchingView.swift in Sources */,
 				30BDD56B2CC709F8006F8EFA /* LoginViewViewModel.swift in Sources */,
